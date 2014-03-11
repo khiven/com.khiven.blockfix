@@ -3,7 +3,7 @@ package com.blockflix.src;
 import com.blockflix.src.Main.Soporte;
 import com.blockflix.src.Main.TipoProducto;
 
-/**
+/** Clase producto pelicula
  * @author Khiven
  *
  */
