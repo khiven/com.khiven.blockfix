@@ -28,7 +28,7 @@ public class Ejemplar {
 	}
 	
 	/** Get de producto
-	 * @return Producto del ejemplar.
+	 * @return Producto del ejemplar..
 	 */
 	public Producto getProducto(){
 		return this.producto;
