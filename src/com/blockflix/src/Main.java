@@ -25,7 +25,7 @@ public class Main {
         //Se crean instancias
     	 Pelicula pelicula = new Pelicula("Pen",1947,"Pakito","Aburrida",Soporte.BLURAY);
         //Accedemos al metodo estatico para ver el numero
-        //de instancias de tipo Persona creadas
+        //de instancias de tipo Persona creadas ASD
         System.out.println(pelicula.getNombre());
     }
 
