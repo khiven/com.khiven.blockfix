@@ -1,5 +1,6 @@
-package com.blockflix.src;
+package com.blockflix.src.productos;
 
+import com.blockflix.src.Main;
 import com.blockflix.src.Main.Soporte;
 import com.blockflix.src.Main.TipoProducto;
 

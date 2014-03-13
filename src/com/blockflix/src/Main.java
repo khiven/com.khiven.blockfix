@@ -1,5 +1,7 @@
 package com.blockflix.src;
 
+import com.blockflix.src.productos.Pelicula;
+
 /** Clase principal de pruebas
  * @author Khiven
  *

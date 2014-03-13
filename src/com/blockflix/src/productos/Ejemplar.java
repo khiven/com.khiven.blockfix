@@ -1,4 +1,4 @@
-package com.blockflix.src;
+package com.blockflix.src.productos;
 
 
 /** Clase Ejemplar que apunta al producto  y posee una id única
