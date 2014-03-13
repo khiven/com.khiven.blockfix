@@ -1,13 +1,14 @@
 package com.blockflix.src.productos;
 
 
-import com.blockflix.src.Main;
-import com.blockflix.src.Main.*;
+import com.blockflix.src.constantes.Constantes.EstadoProducto;
+import com.blockflix.src.constantes.Constantes.Soporte;
+import com.blockflix.src.constantes.Constantes.TipoProducto;
 
 
 
 /** Clase Producto
- * @author Khiven
+ * @author Antonio Amate
  *
  */
 
@@ -18,6 +19,7 @@ public class Producto {
 	private EstadoProducto estado;
 	private TipoProducto tipo;
 	private Soporte soporte;
+	private int vecesAlquilado = 0;
 
 	/**
 	 * Constructor de un producto 
@@ -33,6 +35,11 @@ public class Producto {
 		this.soporte= soporte;
 	}
 
+	
+	public void incrementarAlquileres(){
+		this.vecesAlquilado++;
+	}
+	
 	/**************** SETS *************/
 	
 	/** Set de nombre
@@ -117,5 +124,13 @@ public class Producto {
 		return this.soporte;
 	}
 
+	/** Get veces alquilado
+	 * 
+	 * @return Número de veces que se alquiló el producto independientemente del ejemplar
+	 * 
+	 */
+	public int getVecesAlquilado(){
+		return this.vecesAlquilado;
+	}
 
 }

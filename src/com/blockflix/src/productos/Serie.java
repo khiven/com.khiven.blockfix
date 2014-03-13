@@ -1,11 +1,10 @@
 package com.blockflix.src.productos;
 
-import com.blockflix.src.Main;
-import com.blockflix.src.Main.Soporte;
-import com.blockflix.src.Main.TipoProducto;
+import com.blockflix.src.constantes.Constantes.Soporte;
+import com.blockflix.src.constantes.Constantes.TipoProducto;
 
 /** Clase producto serie
- * @author Khiven
+ * @author Antonio Amate
  *
  */
 public class Serie extends Producto {
