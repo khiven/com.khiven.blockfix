@@ -2,7 +2,7 @@ package com.blockflix.src.productos;
 
 
 /** Clase Ejemplar que apunta al producto  y posee una id única
- * @author Khiven
+ * @author Antonio Amate
  *
  */
 public class Ejemplar {
