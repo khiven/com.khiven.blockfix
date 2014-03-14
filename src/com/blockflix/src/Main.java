@@ -24,6 +24,7 @@ public class Main {
     	 Pelicula pelicula = new Pelicula("Pen",1947,"Pakito","Aburrida",Soporte.BLURAY);
         //Accedemos al metodo estatico para ver el numero
         //de instancias de tipo Persona creadas ASD
+    	 //prueba GIT
         System.out.println(pelicula.getNombre());
     }
 
