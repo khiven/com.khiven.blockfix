@@ -1,5 +1,6 @@
 package com.blockflix.src.socios;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import com.blockflix.src.tarifas.Tarifa;
@@ -9,7 +10,7 @@ import com.blockflix.src.tarifas.Tarifa;
  * @author Antonio Amate
  *
  */
-public class Contrato {
+public class Contrato implements Serializable {
 
 	private Calendar fechaInicio;
 	private Socio socio;
@@ -78,5 +79,16 @@ public class Contrato {
 	 */
 	public void setFechaInicio(Calendar fechaInicio){
 		this.fechaInicio = fechaInicio;
+	}
+	
+	public String toString(){
+		Calendar fechaInicio=this.getFechaInicio();
+		return "Contrato del socio nº"+this.getSocio().getnSocio()
+			  +"\nFecha de contratacion: "+" " + fechaInicio.get(Calendar.DATE) + "/"
+			  								 +fechaInicio.get(Calendar.MONTH)+"/"		
+			  								 +fechaInicio.get(Calendar.YEAR)
+			 +"\n"+this.getTarifa().toString(); 								 
+	
+	
 	}
 }
