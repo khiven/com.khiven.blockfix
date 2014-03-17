@@ -1,6 +1,8 @@
 package com.blockflix.src.productos;
 
 
+import java.io.Serializable;
+
 import com.blockflix.src.constantes.Constantes.EstadoProducto;
 import com.blockflix.src.constantes.Constantes.Soporte;
 import com.blockflix.src.constantes.Constantes.TipoProducto;
@@ -12,7 +14,7 @@ import com.blockflix.src.constantes.Constantes.TipoProducto;
  *
  */
 
-public class Producto {
+public class Producto implements Serializable {
 
 	private String nombre;
 	private String categoria;

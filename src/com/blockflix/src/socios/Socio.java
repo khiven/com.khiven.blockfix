@@ -1,5 +1,7 @@
 package com.blockflix.src.socios;
 
+import java.io.Serializable;
+
 import com.blockflix.src.constantes.Constantes.EstadoSocio;
 import com.blockflix.src.socios.Contrato;
 
@@ -10,7 +12,7 @@ import com.blockflix.src.socios.Contrato;
  * 
  */
 
-public class Socio {
+public class Socio implements Serializable {
 
 	private int nSocio;
 	private String nombre;

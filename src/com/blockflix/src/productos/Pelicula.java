@@ -7,7 +7,7 @@ import com.blockflix.src.constantes.Constantes.TipoProducto;
  * @author Antonio Amate
  *
  */
-public class Pelicula extends Producto {
+public class Pelicula extends Producto{
 
 	private int agno;
 	private String director;
