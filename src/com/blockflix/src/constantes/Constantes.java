@@ -3,6 +3,8 @@ package com.blockflix.src.constantes;
 public class Constantes {
 
 	public static enum EstadoProducto { ALQUILADO, DISPONIBLE, NO_DISPONIBLE};
+	
+	public static enum EstadoSocio {SIN_SANCION, SANCIONADO};
 
 	public static enum TipoProducto { PELICULA, SERIE, MUSICA};
 

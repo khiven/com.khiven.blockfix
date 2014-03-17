@@ -1,5 +1,6 @@
 package com.blockflix.src.socios;
 
+import com.blockflix.src.constantes.Constantes.EstadoSocio;
 import com.blockflix.src.socios.Contrato;
 
 /**
@@ -18,7 +19,7 @@ public class Socio {
 	private String telefono;
 	private String dni;
 	private Contrato contratoTarifa;
-	private String estado;
+	private EstadoSocio estado;
 
 	/**
 	 * Constructor de un Socio
@@ -44,7 +45,7 @@ public class Socio {
 		this.setTelefono(telefono);
 		this.setDni(dni);
 		this.setnSocio(nSocio);
-		this.setEstado("No Moroso");
+		this.setEstado(EstadoSocio.SIN_SANCION);
 		this.setContratoTarifa(null);
 	}
 
@@ -186,7 +187,7 @@ public class Socio {
 	 * 
 	 * @return Estado del socio
 	 */
-	public String getEstado() {
+	public EstadoSocio getEstado() {
 		return estado;
 	}
 
@@ -196,7 +197,7 @@ public class Socio {
 	 * @param estado
 	 *            Nuevo estado del socio
 	 */
-	public void setEstado(String estado) {
+	public void setEstado(EstadoSocio estado) {
 		this.estado = estado;
 	}
 }
