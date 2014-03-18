@@ -3,7 +3,7 @@ package com.blockflix.src.socios;
 import java.io.Serializable;
 
 import com.blockflix.src.constantes.Constantes.EstadoSocio;
-import com.blockflix.src.socios.Contrato;
+import com.blockflix.src.contratos.Contrato;
 
 /**
  * Clase Producto
@@ -20,7 +20,6 @@ public class Socio implements Serializable {
 	private String direccion;
 	private String telefono;
 	private String dni;
-	private Contrato contratoTarifa;
 	private EstadoSocio estado;
 
 	/**
@@ -48,7 +47,6 @@ public class Socio implements Serializable {
 		this.setDni(dni);
 		this.setnSocio(nSocio);
 		this.setEstado(EstadoSocio.SIN_SANCION);
-		this.setContratoTarifa(null);
 	}
 
 	/**
@@ -165,24 +163,8 @@ public class Socio implements Serializable {
 		this.dni = dni;
 	}
 
-	/**
-	 * Get de tarifa contratada
-	 * 
-	 * @return Contrato de tarifa del socio
-	 */
-	public Contrato getContratoTarifa() {
-		return contratoTarifa;
-	}
-
-	/**
-	 * Set de tarifa contratada
-	 * 
-	 * @param tarifaContratada
-	 *            Nueva contrato de tarifa del socio
-	 */
-	public void setContratoTarifa(Contrato contratoTarifa) {
-		this.contratoTarifa = contratoTarifa;
-	}
+	
+	
 
 	/**
 	 * Get de estado
@@ -202,4 +184,27 @@ public class Socio implements Serializable {
 	public void setEstado(EstadoSocio estado) {
 		this.estado = estado;
 	}
+	
+	public String toString(){
+		return "** SOCIO nº"+this.getnSocio() +" **"
+		+"\nNombre: "+this.getNombre()
+		+"\nApellidos: "+this.getApellidos()
+		+"\nDireccion: "+this.getDireccion()
+		+"\nTelefono: "+this.getTelefono()
+		+"\nDNI: "+this.getDni();
+	}
+	@Override
+	public boolean equals(Object socio){
+		 if (socio == null) return false;
+		 if (socio== this) return true;
+		 if (!(socio instanceof Socio))return false;
+		 Socio socioAux = (Socio)socio;
+		 
+		return this.nombre.equals(socioAux.getNombre())
+				&& this.apellidos.equals(socioAux.getApellidos())
+				&& this.dni.equals(socioAux.getDni());
+				
+				
+	}
+	
 }

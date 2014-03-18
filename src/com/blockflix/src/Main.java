@@ -1,7 +1,6 @@
 package com.blockflix.src;
 
-import com.blockflix.src.socios.GestionSocios;
-import com.blockflix.src.socios.Socio;
+import com.blockflix.src.empleado.Empleado;
 
 /** Clase principal de pruebas
  * @author Antonio Amate
@@ -21,20 +20,21 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		Empleado emp = new Empleado();
 		
-		GestionSocios gs = new GestionSocios();
+	
+		//emp.gs.addSocio("Socio2", "Apellido2", "Direccion2", "Telefono2", "DNI2");
 		
-		//gs.addSocio("asd2","asd2","asd2","asd2","asd2");
+	//	emp.gc.contratarTarifa(1, TipoTarifa.MUSICA);
+	
 		
-	//	gs.printListaSocios();
-		Socio socio1 = gs.buscarSocio(1);
-	//	gs.resetContratos();
-	//	gs.contratarTarifa(socio1, gs.tarifaPeliculas);
+//		emp.gc.printListaContratos();
+//		emp.gs.eliminarSocio(1);
+	//	emp.gs.modificarDatosSocio(1,"Socio1", "Apellido2", "Direccion2", "Telefono2", "DNI2");
+		emp.gs.printListaSocios();
 		
-		//gs.printListaContratos();
-		//System.out.println(gs.getContratoSocio(socio1).toString());
-		gs.saveSocios();
-		gs.saveContratos();
+		//emp.gt.printListaTarifas();
+		emp.save();
 
 
 		
