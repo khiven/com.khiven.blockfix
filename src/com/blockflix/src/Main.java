@@ -1,7 +1,6 @@
 package com.blockflix.src;
 
-import com.blockflix.src.constantes.Constantes.Soporte;
-import com.blockflix.src.productos.Pelicula;
+import com.blockflix.src.empleado.Empleado;
 
 /** Clase principal de pruebas
  * @author Antonio Amate
@@ -12,19 +11,36 @@ import com.blockflix.src.productos.Pelicula;
 public class Main {
 
 
-	
+
 
 
 	/** Metodo main que ejecuta las pruebas
 	 * 
 	 * @param args Vacío
 	 */
-    public static void main(String[] args) {
-        //Se crean instancias
-    	 Pelicula pelicula = new Pelicula("Pen",1947,"Pakito","Aburrida",Soporte.BLURAY);
-        //Accedemos al metodo estatico para ver el numero
-        //de instancias de tipo Persona creadas ASD
-        System.out.println(pelicula.getNombre());
-    }
+	public static void main(String[] args) {
+		
+		Empleado emp = new Empleado();
+		
+	
+		//emp.gs.addSocio("Socio2", "Apellido2", "Direccion2", "Telefono2", "DNI2");
+		
+	//	emp.gc.contratarTarifa(1, TipoTarifa.MUSICA);
+	
+		
+//		emp.gc.printListaContratos();
+//		emp.gs.eliminarSocio(1);
+	//	emp.gs.modificarDatosSocio(1,"Socio1", "Apellido2", "Direccion2", "Telefono2", "DNI2");
+		emp.gs.printListaSocios();
+		
+		//emp.gt.printListaTarifas();
+		emp.save();
+
+
+		
+		
+		
+
+	}
 
 }

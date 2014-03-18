@@ -1,6 +1,9 @@
 package com.blockflix.src.socios;
 
-import com.blockflix.src.socios.Contrato;
+import java.io.Serializable;
+
+import com.blockflix.src.constantes.Constantes.EstadoSocio;
+import com.blockflix.src.contratos.Contrato;
 
 /**
  * Clase Producto
@@ -9,7 +12,7 @@ import com.blockflix.src.socios.Contrato;
  * 
  */
 
-public class Socio {
+public class Socio implements Serializable {
 
 	private int nSocio;
 	private String nombre;
@@ -17,8 +20,7 @@ public class Socio {
 	private String direccion;
 	private String telefono;
 	private String dni;
-	private Contrato contratoTarifa;
-	private String estado;
+	private EstadoSocio estado;
 
 	/**
 	 * Constructor de un Socio
@@ -44,8 +46,7 @@ public class Socio {
 		this.setTelefono(telefono);
 		this.setDni(dni);
 		this.setnSocio(nSocio);
-		this.setEstado("No Moroso");
-		this.setContratoTarifa(null);
+		this.setEstado(EstadoSocio.SIN_SANCION);
 	}
 
 	/**
@@ -162,31 +163,15 @@ public class Socio {
 		this.dni = dni;
 	}
 
-	/**
-	 * Get de tarifa contratada
-	 * 
-	 * @return Contrato de tarifa del socio
-	 */
-	public Contrato getContratoTarifa() {
-		return contratoTarifa;
-	}
-
-	/**
-	 * Set de tarifa contratada
-	 * 
-	 * @param tarifaContratada
-	 *            Nueva contrato de tarifa del socio
-	 */
-	public void setContratoTarifa(Contrato contratoTarifa) {
-		this.contratoTarifa = contratoTarifa;
-	}
+	
+	
 
 	/**
 	 * Get de estado
 	 * 
 	 * @return Estado del socio
 	 */
-	public String getEstado() {
+	public EstadoSocio getEstado() {
 		return estado;
 	}
 
@@ -196,7 +181,30 @@ public class Socio {
 	 * @param estado
 	 *            Nuevo estado del socio
 	 */
-	public void setEstado(String estado) {
+	public void setEstado(EstadoSocio estado) {
 		this.estado = estado;
 	}
+	
+	public String toString(){
+		return "** SOCIO nº"+this.getnSocio() +" **"
+		+"\nNombre: "+this.getNombre()
+		+"\nApellidos: "+this.getApellidos()
+		+"\nDireccion: "+this.getDireccion()
+		+"\nTelefono: "+this.getTelefono()
+		+"\nDNI: "+this.getDni();
+	}
+	@Override
+	public boolean equals(Object socio){
+		 if (socio == null) return false;
+		 if (socio== this) return true;
+		 if (!(socio instanceof Socio))return false;
+		 Socio socioAux = (Socio)socio;
+		 
+		return this.nombre.equals(socioAux.getNombre())
+				&& this.apellidos.equals(socioAux.getApellidos())
+				&& this.dni.equals(socioAux.getDni());
+				
+				
+	}
+	
 }

@@ -1,8 +1,26 @@
 package com.blockflix.src.constantes;
 
+import java.util.ArrayList;
+
+import com.blockflix.src.tarifas.Tarifa;
+
 public class Constantes {
 
+	public static final String PATH_SOCIOS= "Ficheros_de_datos/Socios.dat";
+	public static final String PATH_PELICULAS= "Ficheros_de_datos/Peliculas.dat";
+	public static final String PATH_SERIES= "Ficheros_de_datos/Series.dat";
+	public static final String PATH_MUSICA= "Ficheros_de_datos/Musica.dat";
+	public static final String PATH_ALQUILERES= "Ficheros_de_datos/Alquileres.dat";
+	public static final String PATH_EJEMPLARES ="Ficheros_de_datos/Ejemplares.dat";
+	public static final String PATH_CONTRATOS ="Ficheros_de_datos/Contratos.dat";
+	public static final String PATH_TARIFAS ="Ficheros_de_datos/Tarifas.dat";
+
+
+
+
 	public static enum EstadoProducto { ALQUILADO, DISPONIBLE, NO_DISPONIBLE};
+
+	public static enum EstadoSocio {SIN_SANCION, SANCIONADO};
 
 	public static enum TipoProducto { PELICULA, SERIE, MUSICA};
 
@@ -40,5 +58,30 @@ public class Constantes {
 		}
 	};
 
-
+	public static Tarifa crearTarifaPeliculas(){
+		return new Tarifa(TipoTarifa.PELICULAS,10,3,1,4);
+	}
+	
+	public static Tarifa crearTarifaSeries(){
+		return new Tarifa(TipoTarifa.SERIES,8,3,1,4);
+	}
+	
+	public static Tarifa crearTarifaMusica(){
+		return new Tarifa(TipoTarifa.MUSICA,5,3,1,4);
+	}
+	
+	public static Tarifa crearTarifaPeliculasSeries(){
+		return new Tarifa(TipoTarifa.PELICULAS_SERIES,12,3,1,4);
+	}
+	
+	public static Tarifa crearTarifaPeliculasMusica(){
+		return new Tarifa(TipoTarifa.PELICULAS_MUSICA,11,3,1,4);
+	}
+	public static Tarifa crearTarifaSeriesMusica(){
+		return new Tarifa(TipoTarifa.SERIES_MUSICA,9,3,1,4);
+	}
+	public static Tarifa crearTarifaPremium(){
+		return new Tarifa(TipoTarifa.PREMIUM,15,3,1,4);
+	}
+	
 }

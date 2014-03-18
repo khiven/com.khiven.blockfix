@@ -1,6 +1,6 @@
 package com.blockflix.src.tarifas;
 
-import java.util.Calendar;
+import java.io.Serializable;
 
 import com.blockflix.src.constantes.Constantes.TipoTarifa;
 
@@ -10,13 +10,13 @@ import com.blockflix.src.constantes.Constantes.TipoTarifa;
  *
  */
 
-public class Tarifa {
+public class Tarifa implements Serializable{
 
 	
 	private TipoTarifa tipo;
 	private float precio;
-	private Calendar tiempo;
-	private Calendar tiempoExtension;
+	private int tiempo;
+	private int tiempoExtension;
 	private float precioExtension;
 	
 	/** Constructor de Tarifa
@@ -26,8 +26,8 @@ public class Tarifa {
 	 * @param tiempoExtension Tiempo de extension de alquileres
 	 * @param precioExtension Precio extra de la extension de tiempo
 	 */
-	public Tarifa(TipoTarifa tipo,float precio,Calendar tiempo,
-				  Calendar tiempoExtension,float precioExtension){
+	public Tarifa(TipoTarifa tipo,float precio,int tiempo,
+				  int tiempoExtension,float precioExtension){
 		this.tipo = tipo;
 		this.precio=precio;
 		this.tiempo=tiempo;
@@ -54,14 +54,14 @@ public class Tarifa {
 	/**Set de tiempo de tarifa
 	 * @param tiempo Nuevo tiempo de duracion de la tarifa
 	 */
-	public void setTiempo(Calendar tiempo){
+	public void setTiempo(int tiempo){
 		this.tiempo=tiempo;
 	}
 	
 	/**Set de tiempo de extension
 	 * @param tiempoExtension Nuevo tiempo de extension de alquileres
 	 */
-	public void setTiempoExtension(Calendar tiempoExtension){
+	public void setTiempoExtension(int tiempoExtension){
 		this.tiempoExtension=tiempoExtension;
 	}
 	
@@ -98,14 +98,14 @@ public class Tarifa {
 	/**Get de tiempo de tarifa
 	 * @return El tiempo de duracion de la tarifa
 	 */
-	public Calendar getTiempo(){
+	public int getTiempo(){
 		return this.tiempo;
 	}
 	
 	/**Get de tiempo de extension
 	 * @return El tiempo de extension del alquiler
 	 */
-	public Calendar getTiempoExtension(){
+	public int getTiempoExtension(){
 		return this.tiempoExtension;
 	}
 	
@@ -116,5 +116,12 @@ public class Tarifa {
 		return this.precioExtension;
 	}
 	
+	public String toString(){
+		return "Tipo de tarifa: "+this.tipo.toString()+"\n"
+					   +"Duración de la tarifa: "+this.tiempo+"dias\n"
+					   +"Precio de la tarifa: "+this.precio+"€\n"
+					   +"Duracion de la extension temporal: "+this.tiempoExtension+"días\n"
+					   +"Precio de la extensión temporal: "+this.tiempoExtension+"€\n";
+	}
 	
 }
