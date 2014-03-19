@@ -1,5 +1,7 @@
 package com.blockflix.src.ejemplar;
 
+import java.io.Serializable;
+
 import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
 
 
@@ -7,7 +9,7 @@ import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
  * @author Antonio Amate
  *
  */
-public class Ejemplar {
+public class Ejemplar implements Serializable{
 
 	
 	private int idProducto;
@@ -51,6 +53,13 @@ public class Ejemplar {
 	
 	public EstadoEjemplar getEstado(){
 		return this.estado;
+	}
+	
+	public String toString (){
+		return "\n Ejemplar de id: "
+				+this.getId()
+				+"\n Del producto con id: "
+				+this.getProducto();
 	}
 	
 	
