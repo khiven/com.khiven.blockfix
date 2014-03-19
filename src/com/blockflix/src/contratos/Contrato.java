@@ -15,6 +15,7 @@ public class Contrato implements Serializable {
 	private Calendar fechaInicio;
 	private int nSocio;
 	private TipoTarifa tarifa;
+	private boolean extTiempo;
 
 
 	/**
@@ -22,10 +23,11 @@ public class Contrato implements Serializable {
 	 * @param socio Socio propietario del contrato
 	 * @param tarifa Tarifa contratada
 	 */
-	public Contrato(int nSocio,TipoTarifa tarifa){
+	public Contrato(int nSocio,TipoTarifa tarifa,boolean extTiempo){
 		this.nSocio=nSocio;
 		this.tarifa=tarifa;
 		this.fechaInicio=Calendar.getInstance();
+		this.extTiempo=extTiempo;
 	}
 
 
@@ -81,12 +83,25 @@ public class Contrato implements Serializable {
 		this.fechaInicio = fechaInicio;
 	}
 	
+	public void setExtTiempo(boolean ext){
+		this.extTiempo=ext;
+	}
+	
+	public boolean getExtTiempo(){
+		return this.extTiempo;
+	}
+	
 	public String toString(){
 		Calendar fechaInicio=this.getFechaInicio();
+		String ext = "No";
+		if (this.getExtTiempo()) ext="Si";
+		
+		
 		return "\nContrato del socio nº"+this.getnSocio()
 			  +"\nFecha de contratacion: "+" " + fechaInicio.get(Calendar.DATE) + "/"
 			  								 +fechaInicio.get(Calendar.MONTH)+"/"		
 			  								 +fechaInicio.get(Calendar.YEAR)
+			 +"\n ¿Extension de tiempo contratada?: "+ext 								 
 			 +"\n"+this.getTarifa().toString(); 								 
 	
 	
