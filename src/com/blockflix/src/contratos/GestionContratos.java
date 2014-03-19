@@ -69,8 +69,8 @@ public class GestionContratos {
 		}
 	}
 
-	public void contratarTarifa(int nSocio,TipoTarifa tarifa){
-		Contrato contrato= new Contrato(nSocio,tarifa);
+	public void contratarTarifa(int nSocio,TipoTarifa tarifa,boolean ext){
+		Contrato contrato= new Contrato(nSocio,tarifa,ext);
 		this.listaContratos.add(contrato);
 	}
 	
