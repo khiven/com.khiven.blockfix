@@ -6,12 +6,7 @@ import com.blockflix.src.empleado.Empleado;
  * @author Antonio Amate
  *
  */
-
-
 public class Main {
-
-
-
 
 
 	/** Metodo main que ejecuta las pruebas

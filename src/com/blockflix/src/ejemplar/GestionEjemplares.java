@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
+import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
 
 public class GestionEjemplares {
 
@@ -100,4 +101,31 @@ public class GestionEjemplares {
 			System.out.println(e.toString());
 		}
 	}
+	 
+	public ArrayList<Ejemplar> buscarEjemplaresProducto(int id){
+		ArrayList<Ejemplar> resultados = new ArrayList<Ejemplar>();
+		for (Ejemplar e : listaEjemplares){
+			if (e.getProducto() == id) resultados.add(e);
+		}
+		return resultados;
+	}
+	
+	public ArrayList<Ejemplar> buscarEjemplaresDisponiblesProducto(int id){
+		ArrayList<Ejemplar> resultados = buscarEjemplaresProducto(id);
+		for (Ejemplar e : resultados){
+			if (e.getEstado()!= EstadoEjemplar.DISPONIBLE) resultados.remove(e);
+		}
+		return resultados;
+	}
+	
+	public Ejemplar getEjemplar(int idEjemplar){
+		for (Ejemplar e: listaEjemplares){
+			if (e.getId()==idEjemplar){
+				return e;
+			}	
+		}
+		return null;
+	}
+	
+	
 }

@@ -75,6 +75,45 @@ public class GestionProductos {
 		resetSeries();
 		resetMusica();
 	}
+	public Producto buscarProductoById(int id){
+		Producto p= buscarPeliculaById(id);
+		if (p==null){
+			p=buscarSerieById(id);
+			if (p==null){
+				p=buscarMusicaById(id);
+				if (p==null) return null;
+			}
+		}
+		return p;
+	}
+	
+	public Producto buscarProductoByNombre(String nombre){
+		Producto p = buscarPeliculaByNombre(nombre);
+		if (p==null){
+			p=buscarSerieByNombre(nombre);
+			if (p==null){
+				p=buscarMusicaByNombre(nombre);
+				if (p==null) return null;
+			}
+		}
+		return p;
+	}
+	
+	public ArrayList<Producto> buscarProductoByCategoria(String cat){
+		ArrayList<Producto> p = new ArrayList<Producto>(); 
+		p.addAll(buscarPeliculaByCategoria(cat));
+		if (p.isEmpty()){
+			p.addAll(buscarSeriesByCategoria(cat));
+			if (p.isEmpty()){
+				p.addAll(buscarMusicaByCategoria(cat));
+				if (p.isEmpty()) return null;
+			}
+		}
+		return p;
+	}
+	
+	
+	
 	/**************************** PELICULAS *******************************/
 	public ArrayList<Pelicula> loadPeliculas(){
 
@@ -124,6 +163,13 @@ public class GestionProductos {
 		}
 	}
 
+	public Pelicula buscarPeliculaById(int id){
+		for (Pelicula p : listaPeliculas){
+			if (p.getId()==id) return p;
+		}
+		return null;
+	}
+	
 	public Pelicula buscarPeliculaByNombre(String nombre){
 		for (Pelicula p : listaPeliculas){
 			if (p.getNombre().equals(nombre)) return p;
@@ -237,6 +283,13 @@ public class GestionProductos {
 		}
 	}
 
+	public Serie buscarSerieById(int id){
+		for (Serie p : listaSeries){
+			if (p.getId()==id) return p;
+		}
+		return null;
+	}
+	
 	public Serie buscarSerieByNombre(String nombre){
 		for (Serie s : listaSeries){
 			if (s.getNombre().equals(nombre)) return s;
@@ -346,6 +399,13 @@ public class GestionProductos {
 		}
 	}
 
+	public Musica buscarMusicaById(int id){
+		for (Musica p : listaMusica){
+			if (p.getId()==id) return p;
+		}
+		return null;
+	}
+	
 	public Musica buscarMusicaByNombre(String nombre){
 		for (Musica m : listaMusica){
 			if (m.getNombre().equals(nombre)) return m;
