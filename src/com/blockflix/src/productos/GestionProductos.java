@@ -70,6 +70,11 @@ public class GestionProductos {
 		printListaMusica();
 	}
 
+	public void resetProductos(){
+		resetPeliculas();
+		resetSeries();
+		resetMusica();
+	}
 	/**************************** PELICULAS *******************************/
 	public ArrayList<Pelicula> loadPeliculas(){
 
@@ -177,7 +182,9 @@ public class GestionProductos {
 	}
 	
 	
-
+	public void resetPeliculas(){
+		this.listaPeliculas.clear();
+	}
 
 
 	/**************************************************************************************************************/
@@ -283,6 +290,9 @@ public class GestionProductos {
 		}
 	}
 
+	public void resetSeries(){
+		this.listaSeries.clear();
+	}
 	/**************************************************************************************************************/
 
 
@@ -388,6 +398,10 @@ public class GestionProductos {
 		}
 	}
 	
+	public void resetMusica(){
+		this.listaMusica.clear();
+	}
+	
 	/**************************************************************************************************************/
 
 
@@ -464,6 +478,12 @@ public class GestionProductos {
 		printCategoria(TipoProducto.PELICULA);
 		printCategoria(TipoProducto.SERIE);
 		printCategoria(TipoProducto.MUSICA);
+	}
+	
+	public void resetCategorias(){
+		this.categoriasCine.clear();
+		this.categoriasSeries.clear();
+		this.categoriasMusica.clear();
 	}
 	/*************************************************************************************************************************/
 

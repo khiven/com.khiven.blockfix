@@ -58,10 +58,13 @@ public class Empleado {
 		gt.saveTarifas();
 		gc.saveContratos();
 		gp.saveProductos();
+		
 	}
 	
 	public void reset(){
 		gs.resetSocios();
 		gc.resetContratos();
+		gp.resetProductos();
+		gp.resetCategorias();
 	}
 }

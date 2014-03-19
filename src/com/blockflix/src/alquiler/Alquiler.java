@@ -3,7 +3,7 @@ package com.blockflix.src.alquiler;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.blockflix.src.productos.Ejemplar;
+import com.blockflix.src.ejemplar.Ejemplar;
 import com.blockflix.src.socios.Socio;
 
 /**
