@@ -24,10 +24,11 @@ public class Musica extends Producto {
 	 * @param interprete Interprete del producto
 	 * @param categoria Categoria del producto
 	 * @param soporte Soporte del producto
+	 * @param id Id producto
 	 */
-	public Musica (String nombre,int agno, String interprete, String categoria,Soporte soporte){
+	public Musica (String nombre,int agno, String interprete, String categoria,Soporte soporte,int id){
 
-		super(nombre,categoria,TipoProducto.MUSICA,soporte);	
+		super(nombre,categoria,TipoProducto.MUSICA,soporte,id);	
 		this.agno=agno;
 		this.interprete=interprete;
 	}

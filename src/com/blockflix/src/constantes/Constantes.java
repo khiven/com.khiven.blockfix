@@ -1,7 +1,5 @@
 package com.blockflix.src.constantes;
 
-import java.util.ArrayList;
-
 import com.blockflix.src.tarifas.Tarifa;
 
 public class Constantes {

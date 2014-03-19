@@ -8,9 +8,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
-import com.blockflix.src.constantes.Constantes.TipoTarifa;
-import com.blockflix.src.contratos.Contrato;
-import com.blockflix.src.tarifas.Tarifa;
 
 public class GestionSocios {
 

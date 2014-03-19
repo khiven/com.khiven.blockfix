@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import com.blockflix.src.constantes.Constantes.TipoTarifa;
-import com.blockflix.src.tarifas.Tarifa;
 
 /**
  * Clase contrato

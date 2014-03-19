@@ -2,7 +2,6 @@ package com.blockflix.src.productos;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,8 +10,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
+import com.blockflix.src.constantes.Constantes.Soporte;
 import com.blockflix.src.constantes.Constantes.TipoProducto;
-import com.blockflix.src.socios.Socio;
 
 public class GestionProductos {
 
@@ -20,10 +19,12 @@ public class GestionProductos {
 	private ArrayList<String> categoriasCine;
 	private ArrayList<String> categoriasSeries;
 	private ArrayList<String> categoriasMusica;
-	
+
 	private ArrayList<Pelicula> listaPeliculas;
 	private ArrayList<Serie> listaSeries;
 	private ArrayList<Musica> listaMusica;
+
+	private int lastIdProducto;
 
 	public GestionProductos(){
 		categoriasCine = new ArrayList<String>();
@@ -31,27 +32,44 @@ public class GestionProductos {
 		categoriasMusica = new ArrayList<String>();
 		this.loadCategorias();
 		loadProductos();
+		setLastIdProducto();
 	}
 
 	/************************************************************************PRODUCTOS *******************************************/
-	
-	
+
+
 	public void loadProductos(){
 		this.listaPeliculas=loadPeliculas();
 		this.listaSeries=loadSeries();
 		this.listaMusica=loadMusica();
 	}
-	
+
 	public void saveProductos(){
 		this.savePeliculas();
 		this.saveSeries();
 		this.saveMusica();
 	}
-	
-	
-	
-	
-	
+
+
+	public void setLastIdProducto(){
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+
+		productos.addAll(this.listaPeliculas);
+		productos.addAll(this.listaSeries);
+		productos.addAll(this.listaMusica);
+		int aux=0;
+		for(Producto p: productos){
+			aux =  aux > p.getId() ? aux : p.getId();
+		}
+		this.lastIdProducto = aux;
+	}
+
+	public void printListaProductos(){
+		printListaPeliculas();
+		printListaSeries();
+		printListaMusica();
+	}
+
 	/**************************** PELICULAS *******************************/
 	public ArrayList<Pelicula> loadPeliculas(){
 
@@ -100,7 +118,7 @@ public class GestionProductos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Pelicula buscarPeliculaByNombre(String nombre){
 		for (Pelicula p : listaPeliculas){
 			if (p.getNombre().equals(nombre)) return p;
@@ -108,7 +126,7 @@ public class GestionProductos {
 		return null;
 	}
 
-	
+
 	public ArrayList<Pelicula> buscarPeliculaByCategoria(String cat){
 		ArrayList<Pelicula> resultados = new ArrayList<Pelicula>();
 		for (Pelicula x : listaPeliculas){
@@ -116,52 +134,65 @@ public class GestionProductos {
 		}
 		return resultados;
 	}
+
+
+	public void addPelicula(String nombre, int agno, String director, String categoria, Soporte soporte){
+
+		Pelicula p = new Pelicula(nombre,agno,director,categoria,soporte,++this.lastIdProducto);
+		listaPeliculas.add(p);
+	}
+
+	public void printListaPeliculas(){
+		for (Pelicula p : listaPeliculas){
+			System.out.println();
+			System.out.println(p.toString());
+		}
+	}
 	
 	
-	
-	
-	
-	
+
+
+
 	/**************************************************************************************************************/
 	/**************************** SERIES *******************************/
 	public ArrayList<Serie> loadSeries(){
-		
+
 		Object aux;
 		ObjectInputStream ois;
 		ArrayList<Serie> series= new ArrayList<Serie>();
-		
-		
+
+
 		try {
 			ois = new ObjectInputStream(new FileInputStream(Constantes.PATH_SERIES));
 			//	System.out.print(ois.available());
 			aux= ois.readObject();
-			
+
 			while (aux != null)
 			{
 				if (aux instanceof Serie){
 					series.add((Serie)aux);
-					
+
 				}
 				aux = ois.readObject();
 			}
 			ois.close();
 		} catch (IOException | ClassNotFoundException e ) {
 			// TODO Auto-generated catch block
-			
-			
+
+
 			//e.printStackTrace();
 		}
-		
+
 		return series;
-		
+
 	}
-	
+
 	public void saveSeries(){
-		
+
 		ObjectOutputStream oos;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(Constantes.PATH_SERIES));
-			
+
 			for(Serie serie: listaSeries){
 				oos.writeObject(serie);
 			}
@@ -171,14 +202,14 @@ public class GestionProductos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Serie buscarSerieByNombre(String nombre){
 		for (Serie s : listaSeries){
 			if (s.getNombre().equals(nombre)) return s;
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Serie> buscarSeriesByCategoria(String cat){
 		ArrayList<Serie> resultados = new ArrayList<Serie>();
 		for (Serie x : listaSeries){
@@ -186,51 +217,64 @@ public class GestionProductos {
 		}
 		return resultados;
 	}
-	
-	
+
+
+	public void addSerie(String nombre, int temporada, int volumen, String categoria, Soporte soporte){
+
+		Serie p = new Serie(nombre,temporada,volumen,categoria,soporte,++this.lastIdProducto);
+		listaSeries.add(p);
+	}
+
+	public void printListaSeries(){
+		for (Serie p : listaSeries){
+			System.out.println();
+			System.out.println(p.toString());
+		}
+	}
+
 	/**************************************************************************************************************/
-	
-	
-	
+
+
+
 	/**************************** MUSICA *******************************/
 	public ArrayList<Musica> loadMusica(){
-		
+
 		Object aux;
 		ObjectInputStream ois;
 		ArrayList<Musica> musicas= new ArrayList<Musica>();
-		
-		
+
+
 		try {
 			ois = new ObjectInputStream(new FileInputStream(Constantes.PATH_MUSICA));
 			//	System.out.print(ois.available());
 			aux= ois.readObject();
-			
+
 			while (aux != null)
 			{
 				if (aux instanceof Musica){
 					musicas.add((Musica)aux);
-					
+
 				}
 				aux = ois.readObject();
 			}
 			ois.close();
 		} catch (IOException | ClassNotFoundException e ) {
 			// TODO Auto-generated catch block
-			
-			
+
+
 			//e.printStackTrace();
 		}
-		
+
 		return musicas;
-		
+
 	}
-	
+
 	public void saveMusica(){
-		
+
 		ObjectOutputStream oos;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(Constantes.PATH_MUSICA));
-			
+
 			for(Musica musica: listaMusica){
 				oos.writeObject(musica);
 			}
@@ -240,14 +284,14 @@ public class GestionProductos {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Musica buscarMusicaByNombre(String nombre){
 		for (Musica m : listaMusica){
 			if (m.getNombre().equals(nombre)) return m;
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Musica> buscarMusicaByCategoria(String cat){
 		ArrayList<Musica> resultados = new ArrayList<Musica>();
 		for (Musica x : listaMusica){
@@ -255,13 +299,27 @@ public class GestionProductos {
 		}
 		return resultados;
 	}
+	
+	public void addMusica(String nombre, int agno, String interprete, String categoria, Soporte soporte){
+
+		Musica p = new Musica(nombre,agno,interprete,categoria,soporte,++this.lastIdProducto);
+		listaMusica.add(p);
+	}
+	
+	public void printListaMusica(){
+		for (Musica p : listaMusica){
+			System.out.println();
+			System.out.println(p.toString());
+		}
+	}
+	
 	/**************************************************************************************************************/
-	
-	
-	
-	
+
+
+
+
 	/***************************************************************************************************************************/
-	
+
 	/************************************************************************CATEGORIAS ****************************************/
 	public void loadCategoria(TipoProducto tipoCat,String filePath){
 
@@ -319,7 +377,7 @@ public class GestionProductos {
 			aux=null;
 		}
 		if (aux!=null){
-	
+
 			for (int i=0;i< aux.size();i++){
 				System.out.println(aux.get(i));
 			}
@@ -332,7 +390,7 @@ public class GestionProductos {
 		printCategoria(TipoProducto.SERIE);
 		printCategoria(TipoProducto.MUSICA);
 	}
-/*************************************************************************************************************************/
-	
-	
+	/*************************************************************************************************************************/
+
+
 }

@@ -17,6 +17,7 @@ public class Producto implements Serializable {
 
 	private String nombre;
 	private String categoria;
+	private int id;
 	
 	private TipoProducto tipo;
 	private Soporte soporte;
@@ -28,11 +29,12 @@ public class Producto implements Serializable {
 	 * @param categoria Categoria del producto
 	 * @param soporte Soporte del producto
 	 */
-	public Producto(String nombre, String categoria, TipoProducto tipo,Soporte soporte){
+	public Producto(String nombre, String categoria, TipoProducto tipo,Soporte soporte,int id){
 		this.nombre = nombre;
 		this.categoria = categoria;
 		this.tipo = tipo;
 		this.soporte= soporte;
+		this.id=id;
 	}
 
 	
@@ -121,10 +123,14 @@ public class Producto implements Serializable {
 	public int getVecesAlquilado(){
 		return this.vecesAlquilado;
 	}
+	public int getId(){
+		return this.id;
+	}
 
 	public String toString(){
 		return "\nTipo de producto: "+this.getTipo().toString()
 				+"\nNombre producto: "+this.getNombre()
+				+"\nID: "+this.getId()
 				+"\nCategoría: "+this.getCategoria()
 				+"\nSoporte: "+this.getSoporte().toString()
 				+"\nVeces alquilado: "+this.getVecesAlquilado();

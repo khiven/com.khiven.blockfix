@@ -3,7 +3,6 @@ package com.blockflix.src.socios;
 import java.io.Serializable;
 
 import com.blockflix.src.constantes.Constantes.EstadoSocio;
-import com.blockflix.src.contratos.Contrato;
 
 /**
  * Clase Producto

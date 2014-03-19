@@ -50,12 +50,14 @@ public class Empleado {
 		gs.loadSocios();
 		gt.loadTarifas();
 		gc.loadContratos();
+		gp.loadProductos();
 	}
 	
 	public void save(){
 		gs.saveSocios();
 		gt.saveTarifas();
 		gc.saveContratos();
+		gp.saveProductos();
 	}
 	
 	public void reset(){
