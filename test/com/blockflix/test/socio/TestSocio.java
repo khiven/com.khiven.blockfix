@@ -3,6 +3,7 @@ package com.blockflix.test.socio;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.junit.Before;
 
 import com.blockflix.src.constantes.Constantes.EstadoSocio;
 import com.blockflix.src.socios.*;
@@ -12,19 +13,22 @@ import com.blockflix.src.socios.*;
  *	Clase de prueba de Socio
  */
 public class TestSocio {
+	String nombre = "Pepe";
+	String apellido = "Perez";
+	String direccion = "Sevilla";
+	String telefono = "15";
+	String dni = "20C";
+	int nSocio = 40;
+	Socio pepe;
+	@Before public void creaPepe(){
+		pepe = new Socio(nombre,apellido,direccion,telefono,dni,nSocio);
+	}
 	
 	/** Prueba del constructor de Socio
 	 * Verifica que el socio se crea con los datos dados y en el estado SIN_SANCION
 	 */
 	@Test
 	public void testSocio() {
-		String nombre = "Pepe";
-		String apellido = "Perez";
-		String direccion = "Sevilla";
-		String telefono = "15";
-		String dni = "20C";
-		int nSocio = 40;
-		Socio pepe = new Socio(nombre,apellido,direccion,telefono,dni,nSocio);
 		assertEquals(pepe.getNombre(),nombre);
 		assertEquals(pepe.getApellidos(),apellido);
 		assertEquals(pepe.getDireccion(),direccion);
@@ -39,14 +43,7 @@ public class TestSocio {
 	 */
 	@Test
 	public void testToString() {
-		String nombre = "Pepe";
-		String apellido = "Perez";
-		String direccion = "Sevilla";
-		String telefono = "15";
-		String dni = "20C";
-		int nSocio = 40;
-		Socio pepe = new Socio(nombre,apellido,direccion,telefono,dni,nSocio);
-		assertEquals("** SOCIO nº40 **\nNombre: Pepe\nApellidos: Perez\nDireccion: Sevilla\nTelefono: 15\nDNI: 20C",pepe.toString());
+		assertEquals(pepe.toString(),"** SOCIO nº40 **\nNombre: Pepe\nApellidos: Perez\nDireccion: Sevilla\nTelefono: 15\nDNI: 20C");
 	}
 
 	/** Prueba del metodo equals
@@ -56,15 +53,8 @@ public class TestSocio {
 	 */
 	@Test
 	public void testEquals() {
-		String nombre = "Pepe";
-		String apellido = "Perez";
-		String direccion = "Sevilla";
-		String telefono = "15";
-		String dni = "20C";
 		String dni2 = "44X";
-		int nSocio = 40;
 		int nSocio2 = 41;
-		Socio pepe = new Socio(nombre,apellido,direccion,telefono,dni,nSocio);
 		Socio pepeclon = new Socio(nombre,apellido,direccion,telefono,dni,nSocio);
 		Socio juan = null;
 		String maria = "Maria";
