@@ -123,6 +123,7 @@ public class GestionSocios {
 			if (socio.getnSocio()==nSocio){
 				listaSocios.remove(socio);
 				this.saveSocios();
+				return;
 			}
 		}
 	}
@@ -136,6 +137,7 @@ public class GestionSocios {
 				socio.setTelefono(telefono);
 				socio.setDni(dni);
 				this.saveSocios();
+				return;
 			}
 	}
 

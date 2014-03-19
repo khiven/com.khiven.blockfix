@@ -1,6 +1,5 @@
 package com.blockflix.src;
 
-import com.blockflix.src.constantes.Constantes.Soporte;
 import com.blockflix.src.empleado.Empleado;
 
 /** Clase principal de pruebas

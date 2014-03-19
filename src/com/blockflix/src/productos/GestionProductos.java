@@ -142,6 +142,33 @@ public class GestionProductos {
 		listaPeliculas.add(p);
 	}
 
+	
+	public void modificarDatosPelicula(int id,String nombre,int agno,String director,String categoria,Soporte soporte){
+		for (Pelicula aux : listaPeliculas)
+			if (aux.getId()==id){
+				aux.setNombre(nombre);
+				aux.setAgno(agno);
+				aux.setDirector(director);
+				aux.setCategoria(categoria);
+				aux.setSoporte(soporte);
+				this.savePeliculas();
+				return;
+			}
+	}
+	
+	public void eliminarPelicula(int id){
+		for (Pelicula aux : listaPeliculas){
+			if (aux.getId()==id){
+				listaPeliculas.remove(aux);
+				this.savePeliculas();
+				return;
+			}
+		}
+	}
+	
+	
+	
+	
 	public void printListaPeliculas(){
 		for (Pelicula p : listaPeliculas){
 			System.out.println();
@@ -225,6 +252,30 @@ public class GestionProductos {
 		listaSeries.add(p);
 	}
 
+	
+	public void modificarDatosSerie(int id,String nombre,int temporada,int volumen,String categoria,Soporte soporte){
+		for (Serie aux : listaSeries)
+			if (aux.getId()==id){
+				aux.setNombre(nombre);
+				aux.setTemporada(temporada);
+				aux.setVolumen(volumen);
+				aux.setCategoria(categoria);
+				aux.setSoporte(soporte);
+				this.saveSeries();
+				return;
+			}
+	}
+	
+	public void eliminarSerie(int id){
+		for (Serie aux : listaSeries){
+			if (aux.getId()==id){
+				listaSeries.remove(aux);
+				this.saveSeries();
+				return;
+			}
+		}
+	}
+	
 	public void printListaSeries(){
 		for (Serie p : listaSeries){
 			System.out.println();
@@ -305,6 +356,30 @@ public class GestionProductos {
 		Musica p = new Musica(nombre,agno,interprete,categoria,soporte,++this.lastIdProducto);
 		listaMusica.add(p);
 	}
+	
+	public void modificarDatosMusica(int id,String nombre,int agno,String interprete,String categoria,Soporte soporte){
+		for (Musica aux : listaMusica)
+			if (aux.getId()==id){
+				aux.setNombre(nombre);
+				aux.setAgno(agno);
+				aux.setInterprete(interprete);
+				aux.setCategoria(categoria);
+				aux.setSoporte(soporte);
+				this.saveMusica();
+				return;
+			}
+	}
+	
+	public void eliminarMusica(int id){
+		for (Musica aux : listaMusica){
+			if (aux.getId()==id){
+				listaMusica.remove(aux);
+				this.saveMusica();
+				return;
+			}
+		}
+	}
+	
 	
 	public void printListaMusica(){
 		for (Musica p : listaMusica){
