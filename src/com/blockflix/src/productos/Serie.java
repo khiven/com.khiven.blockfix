@@ -19,10 +19,11 @@ public class Serie extends Producto {
 	 * @param volumen - volumen de la serie
 	 * @param categoria - categoria del producto
 	 * @param soporte - soporte del producto
+	 * @param id - id producto
 	 */
-	public Serie (String nombre,int temporada, int volumen, String categoria,Soporte soporte){
+	public Serie (String nombre,int temporada, int volumen, String categoria,Soporte soporte,int id){
 
-		super(nombre,categoria,TipoProducto.SERIE,soporte);	
+		super(nombre,categoria,TipoProducto.SERIE,soporte,id);	
 		this.temporada=temporada;
 		this.volumen= volumen;
 	}
@@ -53,5 +54,12 @@ public class Serie extends Producto {
 	 */
 	public int getVolumen(){
 		return this.volumen;
+	}
+	
+	public String toString(){
+		return super.toString()
+				+"\nTemporada: "+this.getTemporada()
+				+"\nVolumen: "+this.getVolumen();
+				
 	}
 }

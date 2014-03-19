@@ -20,10 +20,11 @@ public class Pelicula extends Producto{
 	 * @param director Director del producto
 	 * @param categoria Categoria del producto
 	 * @param soporte Soporte del producto
+	 * @param id id producto
 	 */
-	public Pelicula (String nombre,int agno, String director, String categoria,Soporte soporte){
+	public Pelicula (String nombre,int agno, String director, String categoria,Soporte soporte,int id){
 
-		super(nombre,categoria,TipoProducto.PELICULA,soporte);	
+		super(nombre,categoria,TipoProducto.PELICULA,soporte,id);	
 		this.agno=agno;
 		this.director=director;
 	}
@@ -58,5 +59,12 @@ public class Pelicula extends Producto{
 	 */
 	public String getDirector(){
 		return this.director;
+	}
+	
+	public String toString(){
+		return super.toString()
+				+"\nDirector: "+this.getDirector()
+				+"\nAño: "+this.getAgno();
+				
 	}
 }

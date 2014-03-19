@@ -8,9 +8,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
-import com.blockflix.src.constantes.Constantes.TipoTarifa;
-import com.blockflix.src.contratos.Contrato;
-import com.blockflix.src.tarifas.Tarifa;
 
 public class GestionSocios {
 
@@ -126,6 +123,7 @@ public class GestionSocios {
 			if (socio.getnSocio()==nSocio){
 				listaSocios.remove(socio);
 				this.saveSocios();
+				return;
 			}
 		}
 	}
@@ -139,6 +137,7 @@ public class GestionSocios {
 				socio.setTelefono(telefono);
 				socio.setDni(dni);
 				this.saveSocios();
+				return;
 			}
 	}
 
