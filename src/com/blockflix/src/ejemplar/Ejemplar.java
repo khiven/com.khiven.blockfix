@@ -1,5 +1,7 @@
 package com.blockflix.src.ejemplar;
 
+import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
+
 
 /** Clase Ejemplar que apunta al producto  y posee una id única
  * @author Antonio Amate
@@ -10,6 +12,7 @@ public class Ejemplar {
 	
 	private int idProducto;
 	private final int id;
+	private EstadoEjemplar estado;
 	
 	/** Constructor de Ejemplar, se le pasa como argumento un id de producto existente y la id del ejemplar
 	 * @param id
@@ -18,6 +21,7 @@ public class Ejemplar {
 	public Ejemplar(int id,int idProducto){
 		this.id=id;
 		this.idProducto=idProducto;
+		this.estado=EstadoEjemplar.DISPONIBLE;
 	}
 	
 	/** Set de producto 
@@ -39,6 +43,14 @@ public class Ejemplar {
 	 */
 	public int getId(){
 		return this.id;
+	}
+	
+	public void setEstado(EstadoEjemplar estado){
+		this.estado=estado;
+	}
+	
+	public EstadoEjemplar getEstado(){
+		return this.estado;
 	}
 	
 	
