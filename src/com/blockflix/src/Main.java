@@ -32,6 +32,7 @@ public class Main {
 //		emp.gs.eliminarSocio(1);
 	//	emp.gs.modificarDatosSocio(1,"Socio1", "Apellido2", "Direccion2", "Telefono2", "DNI2");
 		emp.gs.printListaSocios();
+	//	emp.pagar("123456789012", "1234", 20);
 		
 		//emp.gt.printListaTarifas();
 		emp.save();
