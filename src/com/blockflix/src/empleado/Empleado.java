@@ -4,6 +4,7 @@ import org.visa.tpv.PasarelaDePago;
 import org.visa.tpv.excepciones.ExcepcionVISA;
 
 import com.blockflix.src.contratos.GestionContratos;
+import com.blockflix.src.productos.GestionProductos;
 import com.blockflix.src.socios.GestionSocios;
 import com.blockflix.src.tarifas.GestionTarifas;
 
@@ -12,12 +13,14 @@ public class Empleado {
 	public GestionSocios gs;
 	public GestionTarifas gt;
 	public GestionContratos gc;
+	public GestionProductos gp;
 
 	
 	public Empleado(){
 		gs=new GestionSocios();
 		gt=new GestionTarifas();
 		gc= new GestionContratos();
+		gp=new GestionProductos();
 	}
 	
 	

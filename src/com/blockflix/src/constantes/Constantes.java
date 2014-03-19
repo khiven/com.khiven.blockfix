@@ -14,6 +14,10 @@ public class Constantes {
 	public static final String PATH_EJEMPLARES ="Ficheros_de_datos/Ejemplares.dat";
 	public static final String PATH_CONTRATOS ="Ficheros_de_datos/Contratos.dat";
 	public static final String PATH_TARIFAS ="Ficheros_de_datos/Tarifas.dat";
+	
+	public static final String PATH_CATEGORIAS_PELICULAS="Ficheros_de_datos/CategoriasCine.txt";
+	public static final String PATH_CATEGORIAS_SERIES="Ficheros_de_datos/CategoriasSeries.txt";
+	public static final String PATH_CATEGORIAS_MUSICA="Ficheros_de_datos/CategoriasMusica.txt";
 
 
 
