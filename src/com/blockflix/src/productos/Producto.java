@@ -3,7 +3,6 @@ package com.blockflix.src.productos;
 
 import java.io.Serializable;
 
-import com.blockflix.src.constantes.Constantes.EstadoProducto;
 import com.blockflix.src.constantes.Constantes.Soporte;
 import com.blockflix.src.constantes.Constantes.TipoProducto;
 
@@ -18,7 +17,7 @@ public class Producto implements Serializable {
 
 	private String nombre;
 	private String categoria;
-	private EstadoProducto estado;
+	
 	private TipoProducto tipo;
 	private Soporte soporte;
 	private int vecesAlquilado = 0;
@@ -32,7 +31,6 @@ public class Producto implements Serializable {
 	public Producto(String nombre, String categoria, TipoProducto tipo,Soporte soporte){
 		this.nombre = nombre;
 		this.categoria = categoria;
-		this.estado =EstadoProducto.DISPONIBLE;
 		this.tipo = tipo;
 		this.soporte= soporte;
 	}
@@ -61,13 +59,8 @@ public class Producto implements Serializable {
 	}
 
 	
-	/** Set de estado
-	 * @param estado Nuevo estado del producto
-	 */
-	public void setEstado(EstadoProducto estado){
-		this.estado= estado;
 
-	}
+	
 	
 	/** Set de tipo
 	 * @param tipo Nuevo tipo de producto
@@ -102,12 +95,6 @@ public class Producto implements Serializable {
 	}
 
 	
-	/** Get de estado
-	 * @return Estado del producto
-	 */
-	public EstadoProducto getEstado(){
-		return this.estado;
-	}
 	
 	
 	/** Get de Tipo
@@ -135,4 +122,12 @@ public class Producto implements Serializable {
 		return this.vecesAlquilado;
 	}
 
+	public String toString(){
+		return "\nTipo de producto: "+this.getTipo().toString()
+				+"\nNombre producto: "+this.getNombre()
+				+"\nCategoría: "+this.getCategoria()
+				+"\nSoporte: "+this.getSoporte().toString()
+				+"\nVeces alquilado: "+this.getVecesAlquilado();
+				
+	}
 }

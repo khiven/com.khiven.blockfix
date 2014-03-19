@@ -8,30 +8,30 @@ package com.blockflix.src.productos;
 public class Ejemplar {
 
 	
-	private Producto producto;
+	private int idProducto;
 	private final int id;
 	
-	/** Constructor de Ejemplar, se le pasa como argumento un producto existente y la id del ejemplar
+	/** Constructor de Ejemplar, se le pasa como argumento un id de producto existente y la id del ejemplar
 	 * @param id
-	 * @param producto
+	 * @param idProducto
 	 */
-	public Ejemplar(int id,Producto producto){
+	public Ejemplar(int id,int idProducto){
 		this.id=id;
-		this.producto=producto;
+		this.idProducto=idProducto;
 	}
 	
 	/** Set de producto 
-	 * @param producto nuevo producto del ejemplar
+	 * @param idProducto nuevo producto del ejemplar
 	 */
-	public void setProducto(Producto producto){
-		this.producto=producto;
+	public void setProducto(int idProducto){
+		this.idProducto=idProducto;
 	}
 	
 	/** Get de producto
-	 * @return Producto del ejemplar..
+	 * @return idProducto del ejemplar..
 	 */
-	public Producto getProducto(){
-		return this.producto;
+	public int getProducto(){
+		return this.idProducto;
 	}
 	
 	/** Get de ID

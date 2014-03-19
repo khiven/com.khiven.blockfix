@@ -1,13 +1,18 @@
 package com.blockflix.src.productos;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.constantes.Constantes.TipoProducto;
+import com.blockflix.src.socios.Socio;
 
 public class GestionProductos {
 
@@ -15,21 +20,242 @@ public class GestionProductos {
 	private ArrayList<String> categoriasCine;
 	private ArrayList<String> categoriasSeries;
 	private ArrayList<String> categoriasMusica;
+	
+	private ArrayList<Pelicula> listaPeliculas;
+	private ArrayList<Serie> listaSeries;
+	private ArrayList<Musica> listaMusica;
 
 	public GestionProductos(){
 		categoriasCine = new ArrayList<String>();
 		categoriasSeries= new ArrayList<String>();
 		categoriasMusica = new ArrayList<String>();
 		this.loadCategorias();
+		loadProductos();
 	}
 
 	/************************************************************************PRODUCTOS *******************************************/
 	
 	
+	public void loadProductos(){
+		this.listaPeliculas=loadPeliculas();
+		this.listaSeries=loadSeries();
+		this.listaMusica=loadMusica();
+	}
+	
+	public void saveProductos(){
+		this.savePeliculas();
+		this.saveSeries();
+		this.saveMusica();
+	}
 	
 	
 	
 	
+	
+	/**************************** PELICULAS *******************************/
+	public ArrayList<Pelicula> loadPeliculas(){
+
+		Object aux;
+		ObjectInputStream ois;
+		ArrayList<Pelicula> peliculas = new ArrayList<Pelicula>();
+
+
+		try {
+			ois = new ObjectInputStream(new FileInputStream(Constantes.PATH_PELICULAS));
+			//	System.out.print(ois.available());
+			aux= ois.readObject();
+
+			while (aux != null)
+			{
+				if (aux instanceof Pelicula){
+					peliculas.add((Pelicula)aux);
+
+				}
+				aux = ois.readObject();
+			}
+			ois.close();
+		} catch (IOException | ClassNotFoundException e ) {
+			// TODO Auto-generated catch block
+
+
+			//e.printStackTrace();
+		}
+
+		return peliculas;
+
+	}
+
+	public void savePeliculas(){
+
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(Constantes.PATH_PELICULAS));
+
+			for(Pelicula pelicula : listaPeliculas){
+				oos.writeObject(pelicula);
+			}
+			oos.close();
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Pelicula buscarPeliculaByNombre(String nombre){
+		for (Pelicula p : listaPeliculas){
+			if (p.getNombre().equals(nombre)) return p;
+		}
+		return null;
+	}
+
+	
+	public ArrayList<Pelicula> buscarPeliculaByCategoria(String cat){
+		ArrayList<Pelicula> resultados = new ArrayList<Pelicula>();
+		for (Pelicula x : listaPeliculas){
+			if (x.getCategoria().equals(cat)) resultados.add(x);
+		}
+		return resultados;
+	}
+	
+	
+	
+	
+	
+	
+	/**************************************************************************************************************/
+	/**************************** SERIES *******************************/
+	public ArrayList<Serie> loadSeries(){
+		
+		Object aux;
+		ObjectInputStream ois;
+		ArrayList<Serie> series= new ArrayList<Serie>();
+		
+		
+		try {
+			ois = new ObjectInputStream(new FileInputStream(Constantes.PATH_SERIES));
+			//	System.out.print(ois.available());
+			aux= ois.readObject();
+			
+			while (aux != null)
+			{
+				if (aux instanceof Serie){
+					series.add((Serie)aux);
+					
+				}
+				aux = ois.readObject();
+			}
+			ois.close();
+		} catch (IOException | ClassNotFoundException e ) {
+			// TODO Auto-generated catch block
+			
+			
+			//e.printStackTrace();
+		}
+		
+		return series;
+		
+	}
+	
+	public void saveSeries(){
+		
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(Constantes.PATH_SERIES));
+			
+			for(Serie serie: listaSeries){
+				oos.writeObject(serie);
+			}
+			oos.close();
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Serie buscarSerieByNombre(String nombre){
+		for (Serie s : listaSeries){
+			if (s.getNombre().equals(nombre)) return s;
+		}
+		return null;
+	}
+	
+	public ArrayList<Serie> buscarSeriesByCategoria(String cat){
+		ArrayList<Serie> resultados = new ArrayList<Serie>();
+		for (Serie x : listaSeries){
+			if (x.getCategoria().equals(cat)) resultados.add(x);
+		}
+		return resultados;
+	}
+	
+	
+	/**************************************************************************************************************/
+	
+	
+	
+	/**************************** MUSICA *******************************/
+	public ArrayList<Musica> loadMusica(){
+		
+		Object aux;
+		ObjectInputStream ois;
+		ArrayList<Musica> musicas= new ArrayList<Musica>();
+		
+		
+		try {
+			ois = new ObjectInputStream(new FileInputStream(Constantes.PATH_MUSICA));
+			//	System.out.print(ois.available());
+			aux= ois.readObject();
+			
+			while (aux != null)
+			{
+				if (aux instanceof Musica){
+					musicas.add((Musica)aux);
+					
+				}
+				aux = ois.readObject();
+			}
+			ois.close();
+		} catch (IOException | ClassNotFoundException e ) {
+			// TODO Auto-generated catch block
+			
+			
+			//e.printStackTrace();
+		}
+		
+		return musicas;
+		
+	}
+	
+	public void saveMusica(){
+		
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(Constantes.PATH_MUSICA));
+			
+			for(Musica musica: listaMusica){
+				oos.writeObject(musica);
+			}
+			oos.close();
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Musica buscarMusicaByNombre(String nombre){
+		for (Musica m : listaMusica){
+			if (m.getNombre().equals(nombre)) return m;
+		}
+		return null;
+	}
+	
+	public ArrayList<Musica> buscarMusicaByCategoria(String cat){
+		ArrayList<Musica> resultados = new ArrayList<Musica>();
+		for (Musica x : listaMusica){
+			if (x.getCategoria().equals(cat)) resultados.add(x);
+		}
+		return resultados;
+	}
+	/**************************************************************************************************************/
 	
 	
 	

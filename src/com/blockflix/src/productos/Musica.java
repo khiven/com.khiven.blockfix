@@ -63,4 +63,11 @@ public class Musica extends Producto {
 	public String getInterprete(){
 		return this.interprete;
 	}
+	
+	public String toString(){
+		return super.toString()
+				+"\nInterprete: "+this.getInterprete()
+				+"\nAño: "+this.getAgno();
+				
+	}
 }

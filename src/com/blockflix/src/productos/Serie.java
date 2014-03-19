@@ -54,4 +54,11 @@ public class Serie extends Producto {
 	public int getVolumen(){
 		return this.volumen;
 	}
+	
+	public String toString(){
+		return super.toString()
+				+"\nTemporada: "+this.getTemporada()
+				+"\nVolumen: "+this.getVolumen();
+				
+	}
 }

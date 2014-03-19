@@ -59,4 +59,11 @@ public class Pelicula extends Producto{
 	public String getDirector(){
 		return this.director;
 	}
+	
+	public String toString(){
+		return super.toString()
+				+"\nDirector: "+this.getDirector()
+				+"\nAño: "+this.getAgno();
+				
+	}
 }
