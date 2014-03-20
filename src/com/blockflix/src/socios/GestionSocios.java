@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
+import com.blockflix.src.constantes.Constantes.EstadoSocio;
 
 public class GestionSocios {
 
@@ -139,6 +140,29 @@ public class GestionSocios {
 				this.saveSocios();
 				return;
 			}
+	}
+	
+	public boolean isSocioSancionado(int nSocio){
+		Socio s = buscarSocio(nSocio);
+		return s.getEstado()==EstadoSocio.SANCIONADO;
+	}
+	
+	public void sancionarSocio(int nSocio,double cuantia){
+		for (Socio s:listaSocios){
+			if (s.getnSocio() == nSocio){
+				s.incrSancion(cuantia);
+				s.setEstado(EstadoSocio.SANCIONADO);
+			}
+		}
+	}
+	
+	public void eliminarSancion(int nSocio){
+		for (Socio s:listaSocios){
+			if (s.getnSocio() == nSocio){
+				s.setSancion(0);
+				s.setEstado(EstadoSocio.SIN_SANCION);
+			}
+		}
 	}
 
 

@@ -79,6 +79,14 @@ public class GestionAlquileres {
 		}
 	}
 	
+	public boolean tieneAlquileres(int nSocio){
+		for (Alquiler a : listaAlquileres){
+			if (a.getnSocio()==nSocio)
+				return true;
+		}
+		return false;
+	}
+	
 	public void resetAlquileres(){
 		this.listaAlquileres.clear();
 	}
@@ -88,5 +96,14 @@ public class GestionAlquileres {
 			System.out.println();
 			System.out.println(a.toString());
 		}
+	}
+	
+	public Alquiler getAlquiler(int nSocio){
+		for (Alquiler a : listaAlquileres){
+			if (a.getnSocio()==nSocio){
+				return a;
+			}
+		}
+		return null;
 	}
 }

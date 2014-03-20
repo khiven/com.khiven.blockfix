@@ -20,6 +20,7 @@ public class Socio implements Serializable {
 	private String telefono;
 	private String dni;
 	private EstadoSocio estado;
+	private double cuantiaSancion;
 
 	/**
 	 * Constructor de un Socio
@@ -46,6 +47,7 @@ public class Socio implements Serializable {
 		this.setDni(dni);
 		this.setnSocio(nSocio);
 		this.setEstado(EstadoSocio.SIN_SANCION);
+		this.cuantiaSancion=0;
 	}
 
 	/**
@@ -182,6 +184,18 @@ public class Socio implements Serializable {
 	 */
 	public void setEstado(EstadoSocio estado) {
 		this.estado = estado;
+	}
+	
+	public double getSancion(){
+		return this.cuantiaSancion;
+	}
+	
+	public void setSancion(double sancion){
+		this.cuantiaSancion=sancion;
+	}
+	
+	public void incrSancion(double sancion){
+		this.cuantiaSancion+=sancion;
 	}
 	
 	public String toString(){

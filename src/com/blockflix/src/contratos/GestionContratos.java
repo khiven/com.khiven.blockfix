@@ -13,7 +13,7 @@ import com.blockflix.src.constantes.Constantes.TipoTarifa;
 public class GestionContratos {
 
 	
-	private ArrayList<Contrato> listaContratos;
+	public ArrayList<Contrato> listaContratos;
 	
 	public GestionContratos(){
 		this.listaContratos=loadContratos();
@@ -91,6 +91,15 @@ public class GestionContratos {
 			if (nSocio==contrato.getnSocio()) return contrato;
 		}
 		return null;
+	}
+	
+	public void eliminarContrato(int nSocio){
+		for (Contrato contrato: listaContratos){
+			if (nSocio==contrato.getnSocio()){
+				listaContratos.remove(contrato);
+				return;
+				}
+		}
 	}
 	
 	

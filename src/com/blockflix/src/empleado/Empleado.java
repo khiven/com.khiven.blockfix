@@ -6,10 +6,10 @@ import java.util.Calendar;
 import org.visa.tpv.PasarelaDePago;
 import org.visa.tpv.excepciones.ExcepcionVISA;
 
+import com.blockflix.src.alquiler.Alquiler;
 import com.blockflix.src.alquiler.GestionAlquileres;
 import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
-import com.blockflix.src.constantes.Constantes.EstadoSocio;
 import com.blockflix.src.constantes.Constantes.TipoProducto;
 import com.blockflix.src.constantes.Constantes.TipoTarifa;
 import com.blockflix.src.contratos.Contrato;
@@ -86,16 +86,21 @@ public class Empleado {
 		}
 		return null;
 	}
+	
+	public ArrayList<Producto> getProductosAlquiler (ArrayList<Integer> listaEjemplares){
+		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
+		for (Integer i :listaEjemplares){
+			listaProductos.add(getProductoEjemplar(i));
+		}
+		return listaProductos;
+	}
 
 	public void marcarEjemplar(int idEjemplar,EstadoEjemplar estado){
 		ge.getEjemplar(idEjemplar).setEstado(estado);
 	}
 
 
-	boolean socioSancionado(int nSocio){
-		Socio s = gs.buscarSocio(nSocio);
-		return s.getEstado()==EstadoSocio.SANCIONADO;
-	}
+
 	/*************************** ALQUILERES ******************************/
 
 	public void alquilar(int nSocio, ArrayList<Producto> listaProductos){
@@ -108,7 +113,7 @@ public class Empleado {
 
 
 		//Comprobamos que el socio no tenga sancion
-		if (socioSancionado(nSocio)){
+		if (gs.isSocioSancionado(nSocio)){
 			System.out.println("\nNo se puede realizar el alquiler, socio sancionado... ");
 			return;
 		}
@@ -137,29 +142,67 @@ public class Empleado {
 		}
 		
 		//Si se ha llegado aqui se cumplen todas las condiciones para el alquiler y se procede a realizarse
-		ga.addAlquiler(nSocio, retirarEjemplaresAlquiler(listaProductos));
+		ga.addAlquiler(nSocio, ge.retirarEjemplaresAlquiler(listaProductos));
 		System.out.println("\nAlquiler realizado satisfactoriamente");
 		
-		
-		
 	}
 	
-	//Retira ejemplares para todos los productos del alquiler
-	public ArrayList<Integer> retirarEjemplaresAlquiler(ArrayList<Producto> listaProductos){
-		ArrayList<Integer> listaEjemplares = new ArrayList<Integer>();
-		for (Producto p : listaProductos){
-			listaEjemplares.add(retirarEjemplarProducto(p));
+	
+	public void devolverAlquiler(int nSocio){
+		Alquiler a;
+		Contrato c;
+		Socio s;
+		int diasPermitidos=Constantes.DURACION_ALQUILER;
+		double cuantiaSancion = 0;
+		
+		//Comprobamos que existe el socio
+		if (gs.buscarSocio(nSocio)==null){
+			System.out.println("\nEl nº de socio indicado no pertenece al sistema...");
+			return;
 		}
-		return listaEjemplares;
+		
+		//Comprobamos que el socio tiene un alquiler
+		if (!ga.tieneAlquileres(nSocio)){
+			System.out.println("\n El socio indicado no tiene alquileres");
+			return;
+		}
+		a=ga.getAlquiler(nSocio);
+		// Comprobamos si uso la tarifa
+		if ( (c=gc.getContratoSocio(nSocio))!= null && checkTarifa(c.getTarifa(), getProductosAlquiler(a.getEjemplares()))){
+			//Uso la tarifa, ahora vemos si tiene dias extra
+			if (c.getExtTiempo()){
+				//Tiene extension de tiempo la sumamos a los dias permitidos
+				diasPermitidos+=gt.getTarifaByTipo(c.getTarifa()).getTiempoExtension();
+			}
+		}
+		// Ahora tenemos los dias permitidos para el alquiler en funcion de si uso tarifa o no y si tenia contratada la extension 
+		// Comprobamos si se le sanciona y la cuantia
+		if ((cuantiaSancion=calcularSancion(a.getFechaInicio(),diasPermitidos))!=0){
+			//Se le sanciona
+			gs.sancionarSocio(nSocio, cuantiaSancion);
+		}
+		
+		//Ahora se devuelven los ejemplares
+		ge.devolverEjemplares(a.getEjemplares());
+		//Y se elimina el alquiler
+		ga.removeAlquiler(nSocio);
+		
 	}
 	
-	
-	public int retirarEjemplarProducto(Producto p){
-		//Cogemos el primer ejemplar de los disponibles
-		int idEjemplar =ge.buscarEjemplaresDisponiblesProducto(p.getId()).get(0).getId();
-		ge.alquilarEjemplar(idEjemplar);
-		return idEjemplar;
+	public void pagarSancionSocio(int nSocio){
+		pagar("123456789012","1234",gs.buscarSocio(nSocio).getSancion());
+		gs.eliminarSancion(nSocio);
 	}
+	
+	public double calcularSancion(Calendar fechaInicio,int diasPermitidos){
+		Calendar fechaHoy = Calendar.getInstance();
+		int diasTranscurridos = daysBetween(fechaInicio, fechaHoy);
+		if (diasTranscurridos > diasPermitidos)
+			return Constantes.SANCION_POR_DIA*(diasTranscurridos-diasPermitidos);
+		else return 0;
+		
+	}
+	
 	
 	/**
 	 * Comprueba si los productos a alquilar coinciden con la tarifa del socio y que esta no esté caducada, en caso contrario
@@ -244,7 +287,55 @@ public class Empleado {
 		}
 		return cuantia;
 	}
+	
+	
+	/**************** CONTRATOS *****************/
+	
+	public void contratarTarifaSocio(int nSocio,TipoTarifa tarifa,boolean extension){
+	
+		double precioTarifa=0;
+		//Se comprueba que el socio no tenga alquileres pendientes ni este sancionado
+		if (ga.tieneAlquileres(nSocio) || gs.isSocioSancionado(nSocio)){
+			System.out.println("\n Socio con alquileres y/o sanciones pendientes");
+			return;			
+		}
+		//Se calcula el precio de la tarifa y se paga
+		precioTarifa=gt.getTarifaByTipo(tarifa).getPrecio();
+		if (extension) precioTarifa+=gt.getTarifaByTipo(tarifa).getPrecioExtension();
+		//Se paga
+		pagar("123456789012","1234",precioTarifa);
+		//Se eliminan contratos actuales si hubiera
+		if (gc.getContratoSocio(nSocio) !=null){
+			gc.eliminarContrato(nSocio);
+		}
+		
+		//Finalmente se añade el nuevo contrato
+		
+		gc.contratarTarifa(nSocio, tarifa, extension);
+		
+		
+	}
+	
+	public void eliminarContratosObsoletos(){
+		for (Contrato c : gc.listaContratos){
+			if (isTarifaCaducada(c))
+				gc.listaContratos.remove(c);
+		}
+	}
 
+	
+	/*************** FECHAS *******************/
+	
+	public static int daysBetween(Calendar startDate, Calendar endDate) {  
+		  Calendar date = (Calendar) startDate.clone();  
+		  int daysBetween = 0;  
+		  while (date.before(endDate)) {  
+		    date.add(Calendar.DAY_OF_MONTH, 1);  
+		    daysBetween++;  
+		  }  
+		  return daysBetween;  
+		}  
+		
 
 	/*** FICHEROS ***/
 	public void load(){

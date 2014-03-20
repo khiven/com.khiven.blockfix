@@ -24,6 +24,9 @@ public class Constantes {
 	public static double PRECIO_ALQUILER_SERIE = 2;
 	public static double PRECIO_ALQUILER_MUSICA = 1;
 	
+	public static int DURACION_ALQUILER =3;
+	
+	public static double SANCION_POR_DIA = 2;
 	
 	//ENUMS
 
