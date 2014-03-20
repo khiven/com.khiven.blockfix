@@ -118,6 +118,11 @@ public class Empleado {
 			System.out.println("\nNo se puede realizar el alquiler, socio sancionado... ");
 			return;
 		}
+		//Comprobamos que el socio no tiene alquileres
+		if (ga.tieneAlquileres(nSocio)){
+			System.out.println("\n El socio tiene alquileres pendientes de devolver...");
+			return;
+		}
 
 		//Comprobamos que el numero de productos no sea mayor al estipulado
 		if (listaProductos.size()>Constantes.variables.MAX_ALQUILERES){
@@ -289,12 +294,12 @@ public class Empleado {
 		fechaFinContrato.add(Calendar.DAY_OF_MONTH, t.getTiempo());
 		//Si la fecha actual es posterior a la fecha de fin de contrato, el contrato está caducado
 		if (fechaActual.after(fechaFinContrato)){
-			System.out.println("\n DEBUG: Tarifa caducada...");
+			//Tarifa caducada
 			return true;
 		}
 
-		//fechaActual.
-		System.out.println("\n DEBUG: Tarifa no caducada...");
+		//Tarifa no caducada.
+
 		return false;
 	}
 
@@ -338,7 +343,10 @@ public class Empleado {
 		precioTarifa=gt.getTarifaByTipo(tarifa).getPrecio();
 		if (extension) precioTarifa+=gt.getTarifaByTipo(tarifa).getPrecioExtension();
 		//Se paga
-		pagar("123456789012","1234",precioTarifa);
+		if (!pagar("123456789012","1234",precioTarifa)){
+			System.out.println("\n Error con el pago, no se contratara la tarifa");
+			return;
+		}
 		//Se eliminan contratos actuales si hubiera
 		if (gc.getContratoSocio(nSocio) !=null){
 			gc.eliminarContrato(nSocio);
@@ -381,13 +389,13 @@ public class Empleado {
 
 	/*** FICHEROS ***/
 	public void load(){
-		gs.loadSocios();
-		gt.loadTarifas();
-		gc.loadContratos();
+		gs.reloadSocios();
+		gt.reloadTarifas();
+		gc.reloadContratos();
 		gp.loadProductos();
 		gp.loadCategorias();
 		ge.reloadEjemplares();
-		ga.loadAlquileres();
+		ga.reloadAlquileres();
 	}
 
 	public void save(){

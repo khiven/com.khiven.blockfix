@@ -59,7 +59,9 @@ public class GestionTarifas {
 
 	}
 	
-	
+	public void reloadTarifas(){
+		this.listaTarifas=loadTarifas();
+	}
 	public void saveTarifas(){
 
 		ObjectOutputStream oos;
