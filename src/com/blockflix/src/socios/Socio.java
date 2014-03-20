@@ -204,7 +204,8 @@ public class Socio implements Serializable {
 		+"\nApellidos: "+this.getApellidos()
 		+"\nDireccion: "+this.getDireccion()
 		+"\nTelefono: "+this.getTelefono()
-		+"\nDNI: "+this.getDni();
+		+"\nDNI: "+this.getDni()
+		+"\nSancionado: "+this.getSancion()+"euros";
 	}
 	@Override
 	public boolean equals(Object socio){
