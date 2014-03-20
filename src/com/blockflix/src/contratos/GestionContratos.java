@@ -75,6 +75,9 @@ public class GestionContratos {
 		saveContratos();
 	}
 	
+	public void reloadContratos(){
+		this.listaContratos=loadContratos();
+	}
 	
 
 	public void printListaContratos(){

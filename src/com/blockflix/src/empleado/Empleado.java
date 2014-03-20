@@ -46,15 +46,16 @@ public class Empleado {
 	}
 	/*** PAGOS ***/
 
-	public void pagar(String nTarjeta,String password,double cuantia){
+	public boolean pagar(String nTarjeta,String password,double cuantia){
 		PasarelaDePago p = PasarelaDePago.getPasarela();
 		try {
 			p.pagar(nTarjeta, password, cuantia);
 		} catch (ExcepcionVISA e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-
+		return true;
 
 	}
 
@@ -85,7 +86,7 @@ public class Empleado {
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Producto> getProductosAlquiler (ArrayList<Integer> listaEjemplares){
 		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
 		for (Integer i :listaEjemplares){
@@ -104,6 +105,7 @@ public class Empleado {
 
 	public void alquilar(int nSocio, ArrayList<Producto> listaProductos){
 		Contrato c;
+		boolean pagoCorrecto=true;
 		//Comprobamos que existe el socio
 		if (gs.buscarSocio(nSocio)==null){
 			System.out.println("\nEl nº de socio indicado no pertenece al sistema...");
@@ -114,6 +116,11 @@ public class Empleado {
 		//Comprobamos que el socio no tenga sancion
 		if (gs.isSocioSancionado(nSocio)){
 			System.out.println("\nNo se puede realizar el alquiler, socio sancionado... ");
+			return;
+		}
+		//Comprobamos que el socio no tiene alquileres
+		if (ga.tieneAlquileres(nSocio)){
+			System.out.println("\n El socio tiene alquileres pendientes de devolver...");
 			return;
 		}
 
@@ -135,34 +142,36 @@ public class Empleado {
 
 		//Si el socio no tiene contrato o el contrato no cubre el alquiler necesita pagar
 		if ( (c=gc.getContratoSocio(nSocio)) == null || necesitaPagarAlquiler(c,listaProductos)){
-			
+
 			//Se paga, se supone que el pago se va a realizar correctamente
-			System.out.println("\n Realizando pago con tarjeta, son "+calcularCuantiaAlquiler(listaProductos)+"euros...");
-			pagar("123456789012", "1234", calcularCuantiaAlquiler(listaProductos));			
+			System.out.println("\nSu tarifa no cubre los productos seleccionados. Realizando pago con tarjeta, son "+calcularCuantiaAlquiler(listaProductos)+"euros...");
+			pagoCorrecto=pagar("123456789012", "1234", calcularCuantiaAlquiler(listaProductos));			
 		}
 		else System.out.println("\n Su tarifa contratada cubre los productos, no necesita pagar...");
-		
-		//Si se ha llegado aqui se cumplen todas las condiciones para el alquiler y se procede a realizarse
-		ga.addAlquiler(nSocio, ge.retirarEjemplaresAlquiler(listaProductos));
-		gp.incrementarAlquilerProductos(listaProductos);
-		System.out.println("\nAlquiler realizado satisfactoriamente");
-		
+		if (pagoCorrecto){
+			//Si se ha llegado aqui se cumplen todas las condiciones para el alquiler y se procede a realizarse
+			ga.addAlquiler(nSocio, ge.retirarEjemplaresAlquiler(listaProductos));
+			gp.incrementarAlquilerProductos(listaProductos);
+			System.out.println("\nAlquiler realizado satisfactoriamente");
+		}
+		else System.out.println("\n Error con el pago, cancelando alquiler...");
+
 	}
-	
-	
+
+
 	public void devolverAlquiler(int nSocio){
 		Alquiler a;
 		Contrato c;
-		
+
 		int diasPermitidos=Constantes.variables.DURACION_ALQUILER;
 		double cuantiaSancion = 0;
-		
+
 		//Comprobamos que existe el socio
 		if (gs.buscarSocio(nSocio)==null){
 			System.out.println("\nEl nº de socio indicado no pertenece al sistema...");
 			return;
 		}
-		
+
 		//Comprobamos que el socio tiene un alquiler
 		if (!ga.tieneAlquileres(nSocio)){
 			System.out.println("\n El socio indicado no tiene alquileres");
@@ -184,30 +193,30 @@ public class Empleado {
 			gs.sancionarSocio(nSocio, cuantiaSancion);
 			System.out.println("\n Retraso en la devolucion, socio sancionado");
 		}
-		
+
 		//Ahora se devuelven los ejemplares
 		ge.devolverEjemplares(a.getEjemplares());
 		//Y se elimina el alquiler
 		ga.removeAlquiler(nSocio);
 		System.out.println("\n Alquiler devuelto satisfactoriamente");
-		
+
 	}
-	
+
 	public void pagarSancionSocio(int nSocio){
-		pagar("123456789012","1234",gs.buscarSocio(nSocio).getSancion());
-		gs.eliminarSancion(nSocio);
+		if(pagar("123456789012","1234",gs.buscarSocio(nSocio).getSancion()))
+			gs.eliminarSancion(nSocio);
 	}
-	
+
 	public double calcularSancion(Calendar fechaInicio,int diasPermitidos){
 		Calendar fechaHoy = Calendar.getInstance();
 		int diasTranscurridos = daysBetween(fechaInicio, fechaHoy);
 		if (diasTranscurridos > diasPermitidos)
 			return Constantes.variables.SANCION_POR_DIA*(diasTranscurridos-diasPermitidos);
 		else return 0;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Comprueba si los productos a alquilar coinciden con la tarifa del socio y que esta no esté caducada, en caso contrario
 	 * necesitara pagar
@@ -223,7 +232,7 @@ public class Empleado {
 
 	public boolean checkTarifa(TipoTarifa tarifaSocio,ArrayList<Producto> listaProductos){
 		//Si tiene tarifa premium esta OK
-		
+
 		boolean ok = true;
 		if (tarifaSocio == TipoTarifa.PREMIUM){
 			return ok;
@@ -244,53 +253,53 @@ public class Empleado {
 						ok= false;
 					break;
 				case SERIES:
-					
+
 					if (p.getTipo()!= TipoProducto.SERIE)
 						ok= false;
 					break;
 				case PELICULAS_SERIES :
-					
+
 					if (p.getTipo()!=TipoProducto.PELICULA && p.getTipo()!=TipoProducto.SERIE)
 						ok= false;
 					break;
 				case PELICULAS_MUSICA :
-			
+
 					if (p.getTipo()!=TipoProducto.PELICULA && p.getTipo()!=TipoProducto.MUSICA)
 						ok= false;
 					break;
 				case SERIES_MUSICA :
-				
+
 					if (p.getTipo()!=TipoProducto.SERIE && p.getTipo()!=TipoProducto.MUSICA)
 						ok= false;
 					break;
 				case PREMIUM :
-			
+
 					break;
 				}
 			}
 			//Si sale del for y no ha habido ninguna incompatibilidad, todo OK
-			
+
 			return ok;
 		}
 
 	}
-	
+
 	public boolean isTarifaCaducada(Contrato c){
 		Tarifa t = gt.getTarifaByTipo(c.getTarifa());
 		Calendar fechaActual = Calendar.getInstance();
 		Calendar fechaFinContrato = (Calendar)c.getFechaInicio().clone();
-		
-		
+
+
 		//A la fecha de inicio del contrato le sumamos la duracion de la tarifa = fecha fin contrato
 		fechaFinContrato.add(Calendar.DAY_OF_MONTH, t.getTiempo());
 		//Si la fecha actual es posterior a la fecha de fin de contrato, el contrato está caducado
 		if (fechaActual.after(fechaFinContrato)){
-			System.out.println("\n DEBUG: Tarifa caducada...");
+			//Tarifa caducada
 			return true;
 		}
-			
-		//fechaActual.
-		System.out.println("\n DEBUG: Tarifa no caducada...");
+
+		//Tarifa no caducada.
+
 		return false;
 	}
 
@@ -311,20 +320,20 @@ public class Empleado {
 		}
 		return cuantia;
 	}
-	
-	
+
+
 	/**************** CONTRATOS *****************/
-	
+
 	public void contratarTarifaSocio(int nSocio,TipoTarifa tarifa,boolean extension){
-	
+
 		double precioTarifa=0;
-		
+
 		//Se comprueba que exista el socio
 		if (gs.buscarSocio(nSocio)==null){
 			System.out.println("\n No existe socio con dicho nº de socio...");
 			return;
 		}
-		
+
 		//Se comprueba que el socio no tenga alquileres pendientes ni este sancionado
 		if (ga.tieneAlquileres(nSocio) || gs.isSocioSancionado(nSocio)){
 			System.out.println("\n Socio con alquileres y/o sanciones pendientes");
@@ -334,19 +343,22 @@ public class Empleado {
 		precioTarifa=gt.getTarifaByTipo(tarifa).getPrecio();
 		if (extension) precioTarifa+=gt.getTarifaByTipo(tarifa).getPrecioExtension();
 		//Se paga
-		pagar("123456789012","1234",precioTarifa);
+		if (!pagar("123456789012","1234",precioTarifa)){
+			System.out.println("\n Error con el pago, no se contratara la tarifa");
+			return;
+		}
 		//Se eliminan contratos actuales si hubiera
 		if (gc.getContratoSocio(nSocio) !=null){
 			gc.eliminarContrato(nSocio);
 		}
-		
+
 		//Finalmente se añade el nuevo contrato
-		
+
 		gc.contratarTarifa(nSocio, tarifa, extension);
-		
-		
+
+
 	}
-	
+
 	public void eliminarContratosObsoletos(){
 		for (Contrato c : gc.listaContratos){
 			if (isTarifaCaducada(c))
@@ -354,36 +366,36 @@ public class Empleado {
 		}
 	}
 
-	
+
 	/*************** FECHAS *******************/
-	
+
 	public static int daysBetween(Calendar startDate, Calendar endDate) {  
-		  Calendar date = (Calendar) startDate.clone();  
-		  int daysBetween = 0;  
-		  while (date.before(endDate)) {  
-		    date.add(Calendar.DAY_OF_MONTH, 1);  
-		    daysBetween++;  
-		  }  
-		  return daysBetween;  
+		Calendar date = (Calendar) startDate.clone();  
+		int daysBetween = 0;  
+		while (date.before(endDate)) {  
+			date.add(Calendar.DAY_OF_MONTH, 1);  
+			daysBetween++;  
 		}  
-		
-	
-	
-	
+		return daysBetween;  
+	}  
+
+
+
+
 	public void salir(){
 		save();
-		
+
 	}
 
 	/*** FICHEROS ***/
 	public void load(){
-		gs.loadSocios();
-		gt.loadTarifas();
-		gc.loadContratos();
+		gs.reloadSocios();
+		gt.reloadTarifas();
+		gc.reloadContratos();
 		gp.loadProductos();
 		gp.loadCategorias();
 		ge.reloadEjemplares();
-		ga.loadAlquileres();
+		ga.reloadAlquileres();
 	}
 
 	public void save(){

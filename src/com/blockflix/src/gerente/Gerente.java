@@ -261,11 +261,11 @@ public class Gerente {
 	public void load(){
 		
 		gs.reloadSocios();
-		gt.loadTarifas();
+		gt.reloadTarifas();
 		gp.loadProductos();
 		gp.loadCategorias();
 		ge.reloadEjemplares();
-		ga.loadAlquileres();
+		ga.reloadAlquileres();
 		
 	}
 	

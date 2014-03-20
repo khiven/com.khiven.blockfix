@@ -65,6 +65,9 @@ public class GestionAlquileres {
 		}
 	}
 	
+	public void reloadAlquileres(){
+		this.listaAlquileres=loadAlquileres();
+	}
 	public void addAlquiler(int nSocio, ArrayList<Integer> ejemplares){
 		this.listaAlquileres.add(new Alquiler(nSocio,ejemplares));
 		this.saveAlquileres();

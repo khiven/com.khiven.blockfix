@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.constantes.Constantes.Soporte;
-import com.blockflix.src.constantes.Constantes.TipoTarifa;
 import com.blockflix.src.empleado.Empleado;
 import com.blockflix.src.gerente.Gerente;
 import com.blockflix.src.productos.Producto;
@@ -29,6 +28,10 @@ public class Main {
 		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
 		
 		listaProductos.add(emp.gp.buscarProductoById(1));
+		listaProductos.add(emp.gp.buscarProductoById(2));
+		listaProductos.add(emp.gp.buscarProductoById(3));
+
+		
 //		for (Producto p: listaProductos){
 //			//System.out.println("\nProducto a alquilar: "+p.toString());
 //			System.out.println(p.getTipo().toString());
@@ -39,12 +42,14 @@ public class Main {
 //		generarEjemplares();
 		
 	ger.printTop10Peliculas();	
+//	ger.printTop10Musica();
+//		ger.printTop10Series();
 		
 		
-//		emp.contratarTarifaSocio(1, TipoTarifa.PELICULAS, false);
+//		emp.contratarTarifaSocio(1, TipoTarifa.PREMIUM, false);
 //		emp.gc.printListaContratos();
 		
-//		emp.alquilar(1, listaProductos);
+//	emp.alquilar(1, listaProductos);
 //		emp.ga.printAlquileres();
 //		emp.ge.printEjemplares();
 //		emp.devolverAlquiler(1);
