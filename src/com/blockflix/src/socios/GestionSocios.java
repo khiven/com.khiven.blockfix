@@ -92,6 +92,7 @@ public class GestionSocios {
 		Socio socio = new Socio(nombre,apellidos,direccion,telefono,dni,lastNsocio+1);
 		this.lastNsocio++;
 		this.listaSocios.add(socio);
+		this.saveSocios();
 	}
 
 	public void printListaSocios(){
