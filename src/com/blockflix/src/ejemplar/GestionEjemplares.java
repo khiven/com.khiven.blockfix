@@ -127,5 +127,13 @@ public class GestionEjemplares {
 		return null;
 	}
 	
+	public void alquilarEjemplar(int idEjemplar){
+		for (Ejemplar e : listaEjemplares){
+			if (e.getId()==idEjemplar){
+				e.setEstado(EstadoEjemplar.ALQUILADO);
+			}
+		}
+	}
+	
 	
 }

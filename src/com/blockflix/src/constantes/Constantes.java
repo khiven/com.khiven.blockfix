@@ -4,6 +4,7 @@ import com.blockflix.src.tarifas.Tarifa;
 
 public class Constantes {
 
+	// FICHEROS INTERNOS
 	public static final String PATH_SOCIOS= "Ficheros_de_datos/Socios.dat";
 	public static final String PATH_PELICULAS= "Ficheros_de_datos/Peliculas.dat";
 	public static final String PATH_SERIES= "Ficheros_de_datos/Series.dat";
@@ -12,13 +13,19 @@ public class Constantes {
 	public static final String PATH_EJEMPLARES ="Ficheros_de_datos/Ejemplares.dat";
 	public static final String PATH_CONTRATOS ="Ficheros_de_datos/Contratos.dat";
 	public static final String PATH_TARIFAS ="Ficheros_de_datos/Tarifas.dat";
-
+	//FICHEROS EXTERNOS
 	public static final String PATH_CATEGORIAS_PELICULAS="Ficheros_de_datos/CategoriasCine.txt";
 	public static final String PATH_CATEGORIAS_SERIES="Ficheros_de_datos/CategoriasSeries.txt";
 	public static final String PATH_CATEGORIAS_MUSICA="Ficheros_de_datos/CategoriasMusica.txt";
 
-
-
+	//VARIABLES DEL SISTEMA
+	public static int MAX_ALQUILERES = 3;
+	public static double PRECIO_ALQUILER_PELICULA = 3;
+	public static double PRECIO_ALQUILER_SERIE = 2;
+	public static double PRECIO_ALQUILER_MUSICA = 1;
+	
+	
+	//ENUMS
 
 	public static enum EstadoEjemplar { 
 		ALQUILADO{
@@ -104,7 +111,8 @@ public class Constantes {
 			}
 		}
 	};
-
+	
+	//AUTOCREACION DE TARIFAS
 	public static Tarifa crearTarifaPeliculas(){
 		return new Tarifa(TipoTarifa.PELICULAS,10,3,1,4);
 	}
