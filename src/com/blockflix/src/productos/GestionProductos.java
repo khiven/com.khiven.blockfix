@@ -237,7 +237,23 @@ public class GestionProductos {
 		}
 	}
 	
-	
+	public ArrayList<Pelicula> getTop10Peliculas(){
+		ArrayList<Pelicula> top10 = new ArrayList<Pelicula>();
+		
+		for (Pelicula m:listaPeliculas){
+			if (top10.size()<10)
+				top10.add(m);
+			else {
+				for (Pelicula mTop10 : top10){
+					if (m.getVecesAlquilado()> mTop10.getVecesAlquilado()){
+						top10.remove(mTop10);
+						top10.add(m);
+					}
+				}
+			}
+		}
+		return top10;
+	}
 	
 	
 	public void printListaPeliculas(){
@@ -354,6 +370,24 @@ public class GestionProductos {
 				return;
 			}
 		}
+	}
+	
+	public ArrayList<Serie> getTop10Series(){
+		ArrayList<Serie> top10 = new ArrayList<Serie>();
+		
+		for (Serie m:listaSeries){
+			if (top10.size()<10)
+				top10.add(m);
+			else {
+				for (Serie mTop10 : top10){
+					if (m.getVecesAlquilado()> mTop10.getVecesAlquilado()){
+						top10.remove(mTop10);
+						top10.add(m);
+					}
+				}
+			}
+		}
+		return top10;
 	}
 	
 	public void printListaSeries(){
@@ -480,6 +514,24 @@ public class GestionProductos {
 	
 	public void resetMusica(){
 		this.listaMusica.clear();
+	}
+	
+	public ArrayList<Musica> getTop10Musica(){
+		ArrayList<Musica> top10 = new ArrayList<Musica>();
+		
+		for (Musica m:listaMusica){
+			if (top10.size()<10)
+				top10.add(m);
+			else {
+				for (Musica mTop10 : top10){
+					if (m.getVecesAlquilado()> mTop10.getVecesAlquilado()){
+						top10.remove(mTop10);
+						top10.add(m);
+					}
+				}
+			}
+		}
+		return top10;
 	}
 	
 	/**************************************************************************************************************/

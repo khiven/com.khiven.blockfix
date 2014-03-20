@@ -164,6 +164,16 @@ public class GestionSocios {
 			}
 		}
 	}
+	
+	public ArrayList<Socio> getListaMorosos(){
+		ArrayList<Socio> s = new ArrayList<Socio>();
+		
+		for (Socio socio : listaSocios){
+			if (socio.getEstado()==EstadoSocio.SANCIONADO)
+				s.add(socio);
+		}
+		return s;
+	}
 
 
 }
