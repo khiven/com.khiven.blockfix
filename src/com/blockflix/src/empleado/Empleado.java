@@ -22,7 +22,6 @@ import com.blockflix.src.productos.Pelicula;
 import com.blockflix.src.productos.Producto;
 import com.blockflix.src.productos.Serie;
 import com.blockflix.src.socios.GestionSocios;
-import com.blockflix.src.socios.Socio;
 import com.blockflix.src.tarifas.GestionTarifas;
 import com.blockflix.src.tarifas.Tarifa;
 
@@ -143,6 +142,7 @@ public class Empleado {
 		
 		//Si se ha llegado aqui se cumplen todas las condiciones para el alquiler y se procede a realizarse
 		ga.addAlquiler(nSocio, ge.retirarEjemplaresAlquiler(listaProductos));
+		gp.incrementarAlquilerProductos(listaProductos);
 		System.out.println("\nAlquiler realizado satisfactoriamente");
 		
 	}
@@ -151,7 +151,7 @@ public class Empleado {
 	public void devolverAlquiler(int nSocio){
 		Alquiler a;
 		Contrato c;
-		Socio s;
+		
 		int diasPermitidos=Constantes.DURACION_ALQUILER;
 		double cuantiaSancion = 0;
 		
