@@ -88,7 +88,8 @@ public class GestionSocios {
 	}
 
 	public void addSocio(String nombre,String apellidos,String direccion,String telefono,String dni){
-
+		if (buscarSocio(dni)!=null)
+			return;
 		Socio socio = new Socio(nombre,apellidos,direccion,telefono,dni,lastNsocio+1);
 		this.lastNsocio++;
 		this.listaSocios.add(socio);

@@ -275,6 +275,7 @@ public class Gerente {
 		gp.saveProductos();
 		ge.saveEjemplares();
 		ga.saveAlquileres();
+		
 	}
 	
 	public void reset(){
