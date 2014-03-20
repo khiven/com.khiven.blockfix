@@ -1,9 +1,16 @@
 package com.blockflix.src.constantes;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import com.blockflix.src.gerente.Gerente;
 import com.blockflix.src.tarifas.Tarifa;
 
-public class Constantes {
+public class Constantes implements Serializable {
 
 	// FICHEROS INTERNOS
 	public static final String PATH_SOCIOS= "Ficheros_de_datos/Socios.dat";
@@ -14,29 +21,14 @@ public class Constantes {
 	public static final String PATH_EJEMPLARES ="Ficheros_de_datos/Ejemplares.dat";
 	public static final String PATH_CONTRATOS ="Ficheros_de_datos/Contratos.dat";
 	public static final String PATH_TARIFAS ="Ficheros_de_datos/Tarifas.dat";
+	public static final String PATH_VARIABLES="Ficheros_de_datos/Variables.dat";
 	//FICHEROS EXTERNOS
 	public static final String PATH_CATEGORIAS_PELICULAS="Ficheros_de_datos/CategoriasCine.txt";
 	public static final String PATH_CATEGORIAS_SERIES="Ficheros_de_datos/CategoriasSeries.txt";
 	public static final String PATH_CATEGORIAS_MUSICA="Ficheros_de_datos/CategoriasMusica.txt";
 
-	//VARIABLES DEL SISTEMA
-	public static int MAX_ALQUILERES = 3;
-	public static double PRECIO_ALQUILER_PELICULA = 3;
-	public static double PRECIO_ALQUILER_SERIE = 2;
-	public static double PRECIO_ALQUILER_MUSICA = 1;
 	
-	public static int DURACION_ALQUILER =3;
-	
-	public static double SANCION_POR_DIA = 1;
-	
-	
-	//GERENTE
-	
-	public static String USR_GERENTE ="admin";
-	public static String PW_GERENTE="password_gerente";
-	
-	public static String NOMBRE_VIDEOCLUB="BlockFlix";
-	
+	public static VariablesSistema variables = loadVariables();
 	//ENUMS
 
 	public static enum EstadoEjemplar { 
@@ -57,8 +49,8 @@ public class Constantes {
 
 	public static enum EstadoSocio {SIN_SANCION, SANCIONADO};
 
-	
-	
+
+
 	public static enum TipoProducto { PELICULA{
 		public String toString(){
 			return "Pelicula";
@@ -77,7 +69,7 @@ public class Constantes {
 		public String toString(){
 			return "DVD";
 		}
-		
+
 	}, BLURAY{
 		public String toString(){
 			return "BLURAY";
@@ -123,38 +115,89 @@ public class Constantes {
 			}
 		}
 	};
-	
+
 	//AUTOCREACION DE TARIFAS
 	public static Tarifa crearTarifaPeliculas(){
 		return new Tarifa(TipoTarifa.PELICULAS,10,3,1,4);
 	}
 
-	public static Tarifa crearTarifaSeries(){
-		return new Tarifa(TipoTarifa.SERIES,8,3,1,4);
+	private static VariablesSistema loadVariables() {
+		// TODO Auto-generated method stub
+		VariablesSistema var=new VariablesSistema();
+
+		Object aux;
+		ObjectInputStream ois;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(Constantes.PATH_VARIABLES));
+			//	System.out.print(ois.available());
+			aux= ois.readObject();
+
+			if (aux instanceof VariablesSistema){
+				ois.close();
+				return (VariablesSistema)aux;
+
+			}
+			ois.close();
+		
+		
+	} catch (IOException | ClassNotFoundException e ) {
+		// TODO Auto-generated catch block
+
+
+		//e.printStackTrace();
 	}
 
-	public static Tarifa crearTarifaMusica(){
-		return new Tarifa(TipoTarifa.MUSICA,5,3,1,4);
-	}
-
-	public static Tarifa crearTarifaPeliculasSeries(){
-		return new Tarifa(TipoTarifa.PELICULAS_SERIES,12,3,1,4);
-	}
-
-	public static Tarifa crearTarifaPeliculasMusica(){
-		return new Tarifa(TipoTarifa.PELICULAS_MUSICA,11,3,1,4);
-	}
-	public static Tarifa crearTarifaSeriesMusica(){
-		return new Tarifa(TipoTarifa.SERIES_MUSICA,9,3,1,4);
-	}
-	public static Tarifa crearTarifaPremium(){
-		return new Tarifa(TipoTarifa.PREMIUM,15,3,1,4);
-	}
-	
-	public static Gerente doLogin(String usr,String pw){
-		if (Constantes.USR_GERENTE.equals(usr) && Constantes.PW_GERENTE.equals(pw))
-			return new Gerente();
-		return null;
-	}
+	return var;
 
 }
+	
+	public static void saveVariables(){
+
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(Constantes.PATH_VARIABLES));
+
+			
+				oos.writeObject(Constantes.variables);
+			
+			oos.close();
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+
+public static Tarifa crearTarifaSeries(){
+	return new Tarifa(TipoTarifa.SERIES,8,3,1,4);
+}
+
+public static Tarifa crearTarifaMusica(){
+	return new Tarifa(TipoTarifa.MUSICA,5,3,1,4);
+}
+
+public static Tarifa crearTarifaPeliculasSeries(){
+	return new Tarifa(TipoTarifa.PELICULAS_SERIES,12,3,1,4);
+}
+
+public static Tarifa crearTarifaPeliculasMusica(){
+	return new Tarifa(TipoTarifa.PELICULAS_MUSICA,11,3,1,4);
+}
+public static Tarifa crearTarifaSeriesMusica(){
+	return new Tarifa(TipoTarifa.SERIES_MUSICA,9,3,1,4);
+}
+public static Tarifa crearTarifaPremium(){
+	return new Tarifa(TipoTarifa.PREMIUM,15,3,1,4);
+}
+
+public static Gerente doLogin(String usr,String pw){
+	if (Constantes.variables.USR_GERENTE.equals(usr) && Constantes.variables.PW_GERENTE.equals(pw))
+		return new Gerente();
+	return null;
+}
+
+
+}
+
+

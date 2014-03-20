@@ -21,22 +21,27 @@ public class Main {
 	public static void main(String[] args) {
 		ger = Constantes.doLogin("admin", "password_gerente");
 		
-		generarProductos();
-		generarSocios();
+		System.out.println(Constantes.variables.MAX_ALQUILERES);
+//		Constantes.variables.setMaxAlquileres(10);
+		Constantes.saveVariables();
 		
-		ger.gs.printListaSocios();
-		ger.gp.printListaProductos();
 		
-		ger.save();
-		
-		ger.reset();
-		System.out.println("\n ELIMINADOS TODOS LOS DATOS DE MEMORIA");
-		ger.gs.printListaSocios();
-		ger.gp.printListaProductos();
-		System.out.println("\n CARGANDO TODOS LOS DATOS DE FICHEROS");
-		ger.load();
-		ger.gs.printListaSocios();
-		ger.gp.printListaProductos();
+//		generarProductos();
+//		generarSocios();
+//		
+//		ger.gs.printListaSocios();
+//		ger.gp.printListaProductos();
+//		
+//		ger.save();
+//		
+//		ger.reset();
+//		System.out.println("\n ELIMINADOS TODOS LOS DATOS DE MEMORIA");
+//		ger.gs.printListaSocios();
+//		ger.gp.printListaProductos();
+//		System.out.println("\n CARGANDO TODOS LOS DATOS DE FICHEROS");
+//		ger.load();
+//		ger.gs.printListaSocios();
+//		ger.gp.printListaProductos();
 
 	}
 
