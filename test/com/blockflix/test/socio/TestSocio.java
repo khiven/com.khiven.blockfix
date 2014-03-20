@@ -43,7 +43,7 @@ public class TestSocio {
 	 */
 	@Test
 	public void testToString() {
-		assertEquals(pepe.toString(),"** SOCIO nº40 **\nNombre: Pepe\nApellidos: Perez\nDireccion: Sevilla\nTelefono: 15\nDNI: 20C");
+		assertEquals(pepe.toString(),"** SOCIO nº40 **\nNombre: Pepe\nApellidos: Perez\nDireccion: Sevilla\nTelefono: 15\nDNI: 20C\nSancionado: 0.0euros");
 	}
 
 	/** Prueba del metodo equals
