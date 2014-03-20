@@ -120,19 +120,28 @@ public class GestionProductos {
 	
 	public void incrementarAlquilerProducto(Producto producto){
 		for (Pelicula pel : listaPeliculas){
-			if (pel.getId()==producto.getId()) pel.incrementarAlquileres();
+			if (pel.getId()==producto.getId()){
+				pel.incrementarAlquileres();
+			
 			savePeliculas();
 			return;
+			}
 		}
 		for (Serie pel : listaSeries){
-			if (pel.getId()==producto.getId()) pel.incrementarAlquileres();
+			if (pel.getId()==producto.getId()) {
+				pel.incrementarAlquileres();
+			
 			saveSeries();
 			return;
+			}
 		}
 		for (Musica pel : listaMusica){
-			if (pel.getId()==producto.getId()) pel.incrementarAlquileres();
+			if (pel.getId()==producto.getId()) {
+				pel.incrementarAlquileres();
+			
 			saveMusica();
 			return;
+			}
 		}
 	}
 	

@@ -29,6 +29,8 @@ public class Main {
 		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
 		
 		listaProductos.add(emp.gp.buscarProductoById(1));
+		listaProductos.add(emp.gp.buscarProductoById(2));
+		
 //		for (Producto p: listaProductos){
 //			//System.out.println("\nProducto a alquilar: "+p.toString());
 //			System.out.println(p.getTipo().toString());
@@ -38,13 +40,14 @@ public class Main {
 //		generarSocios();
 //		generarEjemplares();
 		
-	ger.printTop10Peliculas();	
+//	ger.printTop10Peliculas();	
+	ger.printTop10Musica();
 		
 		
 //		emp.contratarTarifaSocio(1, TipoTarifa.PELICULAS, false);
 //		emp.gc.printListaContratos();
 		
-//		emp.alquilar(1, listaProductos);
+//	emp.alquilar(1, listaProductos);
 //		emp.ga.printAlquileres();
 //		emp.ge.printEjemplares();
 //		emp.devolverAlquiler(1);
