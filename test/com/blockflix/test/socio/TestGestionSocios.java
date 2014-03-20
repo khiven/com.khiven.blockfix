@@ -75,7 +75,7 @@ public class TestGestionSocios {
 			}
 			ois.close();
 			} catch(IOException | ClassNotFoundException e ) {}
-		assertEquals(gestion.buscarSocio(dni),socios.get(1));
+		assertEquals(gestion.buscarSocio(dni),socios.get(0));
 	}
 
 	@Test

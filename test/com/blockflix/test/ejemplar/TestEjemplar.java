@@ -23,7 +23,7 @@ public class TestEjemplar {
 		int id = 1;
 		int idProducto = 1;
 		Ejemplar ejemplar = new Ejemplar(id,idProducto);
-		assertEquals(ejemplar.toString(),"\n Ejemplar de id: 1\n Del producto con id: 1");
+		assertEquals("\n Ejemplar de id: 1\n Del producto con id: 1\n Estado: Disponible",ejemplar.toString());
 	}
 
 }

@@ -26,7 +26,7 @@ public class TestAlquiler {
 		int nSocio = 1;
 		ArrayList<Integer> ejemplares = new ArrayList<Integer>();
 		Alquiler alquiler = new Alquiler(nSocio,ejemplares);
-		assertEquals("\nAlquiler del socio nº1\nDe los productos con id: \nFecha de alquiler: "+ alquiler.getFechaInicio().get(Calendar.DATE) + "/"
+		assertEquals("\nAlquiler del socio nº1\nDe los ejemplares con id: \nFecha de alquiler: "+ alquiler.getFechaInicio().get(Calendar.DATE) + "/"
 				+alquiler.getFechaInicio().get(Calendar.MONTH)+"/"
 				+alquiler.getFechaInicio().get(Calendar.YEAR),alquiler.toString());
 	}
