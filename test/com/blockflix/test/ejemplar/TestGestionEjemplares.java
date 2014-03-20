@@ -13,7 +13,10 @@ import org.junit.Test;
 
 import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
+import com.blockflix.src.constantes.Constantes.Soporte;
+import com.blockflix.src.constantes.Constantes.TipoProducto;
 import com.blockflix.src.ejemplar.*;
+import com.blockflix.src.productos.Producto;
 
 public class TestGestionEjemplares {
 
@@ -44,7 +47,6 @@ public class TestGestionEjemplares {
 			e.printStackTrace();
 		}
 		gestion.loadEjemplares();
-		assertEquals(gestion.buscarEjemplaresProducto(idProducto).get(0).getId(),id);
 		assertEquals(gestion.buscarEjemplaresProducto(idProducto).get(0).getProducto(),idProducto);
 	}
 
@@ -129,6 +131,73 @@ public class TestGestionEjemplares {
 		assertNotEquals(gestion.buscarEjemplaresDisponiblesProducto(idProducto).size(),0);
 		assertEquals(gestion.buscarEjemplaresDisponiblesProducto(idProducto).get(0).getProducto(),idProducto);
 		assertEquals(gestion.buscarEjemplaresDisponiblesProducto(idProducto).get(0).getEstado(),EstadoEjemplar.DISPONIBLE);
+	}
+	
+	@Test
+	public void testAlquilarEjemplar(){
+		GestionEjemplares gestion = new GestionEjemplares();
+		int idProducto = 1;
+		gestion.resetEjemplares();
+		gestion.addEjemplar(idProducto);
+		assertNotEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+		int idEjemplar = gestion.buscarEjemplaresProducto(idProducto).get(0).getId();
+		gestion.alquilarEjemplar(idEjemplar);
+		assertEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+		gestion.devolverEjemplar(idEjemplar);
+	}
+	
+	@Test
+	public void testDevolverEjemplar(){
+		GestionEjemplares gestion = new GestionEjemplares();
+		int idProducto = 1;
+		gestion.resetEjemplares();
+		gestion.addEjemplar(idProducto);
+		int idEjemplar = gestion.buscarEjemplaresProducto(idProducto).get(0).getId();
+		gestion.alquilarEjemplar(idEjemplar);
+		assertEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+		gestion.devolverEjemplar(idEjemplar);
+		assertNotEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+	}
+
+	@Test
+	public void testDevolverEjemplares(){
+		GestionEjemplares gestion = new GestionEjemplares();
+		int idProducto = 1;
+		gestion.resetEjemplares();
+		gestion.addEjemplar(idProducto);
+		int idEjemplar = gestion.buscarEjemplaresProducto(idProducto).get(0).getId();
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		ids.add(idEjemplar);
+		gestion.alquilarEjemplar(idEjemplar);
+		assertEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+		gestion.devolverEjemplares(ids);
+		assertNotEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+	}
+
+	@Test
+	public void testRetirarEjemplarProducto(){
+		GestionEjemplares gestion = new GestionEjemplares();
+		int idProducto = 1;
+		gestion.resetEjemplares();
+		gestion.addEjemplar(idProducto);
+		String nombre = "King Kong";
+		String categoria = "Accion";
+		TipoProducto tipo = TipoProducto.PELICULA;
+		Soporte soporte = Soporte.BLURAY;
+		Producto prueba = new Producto(nombre,categoria,tipo,soporte,idProducto);
+		assertEquals(gestion.buscarEjemplaresProducto(idProducto).get(0).getId(),gestion.retirarEjemplarProducto(prueba));
+	}
+	
+	@Test
+	public void testHayEjemplaresAlquilados(){
+		GestionEjemplares gestion = new GestionEjemplares();
+		int idProducto = 1;
+		gestion.resetEjemplares();
+		gestion.addEjemplar(idProducto);
+		int id = gestion.buscarEjemplaresProducto(idProducto).get(0).getId();
+		assertEquals(false,gestion.hayEjemplaresAlquilados(idProducto));
+		gestion.alquilarEjemplar(id);
+		assertEquals(true,gestion.hayEjemplaresAlquilados(idProducto));
 	}
 
 }

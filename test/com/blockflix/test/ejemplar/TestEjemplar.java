@@ -4,11 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
-import com.blockflix.src.constantes.Constantes.Soporte;
-import com.blockflix.src.constantes.Constantes.TipoProducto;
 import com.blockflix.src.ejemplar.Ejemplar;
-import com.blockflix.src.productos.Producto;
 
 public class TestEjemplar {
 
