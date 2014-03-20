@@ -189,7 +189,7 @@ public class Gerente {
 		ArrayList<Pelicula> top10 = gp.getTop10Peliculas();
 		 Collections.sort(top10, new Comparator<Pelicula>() {
 		        @Override public int compare(Pelicula p1, Pelicula p2) {
-		            return p1.getVecesAlquilado()- p2.getVecesAlquilado();
+		            return p2.getVecesAlquilado()- p1.getVecesAlquilado();
 		        }
 
 		    });
@@ -203,7 +203,7 @@ public class Gerente {
 		ArrayList<Serie> top10 = gp.getTop10Series();
 		Collections.sort(top10, new Comparator<Serie>() {
 			@Override public int compare(Serie p1, Serie p2) {
-				return p1.getVecesAlquilado()- p2.getVecesAlquilado();
+				return p2.getVecesAlquilado()- p1.getVecesAlquilado();
 			}
 			
 		});
@@ -217,7 +217,7 @@ public class Gerente {
 		ArrayList<Musica> top10 = gp.getTop10Musica();
 		Collections.sort(top10, new Comparator<Musica>() {
 			@Override public int compare(Musica p1, Musica p2) {
-				return p1.getVecesAlquilado()- p2.getVecesAlquilado();
+				return p2.getVecesAlquilado()- p1.getVecesAlquilado();
 			}
 			
 		});

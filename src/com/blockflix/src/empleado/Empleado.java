@@ -137,7 +137,7 @@ public class Empleado {
 		if ( (c=gc.getContratoSocio(nSocio)) == null || necesitaPagarAlquiler(c,listaProductos)){
 			
 			//Se paga, se supone que el pago se va a realizar correctamente
-			System.out.println("\n Realizando pago con tarjeta...");
+			System.out.println("\n Realizando pago con tarjeta, son "+calcularCuantiaAlquiler(listaProductos)+"euros...");
 			pagar("123456789012", "1234", calcularCuantiaAlquiler(listaProductos));			
 		}
 		else System.out.println("\n Su tarifa contratada cubre los productos, no necesita pagar...");
@@ -182,12 +182,14 @@ public class Empleado {
 		if ((cuantiaSancion=calcularSancion(a.getFechaInicio(),diasPermitidos))!=0){
 			//Se le sanciona
 			gs.sancionarSocio(nSocio, cuantiaSancion);
+			System.out.println("\n Retraso en la devolucion, socio sancionado");
 		}
 		
 		//Ahora se devuelven los ejemplares
 		ge.devolverEjemplares(a.getEjemplares());
 		//Y se elimina el alquiler
 		ga.removeAlquiler(nSocio);
+		System.out.println("\n Alquiler devuelto satisfactoriamente");
 		
 	}
 	
@@ -215,14 +217,16 @@ public class Empleado {
 	 * @return Devuelve True si necesita pagar o false si su tarifa cubre los productos a alquilar
 	 */
 	public boolean necesitaPagarAlquiler(Contrato c,ArrayList<Producto> listaProductos){
-		return !(checkTarifa(c.getTarifa(),listaProductos) && !isTarifaCaducada(c));
+		return (!checkTarifa(c.getTarifa(),listaProductos) || isTarifaCaducada(c));
 	}
 
 
 	public boolean checkTarifa(TipoTarifa tarifaSocio,ArrayList<Producto> listaProductos){
 		//Si tiene tarifa premium esta OK
+		
+		boolean ok = true;
 		if (tarifaSocio == TipoTarifa.PREMIUM){
-			return true;
+			return ok;
 		}
 		//Si no comprobamos los productos a alquilar y la tarifa contratada
 		else{
@@ -230,29 +234,43 @@ public class Empleado {
 			for (Producto p : listaProductos){
 				switch (tarifaSocio){
 				case PELICULAS:
+
 					if (p.getTipo()!=TipoProducto.PELICULA)
-						return false;		
+						ok= false;	
+					break;
 				case MUSICA :
+					System.out.println("DEBUG: WTF");
 					if (p.getTipo()!= TipoProducto.MUSICA)
-						return false;
+						ok= false;
+					break;
 				case SERIES:
+					
 					if (p.getTipo()!= TipoProducto.SERIE)
-						return false;
+						ok= false;
+					break;
 				case PELICULAS_SERIES :
+					
 					if (p.getTipo()!=TipoProducto.PELICULA && p.getTipo()!=TipoProducto.SERIE)
-						return false;
+						ok= false;
+					break;
 				case PELICULAS_MUSICA :
+			
 					if (p.getTipo()!=TipoProducto.PELICULA && p.getTipo()!=TipoProducto.MUSICA)
-						return false;
+						ok= false;
+					break;
 				case SERIES_MUSICA :
+				
 					if (p.getTipo()!=TipoProducto.SERIE && p.getTipo()!=TipoProducto.MUSICA)
-						return false;
+						ok= false;
+					break;
 				case PREMIUM :
+			
 					break;
 				}
 			}
 			//Si sale del for y no ha habido ninguna incompatibilidad, todo OK
-			return true;
+			
+			return ok;
 		}
 
 	}
@@ -266,10 +284,14 @@ public class Empleado {
 		//A la fecha de inicio del contrato le sumamos la duracion de la tarifa = fecha fin contrato
 		fechaFinContrato.add(Calendar.DAY_OF_MONTH, t.getTiempo());
 		//Si la fecha actual es posterior a la fecha de fin de contrato, el contrato está caducado
-		if (fechaActual.after(fechaFinContrato))
-			return false;
+		if (fechaActual.after(fechaFinContrato)){
+			System.out.println("\n DEBUG: Tarifa caducada...");
+			return true;
+		}
+			
 		//fechaActual.
-		return true;
+		System.out.println("\n DEBUG: Tarifa no caducada...");
+		return false;
 	}
 
 	public double calcularCuantiaAlquiler(ArrayList<Producto> listaProductos){

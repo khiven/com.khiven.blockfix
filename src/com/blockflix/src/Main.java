@@ -29,11 +29,16 @@ public class Main {
 		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
 		
 		listaProductos.add(emp.gp.buscarProductoById(1));
+//		for (Producto p: listaProductos){
+//			//System.out.println("\nProducto a alquilar: "+p.toString());
+//			System.out.println(p.getTipo().toString());
+//		}
+
 //		generarProductos();
 //		generarSocios();
 //		generarEjemplares();
 		
-		
+	ger.printTop10Peliculas();	
 		
 		
 //		emp.contratarTarifaSocio(1, TipoTarifa.PELICULAS, false);
