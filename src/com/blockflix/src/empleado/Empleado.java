@@ -118,8 +118,8 @@ public class Empleado {
 		}
 
 		//Comprobamos que el numero de productos no sea mayor al estipulado
-		if (listaProductos.size()>Constantes.MAX_ALQUILERES){
-			System.out.println("\n No pueden seleccionar mas de "+Constantes.MAX_ALQUILERES+"productos...");
+		if (listaProductos.size()>Constantes.variables.MAX_ALQUILERES){
+			System.out.println("\n No pueden seleccionar mas de "+Constantes.variables.MAX_ALQUILERES+"productos...");
 			return;
 		}
 
@@ -152,7 +152,7 @@ public class Empleado {
 		Alquiler a;
 		Contrato c;
 		
-		int diasPermitidos=Constantes.DURACION_ALQUILER;
+		int diasPermitidos=Constantes.variables.DURACION_ALQUILER;
 		double cuantiaSancion = 0;
 		
 		//Comprobamos que existe el socio
@@ -198,7 +198,7 @@ public class Empleado {
 		Calendar fechaHoy = Calendar.getInstance();
 		int diasTranscurridos = daysBetween(fechaInicio, fechaHoy);
 		if (diasTranscurridos > diasPermitidos)
-			return Constantes.SANCION_POR_DIA*(diasTranscurridos-diasPermitidos);
+			return Constantes.variables.SANCION_POR_DIA*(diasTranscurridos-diasPermitidos);
 		else return 0;
 		
 	}
@@ -275,13 +275,13 @@ public class Empleado {
 		for (Producto p : listaProductos){
 			switch (p.getTipo()){
 			case PELICULA:
-				cuantia+=Constantes.PRECIO_ALQUILER_PELICULA;
+				cuantia+=Constantes.variables.PRECIO_ALQUILER_PELICULA;
 				break;
 			case SERIE :
-				cuantia+=Constantes.PRECIO_ALQUILER_SERIE;
+				cuantia+=Constantes.variables.PRECIO_ALQUILER_SERIE;
 				break;
 			case MUSICA:
-				cuantia+=Constantes.PRECIO_ALQUILER_MUSICA;
+				cuantia+=Constantes.variables.PRECIO_ALQUILER_MUSICA;
 				break;
 			}
 		}
@@ -341,7 +341,7 @@ public class Empleado {
 	
 	public void salir(){
 		save();
-		System.exit(0);
+		
 	}
 
 	/*** FICHEROS ***/

@@ -1,6 +1,5 @@
 package com.blockflix.src.gerente;
 
-import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -234,13 +233,13 @@ public class Gerente {
 	}
 	
 	public void modificarPrecioAlquilerPelicula(double nuevoPrecio){
-		Constantes.PRECIO_ALQUILER_PELICULA=nuevoPrecio;
+		Constantes.variables.PRECIO_ALQUILER_PELICULA=nuevoPrecio;
 	}
 	public void modificarPrecioAlquilerSeries(double nuevoPrecio){
-		Constantes.PRECIO_ALQUILER_SERIE=nuevoPrecio;
+		Constantes.variables.PRECIO_ALQUILER_SERIE=nuevoPrecio;
 	}
 	public void modificarPrecioAlquilerMusica(double nuevoPrecio){
-		Constantes.PRECIO_ALQUILER_MUSICA=nuevoPrecio;
+		Constantes.variables.PRECIO_ALQUILER_MUSICA=nuevoPrecio;
 	}
 	
 	public void modificarTarifa(TipoTarifa tarifa, float precio, float precioExtension, int tiempo, int tiempoExtension){
@@ -248,20 +247,20 @@ public class Gerente {
 	}
 	
 	public void modificarTiempoAlquiler(int nuevosDiasAlquiler){
-		Constantes.DURACION_ALQUILER = nuevosDiasAlquiler;
+		Constantes.variables.DURACION_ALQUILER = nuevosDiasAlquiler;
 	}
 	
 	public void modificarNombreVideoclub(String nuevoNombre){
-		Constantes.NOMBRE_VIDEOCLUB=nuevoNombre;
+		Constantes.variables.NOMBRE_VIDEOCLUB=nuevoNombre;
 	}
 	
 	public void modificarSancionPorDia(double nuevaSancion){
-		Constantes.SANCION_POR_DIA =nuevaSancion;
+		Constantes.variables.SANCION_POR_DIA =nuevaSancion;
 	}
 	
 	public void load(){
 		
-		gs.loadSocios();
+		gs.reloadSocios();
 		gt.loadTarifas();
 		gp.loadProductos();
 		gp.loadCategorias();
@@ -288,6 +287,6 @@ public class Gerente {
 	
 	public void exit(){
 		save();
-		System.exit(0);
+		
 	}
 }
