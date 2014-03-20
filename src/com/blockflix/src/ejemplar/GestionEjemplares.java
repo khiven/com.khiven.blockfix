@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
+import com.blockflix.src.productos.Producto;
 
 public class GestionEjemplares {
 
@@ -94,14 +95,14 @@ public class GestionEjemplares {
 		}
 		this.lastIdEjemplar = aux;
 	}
-	
+
 	public void printEjemplares(){
 		for (Ejemplar e : listaEjemplares){
 			System.out.println();
 			System.out.println(e.toString());
 		}
 	}
-	 
+
 	public ArrayList<Ejemplar> buscarEjemplaresProducto(int id){
 		ArrayList<Ejemplar> resultados = new ArrayList<Ejemplar>();
 		for (Ejemplar e : listaEjemplares){
@@ -109,7 +110,7 @@ public class GestionEjemplares {
 		}
 		return resultados;
 	}
-	
+
 	public ArrayList<Ejemplar> buscarEjemplaresDisponiblesProducto(int id){
 		ArrayList<Ejemplar> resultados = buscarEjemplaresProducto(id);
 		for (Ejemplar e : resultados){
@@ -117,7 +118,7 @@ public class GestionEjemplares {
 		}
 		return resultados;
 	}
-	
+
 	public Ejemplar getEjemplar(int idEjemplar){
 		for (Ejemplar e: listaEjemplares){
 			if (e.getId()==idEjemplar){
@@ -126,7 +127,7 @@ public class GestionEjemplares {
 		}
 		return null;
 	}
-	
+
 	public void alquilarEjemplar(int idEjemplar){
 		for (Ejemplar e : listaEjemplares){
 			if (e.getId()==idEjemplar){
@@ -134,6 +135,37 @@ public class GestionEjemplares {
 			}
 		}
 	}
+
+	public void devolverEjemplar(int idEjemplar){
+		for (Ejemplar e : listaEjemplares){
+			if (e.getId()==idEjemplar){
+				e.setEstado(EstadoEjemplar.DISPONIBLE);
+			}
+		}
+	}
+
+	public void devolverEjemplares(ArrayList<Integer> listaEjemplares){
+		for (Integer i : listaEjemplares){
+			devolverEjemplar(i);
+
+		}
+	}
 	
-	
+	//Retira ejemplares para todos los productos del alquiler
+		public ArrayList<Integer> retirarEjemplaresAlquiler(ArrayList<Producto> listaProductos){
+			ArrayList<Integer> listaEjemplares = new ArrayList<Integer>();
+			for (Producto p : listaProductos){
+				listaEjemplares.add(retirarEjemplarProducto(p));
+			}
+			return listaEjemplares;
+		}
+		
+		
+		public int retirarEjemplarProducto(Producto p){
+			//Cogemos el primer ejemplar de los disponibles
+			int idEjemplar =buscarEjemplaresDisponiblesProducto(p.getId()).get(0).getId();
+			alquilarEjemplar(idEjemplar);
+			return idEjemplar;
+		}
+
 }
