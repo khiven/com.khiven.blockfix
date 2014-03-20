@@ -3,8 +3,10 @@ package com.blockflix.test.socio;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -23,32 +25,29 @@ public class TestGestionSocios {
 	@Test
 	public void testLoadSocios() {
 		GestionSocios gestion = new GestionSocios();
-		GestionSocios gestion2 = new GestionSocios();
-		ObjectInputStream ois;
-		Object aux;
 		ArrayList<Socio> socios = new ArrayList<Socio>();
 		String nombre = "Pepe";
 		String apellido = "Perez";
 		String direccion = "Sevilla";
 		String telefono = "15";
 		String dni = "20C";
-		gestion.addSocio(nombre,apellido,direccion,telefono,dni);
-		gestion.saveSocios();
-		gestion2.loadSocios();
-		try{
-			ois = new ObjectInputStream(new FileInputStream(Constantes.PATH_SOCIOS));
-			aux= ois.readObject();
-			while (aux != null)
-			{
-				if (aux instanceof Socio){
-					socios.add((Socio)aux);
-				}
-				aux = ois.readObject();
+		int nSocio = 1;
+		Socio socio = new Socio(nombre,apellido,direccion,telefono,dni,nSocio);
+		socios.add(socio);
+		ObjectOutputStream oos;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(Constantes.PATH_SOCIOS));
+
+			for(Socio socio1 : socios){
+				oos.writeObject(socio1);
 			}
-			ois.close();
-			
-			} catch(IOException | ClassNotFoundException e ) {}
-		assertEquals(gestion2.buscarSocio(dni),socios.get(1));
+			oos.close();
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		gestion.loadSocios();
+		assertEquals(gestion.buscarSocio(dni),socio);
 	}
 
 	@Test

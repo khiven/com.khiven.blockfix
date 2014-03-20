@@ -17,7 +17,8 @@ public class TestSerie {
 		int volumen = 8;
 		String categoria = "comedia";
 		Soporte soporte = Soporte.DVD;
-		Serie serie =  new Serie(nombre,temporada,volumen,categoria,soporte);
+		int id = 4;
+		Serie serie =  new Serie(nombre,temporada,volumen,categoria,soporte,id);
 		assertNotNull(serie);
 		assertEquals(serie.getNombre(),nombre);
 		assertEquals(serie.getTemporada(),temporada);
@@ -25,6 +26,18 @@ public class TestSerie {
 		assertEquals(serie.getCategoria(),categoria);
 		assertEquals(serie.getSoporte(),soporte);
 		assertEquals(serie.getTipo(),TipoProducto.SERIE);
+	}
+	
+	@Test
+	public void testToString(){
+		String nombre = "Shameless US";
+		int temporada = 4;
+		int volumen = 8;
+		String categoria = "comedia";
+		Soporte soporte = Soporte.DVD;
+		int id = 4;
+		Serie serie =  new Serie(nombre,temporada,volumen,categoria,soporte,id);
+		assertEquals(serie.toString(),"\nTipo de producto: Serie\nNombre producto: Shameless US\nID: 4\nCategoría: comedia\nSoporte: DVD\nVeces alquilado: 0\nTemporada: 4\nVolumen: 8");
 	}
 
 }
