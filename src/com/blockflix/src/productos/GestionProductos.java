@@ -112,6 +112,26 @@ public class GestionProductos {
 		return p;
 	}
 	
+	public void incrementarAlquilerProductos(ArrayList<Producto> listaProductos){
+		for (Producto p: listaProductos){
+			incrementarAlquilerProducto(p);
+		}
+	}
+	
+	public void incrementarAlquilerProducto(Producto producto){
+		for (Pelicula pel : listaPeliculas){
+			if (pel.getId()==producto.getId()) pel.incrementarAlquileres();
+			return;
+		}
+		for (Serie pel : listaSeries){
+			if (pel.getId()==producto.getId()) pel.incrementarAlquileres();
+			return;
+		}
+		for (Musica pel : listaMusica){
+			if (pel.getId()==producto.getId()) pel.incrementarAlquileres();
+			return;
+		}
+	}
 	
 	
 	/**************************** PELICULAS *******************************/
