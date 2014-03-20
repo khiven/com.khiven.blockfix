@@ -87,9 +87,9 @@ public class TestGestionEjemplares {
 		GestionEjemplares gestion = new GestionEjemplares();
 		int idProducto = 1;
 		gestion.addEjemplar(idProducto);
-		assertNotEquals(gestion.buscarEjemplaresProducto(idProducto).size(),0);
+		assertEquals(2,gestion.buscarEjemplaresProducto(idProducto).size());
 		gestion.resetEjemplares();
-		assertEquals(gestion.buscarEjemplaresProducto(idProducto).size(),0);
+		assertEquals(0,gestion.buscarEjemplaresProducto(idProducto).size());
 	}
 
 	@Test
@@ -97,9 +97,9 @@ public class TestGestionEjemplares {
 		GestionEjemplares gestion = new GestionEjemplares();
 		int idProducto = 1;
 		gestion.resetEjemplares();
-		assertEquals(gestion.buscarEjemplaresProducto(idProducto).size(),0);
+		assertEquals(0,gestion.buscarEjemplaresProducto(idProducto).size());
 		gestion.addEjemplar(idProducto);
-		assertNotEquals(gestion.buscarEjemplaresProducto(idProducto).size(),0);
+		assertEquals(1,gestion.buscarEjemplaresProducto(idProducto).size());
 	}
 
 	@Test
@@ -109,9 +109,9 @@ public class TestGestionEjemplares {
 		gestion.resetEjemplares();
 		gestion.addEjemplar(idProducto);
 		int id = gestion.buscarEjemplaresProducto(idProducto).get(0).getId();
-		assertNotEquals(gestion.buscarEjemplaresProducto(idProducto).size(),0);
+		assertEquals(1,gestion.buscarEjemplaresProducto(idProducto).size());
 		gestion.eliminarEjemplar(id);
-		assertEquals(gestion.buscarEjemplaresProducto(idProducto).size(),0);
+		assertEquals(0,gestion.buscarEjemplaresProducto(idProducto).size());
 	}
 
 	@Test
@@ -120,8 +120,8 @@ public class TestGestionEjemplares {
 		int idProducto = 1;
 		gestion.resetEjemplares();
 		gestion.addEjemplar(idProducto);
-		assertNotEquals(gestion.buscarEjemplaresProducto(idProducto).size(),0);
-		assertEquals(gestion.buscarEjemplaresProducto(idProducto).get(0).getProducto(),idProducto);
+		assertEquals(1,gestion.buscarEjemplaresProducto(idProducto).size());
+		assertEquals(idProducto,gestion.buscarEjemplaresProducto(idProducto).get(0).getProducto());
 	}
 
 	@Test
@@ -130,7 +130,7 @@ public class TestGestionEjemplares {
 		int idProducto = 1;
 		gestion.resetEjemplares();
 		gestion.addEjemplar(idProducto);
-		assertNotEquals(gestion.buscarEjemplaresDisponiblesProducto(idProducto).size(),0);
+		assertEquals(gestion.buscarEjemplaresDisponiblesProducto(idProducto).size(),1);
 		assertEquals(gestion.buscarEjemplaresDisponiblesProducto(idProducto).get(0).getProducto(),idProducto);
 		assertEquals(gestion.buscarEjemplaresDisponiblesProducto(idProducto).get(0).getEstado(),EstadoEjemplar.DISPONIBLE);
 	}
@@ -141,7 +141,7 @@ public class TestGestionEjemplares {
 		int idProducto = 1;
 		gestion.resetEjemplares();
 		gestion.addEjemplar(idProducto);
-		assertNotEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+		assertEquals(EstadoEjemplar.DISPONIBLE,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
 		int idEjemplar = gestion.buscarEjemplaresProducto(idProducto).get(0).getId();
 		gestion.alquilarEjemplar(idEjemplar);
 		assertEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
@@ -158,7 +158,7 @@ public class TestGestionEjemplares {
 		gestion.alquilarEjemplar(idEjemplar);
 		assertEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
 		gestion.devolverEjemplar(idEjemplar);
-		assertNotEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+		assertEquals(EstadoEjemplar.DISPONIBLE,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
 	}
 
 	@Test
@@ -173,7 +173,7 @@ public class TestGestionEjemplares {
 		gestion.alquilarEjemplar(idEjemplar);
 		assertEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
 		gestion.devolverEjemplares(ids);
-		assertNotEquals(EstadoEjemplar.ALQUILADO,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
+		assertEquals(EstadoEjemplar.DISPONIBLE,gestion.buscarEjemplaresProducto(idProducto).get(0).getEstado());
 	}
 
 	@Test
