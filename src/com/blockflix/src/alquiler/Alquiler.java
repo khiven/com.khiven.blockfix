@@ -88,7 +88,7 @@ public class Alquiler implements Serializable {
 		}
 		
 		return "\nAlquiler del socio nº"+this.getnSocio()
-				+"\nDe los productos con id:"
+				+"\nDe los ejemplares con id:"
 				+ids
 				+"\nFecha de alquiler: "
 				+ fechaInicio.get(Calendar.DATE) + "/"

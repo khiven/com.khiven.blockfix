@@ -67,6 +67,7 @@ public class GestionAlquileres {
 	
 	public void addAlquiler(int nSocio, ArrayList<Integer> ejemplares){
 		this.listaAlquileres.add(new Alquiler(nSocio,ejemplares));
+		this.saveAlquileres();
 	}
 	
 	public void removeAlquiler(int nSocio){

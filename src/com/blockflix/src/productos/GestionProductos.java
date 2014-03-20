@@ -211,6 +211,7 @@ public class GestionProductos {
 
 		Pelicula p = new Pelicula(nombre,agno,director,categoria,soporte,++this.lastIdProducto);
 		listaPeliculas.add(p);
+		this.savePeliculas();
 	}
 
 	
@@ -346,6 +347,7 @@ public class GestionProductos {
 
 		Serie p = new Serie(nombre,temporada,volumen,categoria,soporte,++this.lastIdProducto);
 		listaSeries.add(p);
+		this.saveSeries();
 	}
 
 	
@@ -479,6 +481,7 @@ public class GestionProductos {
 
 		Musica p = new Musica(nombre,agno,interprete,categoria,soporte,++this.lastIdProducto);
 		listaMusica.add(p);
+		this.saveMusica();
 	}
 	
 	public void modificarDatosMusica(int id,String nombre,int agno,String interprete,String categoria,Soporte soporte){

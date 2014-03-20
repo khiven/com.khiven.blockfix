@@ -70,12 +70,16 @@ public class GestionEjemplares {
 	}
 
 
+	public void reloadEjemplares(){
+		this.listaEjemplares=loadEjemplares();
+	}
 	public void resetEjemplares(){
 		listaEjemplares.clear();
 	}
 
 	public void addEjemplar(int idProducto){
 		listaEjemplares.add(new Ejemplar(++lastIdEjemplar,idProducto));
+		this.saveEjemplares();
 	}
 
 	public void eliminarEjemplar(int id){
@@ -87,7 +91,7 @@ public class GestionEjemplares {
 			}
 		}
 	}
-	
+
 	public void eliminarEjemplaresProducto(int id){
 		for (Ejemplar ej : listaEjemplares){
 			if (ej.getProducto()==id){
@@ -120,10 +124,16 @@ public class GestionEjemplares {
 	}
 
 	public ArrayList<Ejemplar> buscarEjemplaresDisponiblesProducto(int id){
-		ArrayList<Ejemplar> resultados = buscarEjemplaresProducto(id);
-		for (Ejemplar e : resultados){
-			if (e.getEstado()!= EstadoEjemplar.DISPONIBLE) resultados.remove(e);
-		}
+		
+		ArrayList<Ejemplar> resultados = new ArrayList<Ejemplar>(); 
+		
+		resultados=buscarEjemplaresProducto(id);
+		ArrayList<Ejemplar> aux = new ArrayList<Ejemplar>(resultados); 
+		
+			for (Ejemplar e : aux){
+				if (e.getEstado()!= EstadoEjemplar.DISPONIBLE) resultados.remove(e);
+			}
+		
 		return resultados;
 	}
 
@@ -142,6 +152,7 @@ public class GestionEjemplares {
 				e.setEstado(EstadoEjemplar.ALQUILADO);
 			}
 		}
+		this.saveEjemplares();
 	}
 
 	public void devolverEjemplar(int idEjemplar){
@@ -150,6 +161,7 @@ public class GestionEjemplares {
 				e.setEstado(EstadoEjemplar.DISPONIBLE);
 			}
 		}
+		this.saveEjemplares();
 	}
 
 	public void devolverEjemplares(ArrayList<Integer> listaEjemplares){
@@ -158,30 +170,30 @@ public class GestionEjemplares {
 
 		}
 	}
-	
+
 	//Retira ejemplares para todos los productos del alquiler
-		public ArrayList<Integer> retirarEjemplaresAlquiler(ArrayList<Producto> listaProductos){
-			ArrayList<Integer> listaEjemplares = new ArrayList<Integer>();
-			for (Producto p : listaProductos){
-				listaEjemplares.add(retirarEjemplarProducto(p));
-			}
-			return listaEjemplares;
+	public ArrayList<Integer> retirarEjemplaresAlquiler(ArrayList<Producto> listaProductos){
+		ArrayList<Integer> listaEjemplares = new ArrayList<Integer>();
+		for (Producto p : listaProductos){
+			listaEjemplares.add(retirarEjemplarProducto(p));
 		}
-		
-		
-		public int retirarEjemplarProducto(Producto p){
-			//Cogemos el primer ejemplar de los disponibles
-			int idEjemplar =buscarEjemplaresDisponiblesProducto(p.getId()).get(0).getId();
-			alquilarEjemplar(idEjemplar);
-			return idEjemplar;
+		return listaEjemplares;
+	}
+
+
+	public int retirarEjemplarProducto(Producto p){
+		//Cogemos el primer ejemplar de los disponibles
+		int idEjemplar =buscarEjemplaresDisponiblesProducto(p.getId()).get(0).getId();
+		alquilarEjemplar(idEjemplar);
+		return idEjemplar;
+	}
+
+	public boolean hayEjemplaresAlquilados(int producto){
+		for (Ejemplar e : listaEjemplares){
+			if (e.getProducto()==producto && e.getEstado()==EstadoEjemplar.ALQUILADO)
+				return true;
 		}
-		
-		public boolean hayEjemplaresAlquilados(int producto){
-			for (Ejemplar e : listaEjemplares){
-				if (e.getProducto()==producto && e.getEstado()==EstadoEjemplar.ALQUILADO)
-					return true;
-			}
-			return false;
-		}
+		return false;
+	}
 
 }

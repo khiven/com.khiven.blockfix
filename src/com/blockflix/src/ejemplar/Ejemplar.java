@@ -56,10 +56,12 @@ public class Ejemplar implements Serializable{
 	}
 	
 	public String toString (){
+	
 		return "\n Ejemplar de id: "
 				+this.getId()
 				+"\n Del producto con id: "
-				+this.getProducto();
+				+this.getProducto()
+				+"\n Estado: "+this.getEstado().toString();
 	}
 	
 	

@@ -137,8 +137,10 @@ public class Empleado {
 		if ( (c=gc.getContratoSocio(nSocio)) == null || necesitaPagarAlquiler(c,listaProductos)){
 			
 			//Se paga, se supone que el pago se va a realizar correctamente
+			System.out.println("\n Realizando pago con tarjeta...");
 			pagar("123456789012", "1234", calcularCuantiaAlquiler(listaProductos));			
 		}
+		else System.out.println("\n Su tarifa contratada cubre los productos, no necesita pagar...");
 		
 		//Si se ha llegado aqui se cumplen todas las condiciones para el alquiler y se procede a realizarse
 		ga.addAlquiler(nSocio, ge.retirarEjemplaresAlquiler(listaProductos));
@@ -294,6 +296,13 @@ public class Empleado {
 	public void contratarTarifaSocio(int nSocio,TipoTarifa tarifa,boolean extension){
 	
 		double precioTarifa=0;
+		
+		//Se comprueba que exista el socio
+		if (gs.buscarSocio(nSocio)==null){
+			System.out.println("\n No existe socio con dicho nº de socio...");
+			return;
+		}
+		
 		//Se comprueba que el socio no tenga alquileres pendientes ni este sancionado
 		if (ga.tieneAlquileres(nSocio) || gs.isSocioSancionado(nSocio)){
 			System.out.println("\n Socio con alquileres y/o sanciones pendientes");
@@ -351,7 +360,7 @@ public class Empleado {
 		gc.loadContratos();
 		gp.loadProductos();
 		gp.loadCategorias();
-		ge.loadEjemplares();
+		ge.reloadEjemplares();
 		ga.loadAlquileres();
 	}
 

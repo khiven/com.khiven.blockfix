@@ -264,7 +264,7 @@ public class Gerente {
 		gt.loadTarifas();
 		gp.loadProductos();
 		gp.loadCategorias();
-		ge.loadEjemplares();
+		ge.reloadEjemplares();
 		ga.loadAlquileres();
 		
 	}
