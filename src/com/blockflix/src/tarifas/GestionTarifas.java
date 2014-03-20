@@ -110,4 +110,16 @@ public class GestionTarifas {
 		}
 	}
 	
+	public void modificarTarifa(TipoTarifa tarifa, float precio, float precioExtension, int tiempo, int tiempoExtension){
+		for (Tarifa t : listaTarifas){
+			if (t.getTipo()==tarifa){
+				t.setPrecio(precio);
+				t.setPrecioExtension(precioExtension);
+				t.setTiempo(tiempo);
+				t.setTiempoExtension(tiempoExtension);
+				return;
+			}
+			
+		}
+	}
 }

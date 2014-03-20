@@ -35,6 +35,8 @@ public class Constantes {
 	public static String USR_GERENTE ="admin";
 	public static String PW_GERENTE="password_gerente";
 	
+	public static String NOMBRE_VIDEOCLUB="BlockFlix";
+	
 	//ENUMS
 
 	public static enum EstadoEjemplar { 

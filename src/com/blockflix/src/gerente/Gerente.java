@@ -1,11 +1,14 @@
 package com.blockflix.src.gerente;
 
+import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import com.blockflix.src.alquiler.GestionAlquileres;
+import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.constantes.Constantes.Soporte;
+import com.blockflix.src.constantes.Constantes.TipoTarifa;
 import com.blockflix.src.ejemplar.GestionEjemplares;
 import com.blockflix.src.productos.GestionProductos;
 import com.blockflix.src.productos.Musica;
@@ -14,6 +17,7 @@ import com.blockflix.src.productos.Producto;
 import com.blockflix.src.productos.Serie;
 import com.blockflix.src.socios.GestionSocios;
 import com.blockflix.src.socios.Socio;
+import com.blockflix.src.tarifas.GestionTarifas;
 
 public class Gerente {
 
@@ -21,12 +25,14 @@ public class Gerente {
 	public GestionEjemplares ge;
 	public GestionAlquileres ga;
 	public GestionSocios gs;
+	public GestionTarifas gt;
 
 	public Gerente(){
 		gp=new GestionProductos();
 		ge=new GestionEjemplares();
 		ga=new GestionAlquileres();
 		gs=new GestionSocios();
+		gt=new GestionTarifas();
 	}
 
 	/******************** AGREGAR *******************************/
@@ -227,4 +233,61 @@ public class Gerente {
 		return !ge.hayEjemplaresAlquilados(id);
 	}
 	
+	public void modificarPrecioAlquilerPelicula(double nuevoPrecio){
+		Constantes.PRECIO_ALQUILER_PELICULA=nuevoPrecio;
+	}
+	public void modificarPrecioAlquilerSeries(double nuevoPrecio){
+		Constantes.PRECIO_ALQUILER_SERIE=nuevoPrecio;
+	}
+	public void modificarPrecioAlquilerMusica(double nuevoPrecio){
+		Constantes.PRECIO_ALQUILER_MUSICA=nuevoPrecio;
+	}
+	
+	public void modificarTarifa(TipoTarifa tarifa, float precio, float precioExtension, int tiempo, int tiempoExtension){
+		gt.modificarTarifa(tarifa, precio, precioExtension, tiempo, tiempoExtension);
+	}
+	
+	public void modificarTiempoAlquiler(int nuevosDiasAlquiler){
+		Constantes.DURACION_ALQUILER = nuevosDiasAlquiler;
+	}
+	
+	public void modificarNombreVideoclub(String nuevoNombre){
+		Constantes.NOMBRE_VIDEOCLUB=nuevoNombre;
+	}
+	
+	public void modificarSancionPorDia(double nuevaSancion){
+		Constantes.SANCION_POR_DIA =nuevaSancion;
+	}
+	
+	public void load(){
+		
+		gs.loadSocios();
+		gt.loadTarifas();
+		gp.loadProductos();
+		gp.loadCategorias();
+		ge.loadEjemplares();
+		ga.loadAlquileres();
+		
+	}
+	
+	public void save(){
+		gs.saveSocios();
+		gt.saveTarifas();
+		gp.saveProductos();
+		ge.saveEjemplares();
+		ga.saveAlquileres();
+	}
+	
+	public void reset(){
+		gs.resetSocios();
+		gp.resetProductos();
+		gp.resetCategorias();
+		ge.resetEjemplares();
+		ga.resetAlquileres();
+	}
+	
+	public void exit(){
+		save();
+		System.exit(0);
+	}
 }
