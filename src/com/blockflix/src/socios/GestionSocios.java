@@ -27,7 +27,10 @@ public class GestionSocios {
 	}
 
 	/***********  GESTION DE SOCIOS **********/
-
+	public void reloadSocios(){
+		this.listaSocios=loadSocios();
+	}
+	
 	public ArrayList<Socio> loadSocios(){
 
 		Object aux;

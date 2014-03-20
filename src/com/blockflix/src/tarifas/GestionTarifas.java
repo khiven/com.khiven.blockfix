@@ -80,7 +80,7 @@ public class GestionTarifas {
 	
 
 	public void crearTarifas(){
-		System.out.println("NO HE CARGADO LAS TARIFAS DEL FICHERO");
+		//System.out.println("NO HE CARGADO LAS TARIFAS DEL FICHERO");
 		this.listaTarifas.add(Constantes.crearTarifaPeliculas());
 		this.listaTarifas.add(Constantes.crearTarifaSeries());
 		this.listaTarifas.add(Constantes.crearTarifaMusica());

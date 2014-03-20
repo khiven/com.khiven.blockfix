@@ -1,5 +1,10 @@
 package com.blockflix.src;
 
+import com.blockflix.src.constantes.Constantes;
+import com.blockflix.src.constantes.Constantes.Soporte;
+import com.blockflix.src.empleado.Empleado;
+import com.blockflix.src.gerente.Gerente;
+
 
 /** Clase principal de pruebas
  * @author Antonio Amate
@@ -7,40 +12,45 @@ package com.blockflix.src;
  */
 public class Main {
 
-
+	public static Empleado emp;
+	public static Gerente ger;
 	/** Metodo main que ejecuta las pruebas
 	 * 
 	 * @param args Vacío
 	 */
 	public static void main(String[] args) {
-
-		//Empleado emp = new Empleado();
-
-
-		//emp.gs.addSocio("Socio2", "Apellido2", "Direccion2", "Telefono2", "DNI2");
-
-		//	emp.gc.contratarTarifa(1, TipoTarifa.MUSICA);
-
-
-		//		emp.gc.printListaContratos();
-		//		emp.gs.eliminarSocio(1);
-		//	emp.gs.modificarDatosSocio(1,"Socio1", "Apellido2", "Direccion2", "Telefono2", "DNI2");
-		//		emp.gp.addPelicula("Pelicula1", 2000, "Director1", "Categoria1", Soporte.BLURAY);
-		//		emp.gp.addSerie("Serie1", 1, 1, "CategoriaSerie1", Soporte.DVD);
-		//		emp.gp.addMusica("Musica1",2000,"Interprete1","CategoriaMusica1",Soporte.CD);
-		//		
-		//	emp.gs.printListaSocios();
-		//		emp.gp.printeCategorias();
-		//emp.gp.printListaProductos();
-		//	emp.pagar("123456789012", "1234", 20);
-
-		//emp.gt.printListaTarifas();
-		//emp.save();
-	
-
-
-
+		ger = Constantes.doLogin("admin", "password_gerente");
+		
+		generarProductos();
+		generarSocios();
+		
+		ger.gs.printListaSocios();
+		ger.gp.printListaProductos();
+		
+		ger.save();
+		
+		ger.reset();
+		System.out.println("\n ELIMINADOS TODOS LOS DATOS DE MEMORIA");
+		ger.gs.printListaSocios();
+		ger.gp.printListaProductos();
+		System.out.println("\n CARGANDO TODOS LOS DATOS DE FICHEROS");
+		ger.load();
+		ger.gs.printListaSocios();
+		ger.gp.printListaProductos();
 
 	}
 
+	public static void generarProductos(){
+		for (int i=0;i<10;i++){
+			ger.addPelicula("Pelicula_Prueba_"+i, 2000+i, "Director_Prueba_"+i, ger.gp.categoriasCine.get(i), Soporte.BLURAY);
+			ger.addMusica("Musica_Prueba_"+i,2000+i, "Interprete_Prueba_"+i, ger.gp.categoriasMusica.get(i), Soporte.CD);
+			ger.addSerie("Serie_Prueba_"+i, i, i, ger.gp.categoriasSeries.get(i), Soporte.DVD);
+		}
+	}
+	
+	public static void generarSocios(){
+		for (int i=0;i<10;i++){
+			ger.gs.addSocio("Socio_prueba_"+i,"Apellidos_Prueba_"+i, "Direccion_Prueba_"+i, "Telefono_prueba_"+i, "DNI_prueba_"+i);
+		}
+	}
 }

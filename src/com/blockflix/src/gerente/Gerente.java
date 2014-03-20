@@ -1,6 +1,5 @@
 package com.blockflix.src.gerente;
 
-import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -261,7 +260,7 @@ public class Gerente {
 	
 	public void load(){
 		
-		gs.loadSocios();
+		gs.reloadSocios();
 		gt.loadTarifas();
 		gp.loadProductos();
 		gp.loadCategorias();
@@ -288,6 +287,6 @@ public class Gerente {
 	
 	public void exit(){
 		save();
-		System.exit(0);
+		
 	}
 }

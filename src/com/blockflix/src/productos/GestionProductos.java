@@ -16,9 +16,9 @@ import com.blockflix.src.constantes.Constantes.TipoProducto;
 public class GestionProductos {
 
 
-	private ArrayList<String> categoriasCine;
-	private ArrayList<String> categoriasSeries;
-	private ArrayList<String> categoriasMusica;
+	public ArrayList<String> categoriasCine;
+	public ArrayList<String> categoriasSeries;
+	public ArrayList<String> categoriasMusica;
 
 	private ArrayList<Pelicula> listaPeliculas;
 	private ArrayList<Serie> listaSeries;

@@ -341,7 +341,7 @@ public class Empleado {
 	
 	public void salir(){
 		save();
-		System.exit(0);
+		
 	}
 
 	/*** FICHEROS ***/
