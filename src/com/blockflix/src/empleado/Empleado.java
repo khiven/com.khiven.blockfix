@@ -336,6 +336,13 @@ public class Empleado {
 		  return daysBetween;  
 		}  
 		
+	
+	
+	
+	public void salir(){
+		save();
+		System.exit(0);
+	}
 
 	/*** FICHEROS ***/
 	public void load(){

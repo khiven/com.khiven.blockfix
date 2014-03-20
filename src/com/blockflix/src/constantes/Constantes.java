@@ -1,5 +1,6 @@
 package com.blockflix.src.constantes;
 
+import com.blockflix.src.gerente.Gerente;
 import com.blockflix.src.tarifas.Tarifa;
 
 public class Constantes {
@@ -26,7 +27,13 @@ public class Constantes {
 	
 	public static int DURACION_ALQUILER =3;
 	
-	public static double SANCION_POR_DIA = 2;
+	public static double SANCION_POR_DIA = 1;
+	
+	
+	//GERENTE
+	
+	public static String USR_GERENTE ="admin";
+	public static String PW_GERENTE="password_gerente";
 	
 	//ENUMS
 
@@ -140,6 +147,12 @@ public class Constantes {
 	}
 	public static Tarifa crearTarifaPremium(){
 		return new Tarifa(TipoTarifa.PREMIUM,15,3,1,4);
+	}
+	
+	public static Gerente doLogin(String usr,String pw){
+		if (Constantes.USR_GERENTE.equals(usr) && Constantes.PW_GERENTE.equals(pw))
+			return new Gerente();
+		return null;
 	}
 
 }

@@ -87,6 +87,14 @@ public class GestionEjemplares {
 			}
 		}
 	}
+	
+	public void eliminarEjemplaresProducto(int id){
+		for (Ejemplar ej : listaEjemplares){
+			if (ej.getProducto()==id){
+				listaEjemplares.remove(ej);
+			}
+		}
+	}
 
 	public void setLastIdEjemplar(){
 		int aux=0;
@@ -166,6 +174,14 @@ public class GestionEjemplares {
 			int idEjemplar =buscarEjemplaresDisponiblesProducto(p.getId()).get(0).getId();
 			alquilarEjemplar(idEjemplar);
 			return idEjemplar;
+		}
+		
+		public boolean hayEjemplaresAlquilados(int producto){
+			for (Ejemplar e : listaEjemplares){
+				if (e.getProducto()==producto && e.getEstado()==EstadoEjemplar.ALQUILADO)
+					return true;
+			}
+			return false;
 		}
 
 }
