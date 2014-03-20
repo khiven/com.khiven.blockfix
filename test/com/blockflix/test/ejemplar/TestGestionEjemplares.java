@@ -1,6 +1,7 @@
 package com.blockflix.test.ejemplar;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,7 +16,8 @@ import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.constantes.Constantes.EstadoEjemplar;
 import com.blockflix.src.constantes.Constantes.Soporte;
 import com.blockflix.src.constantes.Constantes.TipoProducto;
-import com.blockflix.src.ejemplar.*;
+import com.blockflix.src.ejemplar.Ejemplar;
+import com.blockflix.src.ejemplar.GestionEjemplares;
 import com.blockflix.src.productos.Producto;
 
 public class TestGestionEjemplares {
