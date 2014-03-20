@@ -350,6 +350,7 @@ public class Empleado {
 		gt.loadTarifas();
 		gc.loadContratos();
 		gp.loadProductos();
+		gp.loadCategorias();
 		ge.loadEjemplares();
 		ga.loadAlquileres();
 	}
