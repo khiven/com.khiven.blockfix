@@ -31,8 +31,9 @@ public class TestEmpleado {
 	public void testReset() {
 		Empleado empleado = new Empleado();
 		int idProducto = 1;
+		empleado.reset();
 		empleado.ge.addEjemplar(idProducto);
-		assertNotEquals(0,empleado.ge.buscarEjemplaresProducto(idProducto).size());
+		assertEquals(1,empleado.ge.buscarEjemplaresProducto(idProducto).size());
 		empleado.reset();
 		assertEquals(0,empleado.ge.buscarEjemplaresProducto(idProducto).size());
 	}
