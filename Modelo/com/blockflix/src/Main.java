@@ -45,11 +45,7 @@ public class Main {
 		
 		
 		VentanaPrincipal vp = new VentanaPrincipal("BlockFlix");
-		vp.pack();
-		vp.setLocationRelativeTo(null);
 		vp.setVisible(true);
-	
-		
 	}
 //		
 //		emp=new Empleado();
