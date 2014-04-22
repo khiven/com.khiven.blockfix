@@ -1,5 +1,6 @@
 package com.blockflix.view;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
@@ -9,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.blockflix.controller.ControlLoginPanel;
-import com.blockflix.src.gerente.Gerente;
 
 public class VentanaPrincipal extends JFrame {
 	
@@ -35,9 +35,14 @@ public class VentanaPrincipal extends JFrame {
 		mainPanel.add(logoPanel);
 		mainPanel.add(loginPanel);
 		this.add(mainPanel);
-		this.setResizable(false);
+	
+		//this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
+	}
+	
+	public void ocultarLogin(){
+		this.mainPanel.setVisible(false);
 	}
 
 }

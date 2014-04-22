@@ -65,6 +65,7 @@ public class LoginPanel extends JPanel{
 	public void setControlador(ActionListener c){
 		pwField.addActionListener(c);
 		bGerente.addActionListener(c);
+		bEmpleado.addActionListener(c);
 	}
 	public char[] getPassword(){
 		return pwField.getPassword();

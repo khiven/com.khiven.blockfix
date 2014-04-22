@@ -4,11 +4,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import com.blockflix.src.Main;
 import com.blockflix.src.constantes.Constantes;
-import com.blockflix.src.gerente.Gerente;
 import com.blockflix.view.LoginPanel;
+import com.blockflix.view.VentanaPrincipal;
+import com.blockflix.view.empleado.EmpleadoPanel;
 
 
 public class ControlLoginPanel implements ActionListener {
@@ -43,6 +45,14 @@ public class ControlLoginPanel implements ActionListener {
 						"Password incorrecto",
 						JOptionPane.ERROR_MESSAGE);
 			}
+		}
+		else{
+			lp.setVisible(false);
+			lp.getParent().setVisible(false);
+			VentanaPrincipal topFrame = (VentanaPrincipal)SwingUtilities.getWindowAncestor(lp);
+			topFrame.ocultarLogin();
+			topFrame.add(new EmpleadoPanel());
+			topFrame.pack();
 		}
 
 		

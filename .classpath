@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="Modelo"/>
-	<classpathentry kind="src" path="Vista"/>
 	<classpathentry kind="src" path="Controlador"/>
+	<classpathentry kind="src" path="Vista"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/pasarelaPago.jar"/>
 	<classpathentry kind="output" path="bin"/>
