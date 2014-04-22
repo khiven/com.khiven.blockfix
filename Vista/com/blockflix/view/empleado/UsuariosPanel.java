@@ -54,7 +54,7 @@ public class UsuariosPanel extends JPanel{
 		this.add(Box.createVerticalStrut(10));
 
 	
-		this.setBorder(BorderFactory.createEmptyBorder(10,50,10,50)) ;
+		this.setBorder(BorderFactory.createEmptyBorder(10,50,10,50));
 		
 		
 	}
