@@ -48,9 +48,13 @@ public class Main {
 		vp.pack();
 		vp.setLocationRelativeTo(null);
 		vp.setVisible(true);
-	
+		ger = new Gerente();
+		ger.gp.addPelicula("patata", 2, "pepe", "Negro", Soporte.BLURAY);
+		ger.gp.addSerie("True Blood", 4, 2, "Aventuras", Soporte.DVD);
+		ger.gp.addMusica("Macarena", 33, "Pepito", "Barroca", Soporte.CD);
 		
 	}
+	
 //		
 //		emp=new Empleado();
 //		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
