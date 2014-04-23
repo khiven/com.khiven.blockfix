@@ -1,44 +1,72 @@
 package com.blockflix.view.empleado;
 
-import java.awt.FlowLayout;
+import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
 public class AddUsuarioDialog extends JDialog {
 
 	private JLabel lTitulo;
 	private JPanel mainPanel;
+	private AddUsuarioForm formulario;
+	private JPanel buttonContainer;
+	private JPanel titleContainer;
+	private JButton bOk,bCancel;
+	
 	public AddUsuarioDialog(){
 		
 		
 		//super((JFrame)SwingUtilities.getWindowAncestor(parent),"Añadir Usuario");
 		lTitulo = new JLabel("Añadir nuevo socio");
+		lTitulo.setFont(new Font(null,Font.BOLD,32));
+		titleContainer=new JPanel();
+		formulario = new AddUsuarioForm();
+		bOk=new JButton("Añadir Usuario");
+		bCancel=new JButton("Cancelar");
+		buttonContainer = new JPanel();
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
-		mainPanel.add(lTitulo);
+		titleContainer.add(lTitulo);
+		mainPanel.add(titleContainer);
+		
+		mainPanel.add(Box.createVerticalStrut(10));
+		mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+		mainPanel.add(Box.createVerticalStrut(10));
+		
+		mainPanel.add(formulario);
+
+		mainPanel.add(Box.createVerticalStrut(10));
+		mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+		mainPanel.add(Box.createVerticalStrut(10));
+
+		buttonContainer.add(bOk);
+		buttonContainer.add(bCancel);
+		mainPanel.add(buttonContainer);
+		
+		mainPanel.add(Box.createVerticalStrut(10));
+		mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+		mainPanel.add(Box.createVerticalStrut(10));
+
+		mainPanel.setBorder(BorderFactory.createEmptyBorder(10,50,10,50)) ;
+	
+
 		this.add(mainPanel);
 		this.pack();
-		this.setResizable(false);
+//		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(true);
 		this.setModal(true);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
-	//	JPanel pLabel = new JPanel(new FlowLayout());
-		//pLabel.add(lTitulo);
-		//this.add(lTitulo);
-//		
-//		this.add(Box.createVerticalStrut(10));
-//		this.add(new JSeparator(SwingConstants.HORIZONTAL));
-//		this.add(Box.createVerticalStrut(10));
+
 		
 	}
 }
