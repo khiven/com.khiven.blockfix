@@ -16,8 +16,8 @@ import com.blockflix.view.VentanaPrincipal;
 public class Main {
 
 	
-	public static Empleado emp;
-	public static Gerente ger;
+	public static Empleado emp=null;
+	public static Gerente ger=null;
 	static boolean recargarTodo=false;
 	
 	/** Metodo main que ejecuta las pruebas

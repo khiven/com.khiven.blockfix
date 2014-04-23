@@ -49,7 +49,20 @@ public class AddUsuarioForm extends JPanel {
 		
 	}
 
-
+	public boolean checkFields(){
+		return (checkField(tNombre) && checkField(tApellidos) && checkField(tDireccion) && checkField(tTelefono) 
+				&& checkField(tDni));
+	}
+	
+	
+	public boolean checkField(JTextField tf){
+		String text = tf.getText();
+		
+		if (text.trim().isEmpty())
+			return false;
+		else return true;
+	}
+	
 	public JTextField gettNombre() {
 		return tNombre;
 	}

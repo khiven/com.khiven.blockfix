@@ -11,7 +11,7 @@ import com.blockflix.view.empleado.UsuariosPanel;
 
 public class ControlUsuariosPanel implements ActionListener{
 	private UsuariosPanel up;
-
+	
 	public ControlUsuariosPanel (UsuariosPanel up){
 		this.up=up;
 	}
@@ -24,6 +24,7 @@ public class ControlUsuariosPanel implements ActionListener{
 		if (cmd.equals(UsuariosPanel.BA)){
 			//AÑADIR USUARIO
 			AddUsuarioDialog addDialog =new AddUsuarioDialog();//(JFrame)SwingUtilities.getWindowAncestor(up));
+			addDialog.setControlador(new ControlAddUsuario(addDialog));
 			addDialog.setVisible(true);
 		}
 		
