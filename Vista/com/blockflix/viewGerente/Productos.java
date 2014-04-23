@@ -1,9 +1,12 @@
 package com.blockflix.viewGerente;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import com.blockflix.src.Main;
 import com.blockflix.controller.ControlGerente;
@@ -11,8 +14,10 @@ import com.blockflix.controller.ControlGerente;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class Productos extends JPanel{
@@ -26,6 +31,7 @@ public class Productos extends JPanel{
 	private String categoriaSeleccionada;
 	private String tipoSeleccionado;
 	private DefaultTableModel modeloDatos;
+	private String titulo;
 	
 	public Productos(){
 		String[] categorias = new String[Main.ger.gp.categoriasCine.size()];
@@ -40,6 +46,7 @@ public class Productos extends JPanel{
 		Object[][] filas = {};
 		modeloDatos = new DefaultTableModel(filas, titulos); 
 		tResultados = new JTable(modeloDatos);
+		JScrollPane scroll = new JScrollPane(tResultados);
 		this.setModeloDatos(modeloDatos);
 		this.setTipoSeleccionado("Peliculas");
 		
@@ -53,6 +60,14 @@ public class Productos extends JPanel{
 			}
 		});
 		
+		tTitulo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				JTextField source = (JTextField) e.getSource();
+				String selectedValue = source.getText();
+				((Productos) source.getParent()).setTitulo(selectedValue);	
+			}
+		});
+			
 		cbTipo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				JComboBox<String> source = (JComboBox<String>) e.getSource();
@@ -96,12 +111,15 @@ public class Productos extends JPanel{
 		this.add(cbTipo, c);
 		c.gridx=1;
 		this.add(cbCategoria, c);
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 4;
 		c.gridwidth = 3;
-		c.gridheight = 4;
-		this.add(tResultados, c);
+		c.gridheight = 6;
+		scroll.setMinimumSize(new Dimension(300,200));
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.add(scroll, c);
 		c.fill = GridBagConstraints.NONE;
 		c.gridheight=1;
 		c.gridx = 0;
@@ -134,6 +152,14 @@ public class Productos extends JPanel{
 
 	public void setModeloDatos(DefaultTableModel modeloDatos) {
 		this.modeloDatos = modeloDatos;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 }
