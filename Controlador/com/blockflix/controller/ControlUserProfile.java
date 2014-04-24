@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import com.blockflix.src.Main;
+import com.blockflix.view.empleado.ContratarTarifaDialog;
 import com.blockflix.view.empleado.ModSocioDialog;
 import com.blockflix.view.empleado.ProfileDialog;
 import com.blockflix.view.empleado.UsuariosPanel;
@@ -42,6 +43,14 @@ public class ControlUserProfile implements ActionListener {
 				pd.dispose();
 				
 			}
+		}
+		else if (cmd.equals(ProfileDialog.BTARIFA)){
+			ContratarTarifaDialog td = new ContratarTarifaDialog();
+			ControlContratarTarifaDialog ctd = new ControlContratarTarifaDialog(td);
+			td.setControlador(ctd);
+			ctd.setPrecioTotal();
+			
+			td.setVisible(true);
 		}
 	}
 	

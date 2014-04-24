@@ -52,7 +52,7 @@ public class ControlAddUsuario implements ActionListener{
 
 							"Socio añadido correctamente, nº de socio: "+Main.emp.gs.buscarSocio(d.getDni()).getnSocio(),
 							"Socio Añadido",
-							JOptionPane.ERROR_MESSAGE);
+							JOptionPane.INFORMATION_MESSAGE);
 					d.dispose();
 				}
 				

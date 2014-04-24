@@ -121,7 +121,7 @@ public class Tarifa implements Serializable{
 					   +"Duración de la tarifa: "+this.tiempo+"dias\n"
 					   +"Precio de la tarifa: "+this.precio+"€\n"
 					   +"Duracion de la extension temporal: "+this.tiempoExtension+"días\n"
-					   +"Precio de la extensión temporal: "+this.tiempoExtension+"€\n";
+					   +"Precio de la extensión temporal: "+this.precioExtension+"€\n";
 	}
 	
 }
