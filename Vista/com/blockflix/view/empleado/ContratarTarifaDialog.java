@@ -18,6 +18,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import com.blockflix.src.constantes.Constantes.TipoTarifa;
+import com.blockflix.src.socios.Socio;
 
 public class ContratarTarifaDialog extends JDialog{
 
@@ -34,10 +35,12 @@ public class ContratarTarifaDialog extends JDialog{
 			TipoTarifa.MUSICA.toString(),TipoTarifa.PELICULAS_SERIES.toString(),
 			TipoTarifa.PELICULAS_MUSICA.toString(),TipoTarifa.SERIES_MUSICA.toString(),
 			TipoTarifa.PREMIUM.toString()};
+	private boolean tarifaContratada;
+	private Socio socio;
 	
-	
-	public ContratarTarifaDialog(){
-	
+	public ContratarTarifaDialog(Socio socio){
+		this.socio=socio;
+	tarifaContratada=false;
 	bPagar = new JButton("Pagar");
 	bPagar.setActionCommand(BPAGO);
 	lTitle=new JLabel("Contratar Tarifa");
@@ -104,6 +107,16 @@ public class ContratarTarifaDialog extends JDialog{
 	}
 	public String getSelectedTarifa(){
 		return (String)cbTarifas.getSelectedItem();
+	}
+	public boolean isTarifaContratada(){
+		return this.tarifaContratada;
+	}
+	
+	public void setTarifaContratada(boolean b){
+		this.tarifaContratada=b;
+	}
+	public Socio getSocio(){
+		return this.socio;
 	}
 	
 }

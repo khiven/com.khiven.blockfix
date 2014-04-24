@@ -28,7 +28,7 @@ public class ProfileDialog extends JDialog{
 	JPanel mainPanel,leftPanel,rightPanel,datosPersonales,panelTarifa, topPanel,bottomPanel,sancionPanel;
 	JLabel nombre,apellidos,direccion,telefono,dni,nSocio;
 	JLabel title;
-	JLabel lisSancionado,lCuantia,lTarifa;
+	JLabel lisSancionado,lCuantia,lTarifa,lExtension;
 	JButton addTarifa,bPagarSancion,bModificarSocio,bEliminarSocio;
 	JTable tablaAlquileres;
 	String[] titulosTabla = {"Producto","ID","Fecha devolución"};
@@ -68,7 +68,7 @@ public class ProfileDialog extends JDialog{
 		nSocio= new JLabel(Integer.toString(socio.getnSocio()));
 		addTarifa = new JButton("Cambiar tarifa");
 		addTarifa.setActionCommand(BTARIFA);
-		panelTarifa=new JPanel(new GridLayout(2,2));
+		panelTarifa=new JPanel(new GridLayout(3,2));
 		
 		//Panel superior
 		topPanel.add(title);
@@ -93,6 +93,9 @@ public class ProfileDialog extends JDialog{
 		
 		lTarifa=new JLabel("Sin tarifa contratada");
 		panelTarifa.add(lTarifa);
+		panelTarifa.add(new JLabel("<html><b>Extensión temporal:</b></html>"));
+		lExtension=new JLabel("No");
+		panelTarifa.add(lExtension);
 		panelTarifa.add(addTarifa);
 		panelTarifa.setBorder(BorderFactory.createTitledBorder("Tarifas"));
 		
@@ -204,6 +207,9 @@ public class ProfileDialog extends JDialog{
 		if ((c=Main.emp.gc.getContratoSocio(socio.getnSocio()))!=null){
 			//Tiene tarifa
 			lTarifa.setText(c.getTarifa().toString());
+			if (c.getExtTiempo()){
+				lExtension.setText("Sí");
+			}
 		}
 		
 	}

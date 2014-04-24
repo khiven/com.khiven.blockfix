@@ -326,31 +326,10 @@ public class Empleado {
 
 	public void contratarTarifaSocio(int nSocio,TipoTarifa tarifa,boolean extension){
 
-		double precioTarifa=0;
+		
+		
 
-		//Se comprueba que exista el socio
-		if (gs.buscarSocio(nSocio)==null){
-			System.out.println("\n No existe socio con dicho nº de socio...");
-			return;
-		}
-
-		//Se comprueba que el socio no tenga alquileres pendientes ni este sancionado
-		if (ga.tieneAlquileres(nSocio) || gs.isSocioSancionado(nSocio)){
-			System.out.println("\n Socio con alquileres y/o sanciones pendientes");
-			return;			
-		}
-		//Se calcula el precio de la tarifa y se paga
-		precioTarifa=gt.getTarifaByTipo(tarifa).getPrecio();
-		if (extension) precioTarifa+=gt.getTarifaByTipo(tarifa).getPrecioExtension();
-		//Se paga
-		if (!pagar("123456789012","1234",precioTarifa)){
-			System.out.println("\n Error con el pago, no se contratara la tarifa");
-			return;
-		}
-		//Se eliminan contratos actuales si hubiera
-		if (gc.getContratoSocio(nSocio) !=null){
-			gc.eliminarContrato(nSocio);
-		}
+		
 
 		//Finalmente se añade el nuevo contrato
 

@@ -45,12 +45,24 @@ public class ControlUserProfile implements ActionListener {
 			}
 		}
 		else if (cmd.equals(ProfileDialog.BTARIFA)){
-			ContratarTarifaDialog td = new ContratarTarifaDialog();
+			ContratarTarifaDialog td = new ContratarTarifaDialog(pd.getSocio());
 			ControlContratarTarifaDialog ctd = new ControlContratarTarifaDialog(td);
 			td.setControlador(ctd);
 			ctd.setPrecioTotal();
 			
 			td.setVisible(true);
+			if (td.isTarifaContratada()){
+				JOptionPane.showMessageDialog(null,
+
+						"Tarifa contratada correctamente",
+						"Tarifa contratada",
+						JOptionPane.INFORMATION_MESSAGE);
+				td.dispose();
+				pd.dispose();
+			}
+			
+			
+			
 		}
 	}
 	
