@@ -43,63 +43,14 @@ public class ControlUsuariosPanel implements ActionListener{
 						JOptionPane.ERROR_MESSAGE);
 			}
 			else{
-				//SE BUSCA POR DNI
-				if (up.getSelectedOption().equals(UsuariosPanel.RBDNI)){
-					//Se introdujo un DNI
-					socio = Main.emp.gs.buscarSocio(up.getSearchValue());
-					if (socio==null){
-						//No existe el socio
-						resetAll();
-					}
-					else{
+				checkSocio();
 
-						up.setNsocioResult(Integer.toString(socio.getnSocio()));
-						up.setNameResult(socio.getNombre()+" "+socio.getApellidos());
-					}
-				}
-				//SE BUSCA POR NºDE SOCIO
-				else{
-					//Se introdujo un nº de socio
-					int nSocio=-1;
-					boolean isNumber=true;
-					//Se comprueba si lo que se ha introducido es un integer
-					try{
-						nSocio = Integer.parseInt(up.getSearchValue());
-					}catch(NumberFormatException e){
-						//El nsocio no es un integer
-						resetAll();
-						isNumber=false;
-
-					}
-					//Si se introdujo un número
-					if (isNumber){
-						socio = Main.emp.gs.buscarSocio(nSocio);
-						//No Encontro al socio, se resetean los campos
-						if (socio==null){
-							resetAll();
-						}
-						//Enconto al socio, se muestra su info
-						else{
-							up.setNsocioResult(Integer.toString(socio.getnSocio()));
-							up.setNameResult(socio.getNombre()+" "+socio.getApellidos());
-						}
-
-					}
-					//Lo que se introdujo no era un integer, se avisa al usuario
-					else{
-						//No es un numero, se avisa
-						JOptionPane.showMessageDialog(new JFrame(),
-
-								"Los nº de socio son números naturales",
-								"Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
-
-				}
 			}
 		}
+
 		//VER PERFIL DE USUARIO
 		else if (cmd.equals(UsuariosPanel.BP)){
+			checkSocio();
 			//Se quiere ver el perfil del socio
 			if (socio==null){
 				//No existe el socio, no se puede ver el perfil
@@ -112,6 +63,8 @@ public class ControlUsuariosPanel implements ActionListener{
 			else{
 				//Se muestra el perfil del socio
 				ProfileDialog pd = new ProfileDialog(socio);
+				pd.setControlador(new ControlUserProfile(pd, up));
+				pd.setInfoSocio(socio);
 				pd.setVisible(true);
 			}
 		}
@@ -129,6 +82,62 @@ public class ControlUsuariosPanel implements ActionListener{
 		up.setNameResult("No se encontraron resultados");
 		up.setNsocioResult("No se encontraron resultados");
 
+	}
+
+	public void checkSocio(){
+		//SE BUSCA POR DNI
+		if (up.getSelectedOption().equals(UsuariosPanel.RBDNI)){
+			//Se introdujo un DNI
+			socio = Main.emp.gs.buscarSocio(up.getSearchValue());
+			if (socio==null){
+				//No existe el socio
+				resetAll();
+			}
+			else{
+
+				up.setNsocioResult(Integer.toString(socio.getnSocio()));
+				up.setNameResult(socio.getNombre()+" "+socio.getApellidos());
+			}
+		}
+		//SE BUSCA POR NºDE SOCIO
+		else{
+			//Se introdujo un nº de socio
+			int nSocio=-1;
+			boolean isNumber=true;
+			//Se comprueba si lo que se ha introducido es un integer
+			try{
+				nSocio = Integer.parseInt(up.getSearchValue());
+			}catch(NumberFormatException e){
+				//El nsocio no es un integer
+				resetAll();
+				isNumber=false;
+
+			}
+			//Si se introdujo un número
+			if (isNumber){
+				socio = Main.emp.gs.buscarSocio(nSocio);
+				//No Encontro al socio, se resetean los campos
+				if (socio==null){
+					resetAll();
+				}
+				//Enconto al socio, se muestra su info
+				else{
+					up.setNsocioResult(Integer.toString(socio.getnSocio()));
+					up.setNameResult(socio.getNombre()+" "+socio.getApellidos());
+				}
+
+			}
+			//Lo que se introdujo no era un integer, se avisa al usuario
+			else{
+				//No es un numero, se avisa
+				JOptionPane.showMessageDialog(new JFrame(),
+
+						"Los nº de socio son números naturales",
+						"Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+		}
 	}
 
 }

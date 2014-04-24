@@ -1,6 +1,5 @@
 package com.blockflix.controller;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +13,7 @@ import com.blockflix.src.empleado.Empleado;
 import com.blockflix.view.LoginPanel;
 import com.blockflix.view.VentanaPrincipal;
 import com.blockflix.view.empleado.EmpleadoPanel;
+import com.blockflix.viewGerente.GerentePanel;
 
 
 public class ControlLoginPanel implements ActionListener {
