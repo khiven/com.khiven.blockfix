@@ -45,7 +45,7 @@ public class UsuariosPanel extends JPanel{
 		viewProfile.setActionCommand(BP);
 		lSocios=new JLabel("Gestión de Socios");
 		lSocios.setFont(new Font(null,Font.BOLD,32));
-		lSocios.setBackground(Color.BLUE);
+		
 		
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
@@ -75,6 +75,7 @@ public class UsuariosPanel extends JPanel{
 		group.add(rbId);
 		group.add(rbDni);
 		tfBuscarSocio = new JTextField(10);
+		tfBuscarSocio.setActionCommand(BS);
 		psearchSocios.add(rbId);
 		psearchSocios.add(rbDni);
 		psearchSocios.add(tfBuscarSocio);
@@ -111,6 +112,8 @@ public class UsuariosPanel extends JPanel{
 	public void setControlador(ActionListener c){
 		addSocio.addActionListener(c);
 		searchSocios.addActionListener(c);
+		viewProfile.addActionListener(c);
+		tfBuscarSocio.addActionListener(c);
 		
 	}
 	public String getSelectedOption(){
