@@ -244,6 +244,30 @@ public class Gerente {
 	
 	public void modificarTarifa(TipoTarifa tarifa, float precio, float precioExtension, int tiempo, int tiempoExtension){
 		gt.modificarTarifa(tarifa, precio, precioExtension, tiempo, tiempoExtension);
+		switch(tarifa.toString()){
+		case "Tarifa de Peliculas":
+			Constantes.variables.setPrecioTarifaPeliculas(precio);
+			break;
+		case "Tarifa de Series":
+			Constantes.variables.setPrecioTarifaSeries(precio);
+			break;
+		case "Tarifa de Música":
+			Constantes.variables.setPrecioTarifaMusica(precio);
+			break;
+		case "Tarifa de Peliculas y Series":
+			Constantes.variables.setPrecioTarifaPeliculasSeries(precio);
+			break;
+		case "Tarifa de Peliculas y Música":
+			Constantes.variables.setPrecioTarifaPeliculas(precio);
+			break;
+		case "Tarifa de Series y Música":
+			Constantes.variables.setPrecioTarifaMusicaSeries(precio);
+			break;
+		case "Tarifa Premium":
+			Constantes.variables.setPrecioTarifaPremium(precio);
+			break;
+			
+		}
 	}
 	
 	public void modificarTiempoAlquiler(int nuevosDiasAlquiler){

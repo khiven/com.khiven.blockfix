@@ -132,6 +132,7 @@ public class Productos extends JPanel{
 		this.add(bVer, c);
 		bBuscar.addActionListener(new ControlGerente(this.bBuscar,this.bAnadir,this.bVer,this));
 		bAnadir.addActionListener(new ControlGerente(this.bBuscar,this.bAnadir,this.bVer,this));
+		bVer.addActionListener(new ControlGerente(this.bBuscar,this.bAnadir,this.bVer,this));
 	}
 
 	public String getCategoriaSeleccionada() {

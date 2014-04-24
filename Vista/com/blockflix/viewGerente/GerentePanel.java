@@ -4,15 +4,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import com.blockflix.view.LoginPanel;
+
 public class GerentePanel extends JTabbedPane{
 	
-	private JFrame mainWindow;
+	private LoginPanel mainWindow;
 	
-	public GerentePanel(JFrame frame){
+	public GerentePanel(LoginPanel frame){
 		this.setMainWindow(frame);
 		Productos productos = new Productos();
 		JPanel listas = new JPanel();
-		JPanel gestion = new JPanel();
+		JPanel gestion = new GestionVariables(this);
 		JPanel salir = new SalirGerente(this);
 		this.addTab("Productos",productos);
 		this.addTab("Listas",listas);
@@ -21,11 +23,11 @@ public class GerentePanel extends JTabbedPane{
 		
 	}
 
-	public JFrame getMainWindow() {
+	public LoginPanel getMainWindow() {
 		return mainWindow;
 	}
 
-	public void setMainWindow(JFrame mainWindow) {
+	public void setMainWindow(LoginPanel mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 }

@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.table.DefaultTableModel;
 
 import com.blockflix.src.Main;
 import com.blockflix.src.productos.Musica;
@@ -76,7 +74,8 @@ public class ControlGerente implements ActionListener {
 			ppanel.setVisible(true);
 		}
 		else if(c.getSource()==bVer){
-			
+			PreguntaId preguntaId = new PreguntaId(((GerentePanel)ppanel.getParent()));
+			preguntaId.setVisible(true);
 		}
 		else if(c.getSource()==bAnadir){
 			AnadirProducto anadir = new AnadirProducto();
