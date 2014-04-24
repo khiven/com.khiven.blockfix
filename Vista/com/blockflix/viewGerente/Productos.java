@@ -49,6 +49,7 @@ public class Productos extends JPanel{
 		JScrollPane scroll = new JScrollPane(tResultados);
 		this.setModeloDatos(modeloDatos);
 		this.setTipoSeleccionado("Peliculas");
+		this.setCategoriaSeleccionada("Acción");
 		
 		cbCategoria.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

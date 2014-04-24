@@ -106,6 +106,8 @@ public class AnadirProducto extends JFrame{
 		this.setSize(new Dimension(400,500));
 		this.setResizable(false);
 		this.setTipoSeleccionado("Peliculas");
+		this.setSoporteSeleccionado("DVD");
+		this.setCategoriaSeleccionada("Acción");
 		
 		cbCategoria.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

@@ -35,7 +35,7 @@ public class ControlLoginPanel implements ActionListener {
 			//Check Password
 			if ((Main.ger=Constantes.doLogin(Constantes.variables.USR_GERENTE,pw))
 					!=null){
-				GerentePanel vistaGerente = new GerentePanel();
+				GerentePanel vistaGerente = new GerentePanel(frame);
 				lp.setVisible(false);
 				lp.getParent().add(vistaGerente);
 				lp.getParent().getComponent(0).setVisible(false);
