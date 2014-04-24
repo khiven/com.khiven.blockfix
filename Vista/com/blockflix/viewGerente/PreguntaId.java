@@ -52,8 +52,22 @@ public class PreguntaId extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VerProducto ver = new VerProducto(Main.ger.gp.buscarProductoById(frame.getId()),frame.getGpanel());
+				Producto p = Main.ger.gp.buscarProductoById(frame.getId());
+				VerProducto ver = null;
+				switch(p.getTipo().toString()){
+				case "Pelicula":
+					ver = new VerProducto(Main.ger.gp.buscarPeliculaById(frame.getId()),frame.getGpanel());
+					break;
+				case "Serie":
+					ver = new VerProducto(Main.ger.gp.buscarSerieById(frame.getId()),frame.getGpanel());
+					break;
+				case "Musica":
+					ver = new VerProducto(Main.ger.gp.buscarMusicaById(frame.getId()),frame.getGpanel());
+					break;
+				}
 				ver.setVisible(true);
+				frame.getGpanel().setVisible(false);
+				frame.getGpanel().getParent().add(ver);
 				frame.dispose();
 			}
 			

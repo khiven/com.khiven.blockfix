@@ -226,7 +226,6 @@ public class GestionVariables extends JPanel {
 				modificar.setVisible(true);
 			}
 		});
-		
 	}
 
 	public GerentePanel getGpanel() {

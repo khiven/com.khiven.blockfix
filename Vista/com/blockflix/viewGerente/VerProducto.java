@@ -4,12 +4,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.blockflix.controller.ControlVer;
 import com.blockflix.src.constantes.Constantes.Soporte;
 import com.blockflix.src.constantes.Constantes.TipoProducto;
+import com.blockflix.src.productos.Musica;
+import com.blockflix.src.productos.Pelicula;
 import com.blockflix.src.productos.Producto;
+import com.blockflix.src.productos.Serie;
 
 public class VerProducto extends JPanel {
 	private JButton bEliminar;
@@ -45,7 +50,8 @@ public class VerProducto extends JPanel {
 	
 	private GerentePanel gpanel;
 
-	public VerProducto(Producto p,GerentePanel gpanel){
+	public VerProducto(Pelicula p,GerentePanel gpanel){
+		this.gpanel=gpanel;	
 		bModificar = new JButton("Modificar");
 		bEliminar = new JButton("Eliminar");
 		
@@ -55,131 +61,135 @@ public class VerProducto extends JPanel {
 		soporte=new JLabel(p.getSoporte().toString());
 		tipo=new JLabel(p.getTipo().toString());
 		vecesAlquilado=new JLabel(Integer.toString(p.getVecesAlquilado()));
+		pelicula_agno=new JLabel(Integer.toString(p.getAgno()));
+		pelicula_director=new JLabel(p.getDirector());
+		cargaLayout(p);
+	}
+	public VerProducto(Serie p,GerentePanel gpanel){
+		this.gpanel=gpanel;	
+		bModificar = new JButton("Modificar");
+		bEliminar = new JButton("Eliminar");
 		
-/*		switch (p.getTipo().toString()){
-			"PELICULA":
-				pelicula_agno=new JLabel(p.
-			"MUSICA":
-			"SERIE":
-		}*/
+		id=new JLabel(Integer.toString(p.getId()));
+		nombre=new JLabel(p.getNombre());
+		categoria=new JLabel(p.getCategoria());
+		soporte=new JLabel(p.getSoporte().toString());
+		tipo=new JLabel(p.getTipo().toString());
+		vecesAlquilado=new JLabel(Integer.toString(p.getVecesAlquilado()));
+		serie_temporada=new JLabel(Integer.toString(p.getTemporada()));
+		serie_volumen=new JLabel(Integer.toString(p.getVolumen()));
+		cargaLayout(p);
+	}
+	public VerProducto(Musica p,GerentePanel gpanel){
+		this.gpanel=gpanel;	
+		bModificar = new JButton("Modificar");
+		bEliminar = new JButton("Eliminar");
+		
+		id=new JLabel(Integer.toString(p.getId()));
+		nombre=new JLabel(p.getNombre());
+		categoria=new JLabel(p.getCategoria());
+		soporte=new JLabel(p.getSoporte().toString());
+		tipo=new JLabel(p.getTipo().toString());
+		vecesAlquilado=new JLabel(Integer.toString(p.getVecesAlquilado()));
+		musica_agno = new JLabel(Integer.toString(p.getAgno()));
+		musica_Interprete = new JLabel(p.getInterprete());
+		cargaLayout(p);
+	}
+	private void cargaLayout(Producto p){	
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridwidth = 2;
 		this.add(id_text,c);
 		c.gridx = 1;
 		c.gridy = 0;
-		c.gridwidth = 2;
 		this.add(id,c);
 		
 		c.gridx = 0;
 		c.gridy = 1;
-		c.gridwidth = 2;
 		this.add(nombre_text,c);
 		c.gridx = 1;
 		c.gridy = 1;
-		c.gridwidth = 2;
 		this.add(nombre,c);
 		
 		c.gridx = 0;
 		c.gridy = 2;
-		c.gridwidth = 2;
 		this.add(categoria_text,c);
 		c.gridx = 1;
 		c.gridy = 2;
-		c.gridwidth = 2;
 		this.add(categoria,c);
 
 		
 		c.gridx = 0;
 		c.gridy = 3;
-		c.gridwidth = 2;
 		this.add(tipo_text,c);
 		c.gridx = 1;
 		c.gridy = 3;
-		c.gridwidth = 2;
 		this.add(tipo,c);
 		
 		c.gridx = 0;
 		c.gridy = 4;
-		c.gridwidth = 2;
 		this.add(soporte_text,c);
 		c.gridx = 1;
 		c.gridy = 4;
-		c.gridwidth = 2;
 		this.add(soporte,c);
 		
 		c.gridx = 0;
 		c.gridy = 5;
-		c.gridwidth = 2;
 		this.add(vecesAlquilado_text,c);
 		c.gridx = 1;
 		c.gridy = 5;
-		c.gridwidth = 2;
 		this.add(vecesAlquilado,c);
 		
 		switch (p.getTipo().toString()){
-		case "PELICULA":
+		case "Pelicula":
 			c.gridx = 0;
 			c.gridy = 6;
-			c.gridwidth = 2;
 			this.add(pelicula_agno_text,c);
 			c.gridx = 1;
 			c.gridy = 6;
-			c.gridwidth = 2;
 			this.add(pelicula_agno,c);
 			
 			c.gridx = 0;
 			c.gridy = 7;
-			c.gridwidth = 2;
 			this.add(pelicula_director_text,c);
 			c.gridx = 1;
 			c.gridy = 7;
-			c.gridwidth = 2;
 			this.add(pelicula_director,c);
 			
 			break;
 			
-		case "MUSICA":
+		case "Musica":
 			c.gridx = 0;
 			c.gridy = 6;
-			c.gridwidth = 2;
 			this.add( musica_agno_text,c);
 			c.gridx = 1;
 			c.gridy = 6;
-			c.gridwidth = 2;
 			this.add( musica_agno,c);
 			
 			c.gridx = 0;
 			c.gridy = 7;
-			c.gridwidth = 2;
 			this.add( musica_Interprete_text,c);
 			c.gridx = 1;
 			c.gridy = 7;
-			c.gridwidth = 2;
 			this.add( musica_Interprete,c);	
 			
 			break;
 			
-		case "SERIE":
+		case "Serie":
 			c.gridx = 0;
 			c.gridy = 6;
-			c.gridwidth = 2;
 			this.add(serie_temporada_text,c);
 			c.gridx = 1;
 			c.gridy = 6;
-			c.gridwidth = 2;
 			this.add(serie_temporada,c);
 			
 			c.gridx = 0;
 			c.gridy = 7;
-			c.gridwidth = 2;
 			this.add(serie_volumen_text,c);
 			c.gridx = 1;
 			c.gridy = 7;
-			c.gridwidth = 2;
 			this.add(serie_volumen,c);
 			
 			break;
@@ -188,13 +198,11 @@ public class VerProducto extends JPanel {
 		
 		c.gridx = 0;
 		c.gridy = 10;
-		c.gridwidth = 2;
 		this.add(bModificar,c);
 		c.gridx = 10;
 		c.gridy = 10;
-		c.gridwidth = 2;
 		this.add(bEliminar,c);
-		
+		bEliminar.addActionListener(new ControlVer(bModificar,bEliminar,p,gpanel));
 		
 	}
 
