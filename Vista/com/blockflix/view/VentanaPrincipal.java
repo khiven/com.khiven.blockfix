@@ -1,8 +1,6 @@
 package com.blockflix.view;
 
 import java.awt.FlowLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -31,9 +29,11 @@ public class VentanaPrincipal extends JFrame {
 
 
 		loginPanel = new LoginPanel();
-		clp = new ControlLoginPanel(loginPanel);
-		loginPanel.setControlador(clp);
 
+		clp = new ControlLoginPanel(loginPanel,this);
+	    loginPanel.setControlador(clp);
+	    
+	    
 
 		logoPanel = new JPanel(new FlowLayout());
 		logoPanel.add(new JLabel(new ImageIcon("res/logo.png")));

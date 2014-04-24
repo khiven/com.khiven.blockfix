@@ -1,4 +1,6 @@
 package com.blockflix.controller;
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,9 +19,11 @@ import com.blockflix.view.empleado.EmpleadoPanel;
 public class ControlLoginPanel implements ActionListener {
 
 	private LoginPanel lp;
+	private JFrame frame;
 
-	public ControlLoginPanel (LoginPanel lp){
+	public ControlLoginPanel (LoginPanel lp, JFrame frame){
 		this.lp=lp;
+		this.frame = frame;
 	}
 
 	@Override
@@ -31,11 +35,12 @@ public class ControlLoginPanel implements ActionListener {
 			//Check Password
 			if ((Main.ger=Constantes.doLogin(Constantes.variables.USR_GERENTE,pw))
 					!=null){
-				JOptionPane.showMessageDialog(null,
-
-						"Password correcto.",
-						"Password correcto",JOptionPane.INFORMATION_MESSAGE);
-				
+				GerentePanel vistaGerente = new GerentePanel(frame);
+				lp.setVisible(false);
+				lp.getParent().add(vistaGerente);
+				lp.getParent().getComponent(0).setVisible(false);
+				frame.setSize(new Dimension(400,500));
+				vistaGerente.setVisible(true);
 				
 			}
 
