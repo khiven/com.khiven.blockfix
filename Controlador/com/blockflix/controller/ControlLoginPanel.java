@@ -12,6 +12,7 @@ import com.blockflix.src.empleado.Empleado;
 import com.blockflix.view.LoginPanel;
 import com.blockflix.view.VentanaPrincipal;
 import com.blockflix.view.empleado.EmpleadoPanel;
+import com.blockflix.viewGerente.Productos;
 
 
 public class ControlLoginPanel implements ActionListener {
@@ -31,12 +32,11 @@ public class ControlLoginPanel implements ActionListener {
 			//Check Password
 			if ((Main.ger=Constantes.doLogin(Constantes.variables.USR_GERENTE,pw))
 					!=null){
-				JOptionPane.showMessageDialog(null,
-
-						"Password correcto.",
-						"Password correcto",JOptionPane.INFORMATION_MESSAGE);
-				
-				
+				Productos productosGerente = new Productos();
+				lp.setVisible(false);
+				lp.getParent().add(productosGerente);
+				lp.getParent().getComponent(0).setVisible(false);
+				productosGerente.setVisible(true);
 			}
 
 			else{
