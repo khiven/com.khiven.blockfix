@@ -11,32 +11,37 @@ import java.awt.event.FocusListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.blockflix.controller.ControlAnadir;
+import com.blockflix.controller.ControlModificar;
 import com.blockflix.src.Main;
+import com.blockflix.src.productos.*;
 
-public class AnadirProducto extends JFrame{
+public class ModificarProducto extends JFrame{
 	private String categoriaSeleccionada;
 	private String tipoSeleccionado;
 	private JComboBox<String> cbTipo;
 	private JComboBox<String> cbCategoria;
 	private String titulo;
-	private AnadirProducto frame = this;
+	private ModificarProducto frame = this;
 	private JTextArea aPrimero;
 	private JTextArea aSegundo;
 	private String primero;
 	private String segundo;
 	private String soporteSeleccionado;
+	private int id;
 	
-	public AnadirProducto(){
-		JTextArea aDatosGenericos = new JTextArea("Datos genéricos del producto:");
+	public ModificarProducto(Producto p){
+		this.setId(p.getId());
+		JTextArea aDatosGenericos = new JTextArea("Datos genéricos del producto:\tID");
 		JTextArea aDatosEspecificos = new JTextArea("Datos específicos del producto:");
 		JTextArea aTitulo = new JTextArea("Título:");
 		JTextArea aTipo = new JTextArea("Tipo:");
 		JTextArea aCategoria = new JTextArea("Categoría:");
+		JLabel lId = new JLabel(String.valueOf(p.getId()));
 		aPrimero = new JTextArea("Director:");
 		aSegundo = new JTextArea("Año:");
 		JTextArea aSoporte = new JTextArea("Soporte:");
@@ -48,16 +53,62 @@ public class AnadirProducto extends JFrame{
 		aPrimero.setEditable(false);
 		aSegundo.setEditable(false);
 		aSoporte.setEditable(false);
-		JTextField tTitulo = new JTextField();
-		String[] categorias = new String[Main.ger.gp.categoriasCine.size()];
+		JTextField tTitulo = new JTextField(p.getNombre());
+		String[] categorias;
 		String[] tipos = {"Peliculas","Series","Musica"};
-		cbTipo = new JComboBox<String>(tipos);
-		cbCategoria = new JComboBox<String>(Main.ger.gp.categoriasCine.toArray(categorias));
+		cbTipo = new JComboBox<String>(tipos); 
 		JTextField tPrimero = new JTextField();
 		JTextField tSegundo = new JTextField();
+		switch(p.getTipo().toString()){
+		case "Pelicula":
+			tPrimero.setText(((Pelicula)p).getDirector());
+			tSegundo.setText(String.valueOf((((Pelicula)p).getAgno())));
+			cbTipo.setSelectedIndex(0);
+			categorias = new String[Main.ger.gp.categoriasCine.size()];
+			cbCategoria = new JComboBox<String>(Main.ger.gp.categoriasCine.toArray(categorias));
+			for (int i=0;i<cbCategoria.getItemCount();i++){
+				if (p.getCategoria().equals(cbCategoria.getItemAt(i))){
+					cbCategoria.setSelectedIndex(i);
+					break;
+				}
+			}
+			break;
+		case "Serie":
+			tPrimero.setText(String.valueOf((((Serie)p).getTemporada())));
+			tSegundo.setText(String.valueOf((((Serie)p).getVolumen())));
+			cbTipo.setSelectedIndex(1);
+			categorias = new String[Main.ger.gp.categoriasSeries.size()];
+			cbCategoria = new JComboBox<String>(Main.ger.gp.categoriasSeries.toArray(categorias));
+			for (int i=0;i<cbCategoria.getItemCount();i++){
+				if (p.getCategoria().equals(cbCategoria.getItemAt(i))){
+					cbCategoria.setSelectedIndex(i);
+					break;
+				}
+			}
+			break;
+		case "Musica":
+			tPrimero.setText(((Musica)p).getInterprete());
+			tSegundo.setText(String.valueOf((((Musica)p).getAgno())));
+			cbTipo.setSelectedIndex(2);
+			categorias = new String[Main.ger.gp.categoriasMusica.size()];
+			cbCategoria = new JComboBox<String>(Main.ger.gp.categoriasMusica.toArray(categorias));
+			for (int i=0;i<cbCategoria.getItemCount();i++){
+				if (p.getCategoria().equals(cbCategoria.getItemAt(i))){
+					cbCategoria.setSelectedIndex(i);
+					break;
+				}
+			}
+			break;
+		}
 		String[] soportes = {"DVD","BLURAY","CD","VINILO"};
 		JComboBox<String> cbSoporte = new JComboBox<String>(soportes);
-		JButton bModificar = new JButton("Anadir");
+		for (int i=0;i<cbSoporte.getItemCount();i++){
+			if (p.getSoporte().toString().equals(cbSoporte.getItemAt(i))){
+				cbSoporte.setSelectedIndex(i);
+				break;
+			}
+		}
+		JButton bModificar = new JButton("Modificar");
 		JButton bCerrar = new JButton("Cerrar");
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -66,6 +117,9 @@ public class AnadirProducto extends JFrame{
 		c.gridx=0;
 		c.gridy=0;
 		panel.add(aDatosGenericos,c);
+		c.gridx=1;
+		panel.add(lId);
+		c.gridx=0;
 		c.gridy=1;
 		panel.add(aTitulo,c);
 		c.gridx=1;
@@ -192,8 +246,8 @@ public class AnadirProducto extends JFrame{
 				}
 		});
 		
-		bModificar.addActionListener(new ControlAnadir(bModificar,bCerrar,this));
-		bCerrar.addActionListener(new ControlAnadir(bModificar,bCerrar,this));
+		bModificar.addActionListener(new ControlModificar(bModificar,bCerrar,this));
+		bCerrar.addActionListener(new ControlModificar(bModificar,bCerrar,this));
 	}
 
 	public String getCategoriaSeleccionada() {
@@ -242,6 +296,14 @@ public class AnadirProducto extends JFrame{
 
 	public void setSoporteSeleccionado(String soporteSeleccionado) {
 		this.soporteSeleccionado = soporteSeleccionado;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
