@@ -54,6 +54,7 @@ public class ControlLoginPanel implements ActionListener {
 		}
 		else{
 			Main.emp = new Empleado();
+			
 			lp.setVisible(false);
 			lp.getParent().setVisible(false);
 			VentanaPrincipal topFrame = (VentanaPrincipal)SwingUtilities.getWindowAncestor(lp);

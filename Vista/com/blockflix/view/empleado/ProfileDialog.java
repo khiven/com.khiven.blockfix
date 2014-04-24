@@ -200,7 +200,7 @@ public class ProfileDialog extends JDialog{
 		//INFO DE SANCION
 		if (socio.getEstado()==Constantes.EstadoSocio.SANCIONADO){
 			lisSancionado.setText("Socio sancionado");
-			lCuantia.setText(Double.toString(socio.getSancion()) );
+			lCuantia.setText(Double.toString(socio.getSancion())+"€" );
 		}
 		//INFO DE TARIFA
 		Contrato c;

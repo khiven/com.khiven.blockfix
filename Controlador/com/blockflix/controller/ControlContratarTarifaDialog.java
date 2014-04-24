@@ -50,7 +50,7 @@ public class ControlContratarTarifaDialog implements ActionListener {
 				if (pd.isPagoRealizado()){
 					pd.dispose();
 					//Se añade la tarifa al socio
-					System.out.println("HOLA");
+					
 					Main.emp.contratarTarifaSocio(td.getSocio().getnSocio(), tipoTarifa, td.isSuplemento());
 					td.setTarifaContratada(true);
 					td.setVisible(false);

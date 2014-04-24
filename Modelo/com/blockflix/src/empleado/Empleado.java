@@ -104,57 +104,16 @@ public class Empleado {
 	/*************************** ALQUILERES ******************************/
 
 	public void alquilar(int nSocio, ArrayList<Producto> listaProductos){
-		Contrato c;
-		boolean pagoCorrecto=true;
-		//Comprobamos que existe el socio
-		if (gs.buscarSocio(nSocio)==null){
-			System.out.println("\nEl nº de socio indicado no pertenece al sistema...");
-			return;
-		}
+	
 
 
-		//Comprobamos que el socio no tenga sancion
-		if (gs.isSocioSancionado(nSocio)){
-			System.out.println("\nNo se puede realizar el alquiler, socio sancionado... ");
-			return;
-		}
-		//Comprobamos que el socio no tiene alquileres
-		if (ga.tieneAlquileres(nSocio)){
-			System.out.println("\n El socio tiene alquileres pendientes de devolver...");
-			return;
-		}
-
-		//Comprobamos que el numero de productos no sea mayor al estipulado
-		if (listaProductos.size()>Constantes.variables.MAX_ALQUILERES){
-			System.out.println("\n No pueden seleccionar mas de "+Constantes.variables.MAX_ALQUILERES+"productos...");
-			return;
-		}
-
-		//Comprobamos disponibilidad de ejemplares de los productos seleccionados
-		for (Producto p : listaProductos){
-			if (ge.buscarEjemplaresDisponiblesProducto(p.getId()).isEmpty()){
-				System.out.println("\n No hay ejemplares disponibles del producto con id "+p.getId());
-				return;
-			}			
-		}
-
-		//Socio no sancionado y ejemplares disponibles de todos los productos, se procede a pagar antes de finalizar el alquiler
-
-		//Si el socio no tiene contrato o el contrato no cubre el alquiler necesita pagar
-		if ( (c=gc.getContratoSocio(nSocio)) == null || necesitaPagarAlquiler(c,listaProductos)){
-
-			//Se paga, se supone que el pago se va a realizar correctamente
-			System.out.println("\nSu tarifa no cubre los productos seleccionados. Realizando pago con tarjeta, son "+calcularCuantiaAlquiler(listaProductos)+"euros...");
-			pagoCorrecto=pagar("123456789012", "1234", calcularCuantiaAlquiler(listaProductos));			
-		}
-		else System.out.println("\n Su tarifa contratada cubre los productos, no necesita pagar...");
-		if (pagoCorrecto){
+		
+	
 			//Si se ha llegado aqui se cumplen todas las condiciones para el alquiler y se procede a realizarse
 			ga.addAlquiler(nSocio, ge.retirarEjemplaresAlquiler(listaProductos));
 			gp.incrementarAlquilerProductos(listaProductos);
-			System.out.println("\nAlquiler realizado satisfactoriamente");
-		}
-		else System.out.println("\n Error con el pago, cancelando alquiler...");
+			
+	
 
 	}
 
@@ -203,7 +162,7 @@ public class Empleado {
 	}
 
 	public void pagarSancionSocio(int nSocio){
-		if(pagar("123456789012","1234",gs.buscarSocio(nSocio).getSancion()))
+		
 			gs.eliminarSancion(nSocio);
 	}
 

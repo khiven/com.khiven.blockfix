@@ -6,8 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import com.blockflix.src.Main;
+import com.blockflix.src.constantes.Constantes;
 import com.blockflix.view.empleado.ContratarTarifaDialog;
 import com.blockflix.view.empleado.ModSocioDialog;
+import com.blockflix.view.empleado.PagoDialog;
 import com.blockflix.view.empleado.ProfileDialog;
 import com.blockflix.view.empleado.UsuariosPanel;
 
@@ -24,7 +26,7 @@ public class ControlUserProfile implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		String cmd = arg0.getActionCommand();
-		
+
 		if (cmd.equals(ProfileDialog.BMODSOCIO)){
 			ModSocioDialog md = new ModSocioDialog();
 			md.setControlador(new ControlModSocio(pd,md,pd.getSocio()));
@@ -41,15 +43,16 @@ public class ControlUserProfile implements ActionListener {
 						"Socio eliminado",
 						JOptionPane.INFORMATION_MESSAGE);
 				pd.dispose();
-				
+
 			}
 		}
+		//SE INTENTA CONTRATAR TARIFA
 		else if (cmd.equals(ProfileDialog.BTARIFA)){
 			ContratarTarifaDialog td = new ContratarTarifaDialog(pd.getSocio());
 			ControlContratarTarifaDialog ctd = new ControlContratarTarifaDialog(td);
 			td.setControlador(ctd);
 			ctd.setPrecioTotal();
-			
+
 			td.setVisible(true);
 			if (td.isTarifaContratada()){
 				JOptionPane.showMessageDialog(null,
@@ -60,11 +63,48 @@ public class ControlUserProfile implements ActionListener {
 				td.dispose();
 				pd.dispose();
 			}
-			
-			
-			
+
+		}
+		//SE INTENTA PAGAR SANCION
+		else if (cmd.equals(ProfileDialog.BPAGSANCION)){
+			//Se comprueba que tenga sancion
+
+			if (pd.getSocio().getEstado()==Constantes.EstadoSocio.SIN_SANCION){
+				JOptionPane.showMessageDialog(null,
+
+						"El socio no tiene sanciones que pagar",
+						"Información",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			//Si tiene sancion
+			else{
+				PagoDialog pagod = new PagoDialog(pd.getSocio().getSancion());
+				pagod.setControlador(new ControlPago(pagod));
+				pagod.setVisible(true);
+				if (pagod.isPagoRealizado()){
+					pagod.dispose();
+					//Se elimina la sancion
+					Main.emp.pagarSancionSocio(pd.getSocio().getnSocio());
+					JOptionPane.showMessageDialog(null,
+
+							"Sanción pagada",
+							"Información",
+							JOptionPane.INFORMATION_MESSAGE);
+					pd.dispose();
+					
+				}
+				//Por algún motivo no se pudo pagar
+				else{
+					pagod.dispose();
+					JOptionPane.showMessageDialog(null,
+
+							"La sanción no fue pagada",
+							"Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
 		}
 	}
-	
-	
+
+
 }
