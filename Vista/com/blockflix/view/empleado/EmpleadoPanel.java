@@ -19,7 +19,7 @@ public class EmpleadoPanel extends JTabbedPane {
 		up.setControlador(cup);
 		this.addTab("Gestión de Socios", up);
 		this.addTab("Gestión de Alquileres", ap);
-		this.setPreferredSize(new Dimension(500,320));
+	//	this.setPreferredSize(new Dimension(600,380));
 		
 		
 	}
