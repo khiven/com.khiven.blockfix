@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.blockflix.controller.ControlAnadir;
 import com.blockflix.src.Main;
 
 public class AnadirProducto extends JFrame{
@@ -26,6 +27,9 @@ public class AnadirProducto extends JFrame{
 	private AnadirProducto frame = this;
 	private JTextArea aPrimero;
 	private JTextArea aSegundo;
+	private String primero;
+	private String segundo;
+	private String soporteSeleccionado;
 	
 	public AnadirProducto(){
 		JTextArea aDatosGenericos = new JTextArea("Datos genéricos del producto:");
@@ -101,6 +105,7 @@ public class AnadirProducto extends JFrame{
 		this.add(panel);
 		this.setSize(new Dimension(400,500));
 		this.setResizable(false);
+		this.setTipoSeleccionado("Peliculas");
 		
 		cbCategoria.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -145,15 +150,48 @@ public class AnadirProducto extends JFrame{
 			
 		});
 		
+		cbSoporte.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				JComboBox<String> source = (JComboBox<String>) e.getSource();
+				if (source.getSelectedItem() != null){
+					String selectedValue = source.getSelectedItem().toString();
+					frame.setSoporteSeleccionado(selectedValue);
+				}
+			}
+		});
+		
 		tTitulo.addFocusListener(new FocusListener(){
 			public void focusGained(FocusEvent e){
 			}
 			public void focusLost(FocusEvent e) {
 				JTextField source = (JTextField) e.getSource();
 				String selectedValue = source.getText();
-				frame.setTitulo(selectedValue);	
-			}
+					frame.setTitulo(selectedValue);
+				}
 		});
+		
+		tPrimero.addFocusListener(new FocusListener(){
+			public void focusGained(FocusEvent e){
+			}
+			public void focusLost(FocusEvent e) {
+				JTextField source = (JTextField) e.getSource();
+				String selectedValue = source.getText();
+					frame.setPrimero(selectedValue);
+				}
+		});
+		
+		tSegundo.addFocusListener(new FocusListener(){
+			public void focusGained(FocusEvent e){
+			}
+			public void focusLost(FocusEvent e) {
+				JTextField source = (JTextField) e.getSource();
+				String selectedValue = source.getText();
+					frame.setSegundo(selectedValue);
+				}
+		});
+		
+		bModificar.addActionListener(new ControlAnadir(bModificar,bCerrar,this));
+		bCerrar.addActionListener(new ControlAnadir(bModificar,bCerrar,this));
 	}
 
 	public String getCategoriaSeleccionada() {
@@ -178,6 +216,30 @@ public class AnadirProducto extends JFrame{
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public String getPrimero() {
+		return primero;
+	}
+
+	public void setPrimero(String primero) {
+		this.primero = primero;
+	}
+
+	public String getSegundo() {
+		return segundo;
+	}
+
+	public void setSegundo(String segundo) {
+		this.segundo = segundo;
+	}
+
+	public String getSoporteSeleccionado() {
+		return soporteSeleccionado;
+	}
+
+	public void setSoporteSeleccionado(String soporteSeleccionado) {
+		this.soporteSeleccionado = soporteSeleccionado;
 	}
 
 }
