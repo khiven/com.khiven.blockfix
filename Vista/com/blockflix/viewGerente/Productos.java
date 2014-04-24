@@ -60,8 +60,10 @@ public class Productos extends JPanel{
 			}
 		});
 		
-		tTitulo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
+		tTitulo.addFocusListener(new FocusListener(){
+			public void focusGained(FocusEvent e){
+			}
+			public void focusLost(FocusEvent e) {
 				JTextField source = (JTextField) e.getSource();
 				String selectedValue = source.getText();
 				((Productos) source.getParent()).setTitulo(selectedValue);	
@@ -128,6 +130,7 @@ public class Productos extends JPanel{
 		c.gridy = 2;
 		this.add(bVer, c);
 		bBuscar.addActionListener(new ControlGerente(this.bBuscar,this.bAnadir,this.bVer,this));
+		bAnadir.addActionListener(new ControlGerente(this.bBuscar,this.bAnadir,this.bVer,this));
 	}
 
 	public String getCategoriaSeleccionada() {

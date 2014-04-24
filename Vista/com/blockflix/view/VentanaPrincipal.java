@@ -26,7 +26,7 @@ public class VentanaPrincipal extends JFrame {
 	    
 		
 		loginPanel = new LoginPanel();
-		clp = new ControlLoginPanel(loginPanel);
+		clp = new ControlLoginPanel(loginPanel,this);
 	    loginPanel.setControlador(clp);
 	    
 	    

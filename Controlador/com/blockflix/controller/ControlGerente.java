@@ -75,6 +75,13 @@ public class ControlGerente implements ActionListener {
 			ppanel.setVisible(false);
 			ppanel.setVisible(true);
 		}
+		else if(c.getSource()==bVer){
+			
+		}
+		else if(c.getSource()==bAnadir){
+			AnadirProducto anadir = new AnadirProducto();
+			anadir.setVisible(true);
+		}
 	}
 
 }
