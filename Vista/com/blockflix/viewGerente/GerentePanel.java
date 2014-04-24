@@ -13,7 +13,7 @@ public class GerentePanel extends JTabbedPane{
 	public GerentePanel(LoginPanel frame){
 		this.setMainWindow(frame);
 		Productos productos = new Productos();
-		JPanel listas = new JPanel();
+		JPanel listas = new Listas();
 		JPanel gestion = new GestionVariables(this);
 		JPanel salir = new SalirGerente(this);
 		this.addTab("Productos",productos);

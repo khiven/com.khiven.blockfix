@@ -7,7 +7,9 @@ import javax.swing.JButton;
 
 import com.blockflix.src.Main;
 import com.blockflix.src.productos.Producto;
+import com.blockflix.viewGerente.AnadirProducto;
 import com.blockflix.viewGerente.GerentePanel;
+import com.blockflix.viewGerente.ModificarProducto;
 
 public class ControlVer implements ActionListener {
 	
@@ -38,8 +40,18 @@ public class ControlVer implements ActionListener {
 				Main.ger.gp.eliminarMusica(producto.getId());
 				break;
 			}
-		source.getParent().setVisible(true);
+		source.getParent().setVisible(false);
+		source.getParent().removeAll();
 		gpanel.setVisible(true);
+		}
+		else if (source==bModificar){
+			ModificarProducto anadir = new ModificarProducto(producto);
+			anadir.setVisible(true);
+		}
+		else{
+			source.getParent().setVisible(false);
+			source.getParent().removeAll();
+			gpanel.setVisible(true);
 		}
 	}
 

@@ -19,6 +19,7 @@ import com.blockflix.src.productos.Serie;
 public class VerProducto extends JPanel {
 	private JButton bEliminar;
 	private JButton bModificar;
+	private JButton bVolver;
 	
 	private JLabel id_text = new JLabel("ID:");
 	private JLabel id;
@@ -54,6 +55,7 @@ public class VerProducto extends JPanel {
 		this.gpanel=gpanel;	
 		bModificar = new JButton("Modificar");
 		bEliminar = new JButton("Eliminar");
+		bVolver = new JButton("Volver");
 		
 		id=new JLabel(Integer.toString(p.getId()));
 		nombre=new JLabel(p.getNombre());
@@ -69,6 +71,7 @@ public class VerProducto extends JPanel {
 		this.gpanel=gpanel;	
 		bModificar = new JButton("Modificar");
 		bEliminar = new JButton("Eliminar");
+		bVolver = new JButton("Volver");
 		
 		id=new JLabel(Integer.toString(p.getId()));
 		nombre=new JLabel(p.getNombre());
@@ -84,6 +87,7 @@ public class VerProducto extends JPanel {
 		this.gpanel=gpanel;	
 		bModificar = new JButton("Modificar");
 		bEliminar = new JButton("Eliminar");
+		bVolver = new JButton("Volver");
 		
 		id=new JLabel(Integer.toString(p.getId()));
 		nombre=new JLabel(p.getNombre());
@@ -202,7 +206,12 @@ public class VerProducto extends JPanel {
 		c.gridx = 10;
 		c.gridy = 10;
 		this.add(bEliminar,c);
+		c.gridx=20;
+		c.gridy=10;
+		this.add(bVolver,c);
 		bEliminar.addActionListener(new ControlVer(bModificar,bEliminar,p,gpanel));
+		bModificar.addActionListener(new ControlVer(bModificar,bEliminar,p,gpanel));
+		bVolver.addActionListener(new ControlVer(bModificar,bEliminar,p,gpanel));
 		
 	}
 
