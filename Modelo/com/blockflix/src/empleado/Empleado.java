@@ -117,25 +117,26 @@ public class Empleado {
 
 	}
 
-
-	public void devolverAlquiler(int nSocio){
+	//SALIDA 0 = OK , 1= SANCIONADO
+	public int devolverAlquiler(int nSocio){
 		Alquiler a;
 		Contrato c;
+		int salida=0;
 
 		int diasPermitidos=Constantes.variables.DURACION_ALQUILER;
 		double cuantiaSancion = 0;
 
-		//Comprobamos que existe el socio
-		if (gs.buscarSocio(nSocio)==null){
-			System.out.println("\nEl nº de socio indicado no pertenece al sistema...");
-			return;
-		}
-
-		//Comprobamos que el socio tiene un alquiler
-		if (!ga.tieneAlquileres(nSocio)){
-			System.out.println("\n El socio indicado no tiene alquileres");
-			return;
-		}
+//		//Comprobamos que existe el socio
+//		if (gs.buscarSocio(nSocio)==null){
+//			System.out.println("\nEl nº de socio indicado no pertenece al sistema...");
+//			return;
+//		}
+//
+//		//Comprobamos que el socio tiene un alquiler
+//		if (!ga.tieneAlquileres(nSocio)){
+//			System.out.println("\n El socio indicado no tiene alquileres");
+//			return;
+//		}
 		a=ga.getAlquiler(nSocio);
 		// Comprobamos si uso la tarifa
 		if ( (c=gc.getContratoSocio(nSocio))!= null && checkTarifa(c.getTarifa(), getProductosAlquiler(a.getEjemplares()))){
@@ -150,14 +151,16 @@ public class Empleado {
 		if ((cuantiaSancion=calcularSancion(a.getFechaInicio(),diasPermitidos))!=0){
 			//Se le sanciona
 			gs.sancionarSocio(nSocio, cuantiaSancion);
-			System.out.println("\n Retraso en la devolucion, socio sancionado");
+			//System.out.println("\n Retraso en la devolucion, socio sancionado");
+			salida = 1;
 		}
 
 		//Ahora se devuelven los ejemplares
 		ge.devolverEjemplares(a.getEjemplares());
 		//Y se elimina el alquiler
 		ga.removeAlquiler(nSocio);
-		System.out.println("\n Alquiler devuelto satisfactoriamente");
+		//System.out.println("\n Alquiler devuelto satisfactoriamente");
+		return salida;
 
 	}
 

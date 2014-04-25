@@ -39,7 +39,14 @@ public class AlquileresPanel extends JPanel{
 	private DefaultTableModel tableModel;
 	public AlquileresPanel(){
 		numRows = Constantes.variables.MAX_ALQUILERES;
-		tableModel = new DefaultTableModel(numRows,titulosTabla.length);
+		tableModel = (new DefaultTableModel(numRows,titulosTabla.length){
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		});
+		
 		tableModel.setColumnIdentifiers(titulosTabla);
 		tablaAlquileres = new JTable(tableModel);
 		tablaAlquileres.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -105,6 +112,7 @@ public class AlquileresPanel extends JPanel{
 	public void insertRow(int pos,int idProducto){
 		Object[] nuevaFila={new Integer(idProducto)};
 		
-		tableModel.setValueAt(nuevaFila, pos, 1);
+		tableModel.setValueAt(idProducto, pos-1,0);
+		//tableModel.addRow(nuevaFila);
 	}
 }

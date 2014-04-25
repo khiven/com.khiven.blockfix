@@ -36,6 +36,8 @@ public class ControlLoginPanel implements ActionListener {
 			if ((Main.ger=Constantes.doLogin(Constantes.variables.USR_GERENTE,pw))
 					!=null){
 				GerentePanel vistaGerente = new GerentePanel(lp);
+				
+		
 				lp.setVisible(false);
 				lp.getParent().add(vistaGerente);
 				lp.getParent().getComponent(0).setVisible(false);
@@ -54,6 +56,8 @@ public class ControlLoginPanel implements ActionListener {
 		}
 		else{
 			Main.emp = new Empleado();
+			Main.emp.ge.printEjemplares();
+			
 			
 			lp.setVisible(false);
 			lp.getParent().setVisible(false);

@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,8 +22,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.blockflix.src.Main;
+import com.blockflix.src.alquiler.Alquiler;
 import com.blockflix.src.constantes.Constantes;
 import com.blockflix.src.contratos.Contrato;
+import com.blockflix.src.productos.Producto;
 import com.blockflix.src.socios.Socio;
 
 public class ProfileDialog extends JDialog{
@@ -31,7 +35,7 @@ public class ProfileDialog extends JDialog{
 	JLabel lisSancionado,lCuantia,lTarifa,lExtension;
 	JButton addTarifa,bPagarSancion,bModificarSocio,bEliminarSocio;
 	JTable tablaAlquileres;
-	String[] titulosTabla = {"Producto","ID","Fecha devolución"};
+	String[] titulosTabla = {"Producto","ID","ID Ejemplar","Fecha Alquiler"};
 	JScrollPane scrollTabla;
 	int numRows;
 	public static final String BDELSOCIO = "BDELSOCIO";
@@ -39,12 +43,22 @@ public class ProfileDialog extends JDialog{
 	public static final String BPAGSANCION = "BPAGSANCION";
 	public static final String BTARIFA = "BTARIFA";
 	Socio socio;
+	private DefaultTableModel tableModel;
 	
 	public ProfileDialog(Socio socio){
 		//INI
 		this.socio = socio;
 		numRows = Constantes.variables.MAX_ALQUILERES;
-		DefaultTableModel tableModel = new DefaultTableModel(numRows,titulosTabla.length);
+		tableModel = (new DefaultTableModel(numRows,titulosTabla.length){
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		});
+		
+		
+		
 		tableModel.setColumnIdentifiers(titulosTabla);
 		tablaAlquileres = new JTable(tableModel);
 		tablaAlquileres.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -211,12 +225,38 @@ public class ProfileDialog extends JDialog{
 				lExtension.setText("Sí");
 			}
 		}
+		Alquiler a;
+		ArrayList<Integer> listaEjemplares;
+		a=Main.emp.ga.getAlquiler(socio.getnSocio());
+		if (a!=null){
+			ArrayList<Producto> productos = new ArrayList<Producto>();
+			listaEjemplares=a.getEjemplares();
+			for (int i : listaEjemplares){
+				productos.add(Main.emp.getProductoEjemplar(i));
+			}
 		
+			for (int i = 0; i<productos.size();i++){
+				Producto p = productos.get(i);
+			
+				tableModel.setValueAt(p.getNombre(),i,0);
+				tableModel.setValueAt(p.getId(),i,1);
+				tableModel.setValueAt(listaEjemplares.get(i),i,2);
+				tableModel.setValueAt(calToString(a.getFechaInicio()),i,3);
+				
+			}
+			
+		}
 	}
 	public Socio getSocio(){
 		return this.socio;
 	}
 	public void setLtarifa(String tarifa){
 		lTarifa.setText(tarifa);
+	}
+	
+	public String calToString(Calendar fecha){
+		return(""+fecha.get(Calendar.DATE) + "/"
+				+fecha.get(Calendar.MONTH)+"/"		
+				+fecha.get(Calendar.YEAR));
 	}
 }

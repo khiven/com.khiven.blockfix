@@ -1,28 +1,26 @@
 package com.blockflix.view.empleado;
 
-import java.awt.Dimension;
-
 import javax.swing.JTabbedPane;
 
-import com.blockflix.controller.ControlAlquilar;
+import com.blockflix.controller.ControlGestionAlquileres;
 import com.blockflix.controller.ControlUsuariosPanel;
 
 public class EmpleadoPanel extends JTabbedPane {
 
 	private UsuariosPanel up;
-	private AlquileresPanel ap;
+	private GestionAlquileresPanel ga;
 	private ControlUsuariosPanel cup;
-	private ControlAlquilar cal;
+	private ControlGestionAlquileres cga;
 	public EmpleadoPanel(){
 	
 		up = new UsuariosPanel();
-		ap = new AlquileresPanel();
+		ga = new GestionAlquileresPanel();
 		cup= new ControlUsuariosPanel(up);
-		cal= new ControlAlquilar(ap);
+		cga = new ControlGestionAlquileres(ga);
 		up.setControlador(cup);
-		ap.setControlador(cal);
+		ga.setControlador(cga);
 		this.addTab("Gestión de Socios", up);
-		this.addTab("Alquilar", ap);
+		this.addTab("Gestión de Alquileres", ga);
 	//	this.setPreferredSize(new Dimension(600,380));
 		
 		

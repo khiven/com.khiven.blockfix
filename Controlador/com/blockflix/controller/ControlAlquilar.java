@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import com.blockflix.src.Main;
 import com.blockflix.src.constantes.Constantes;
@@ -34,7 +36,7 @@ public class ControlAlquilar implements ActionListener{
 		if (cmd.equals(AlquileresPanel.BADDALQUILER)){
 			//SE QUIERE AÑADIR ALQUILER A LISTA
 			//Comprobamos que no se han añadido el maximo de alquileres
-			if (listaProductos.size()>Constantes.variables.MAX_ALQUILERES){
+			if (listaProductos.size()>=Constantes.variables.MAX_ALQUILERES){
 				JOptionPane.showMessageDialog(new JFrame(),
 
 						"Ha alcanzado el máximo de alquileres",
@@ -44,9 +46,13 @@ public class ControlAlquilar implements ActionListener{
 			//Comprobamos campos
 			else if (checkField(ap.getProductoId())){
 				//Comprobamos si existe el producto o ejemplares
+				
 				if (checkProducto(ap.getProductoId())){
-					ap.insertRow(listaProductos.size(), listaProductos.get(listaProductos.size()).getId());
-				}else{
+					
+					ap.insertRow(listaProductos.size(), listaProductos.get((listaProductos.size()-1)).getId());
+				
+				}else
+				{
 					JOptionPane.showMessageDialog(new JFrame(),
 
 							"El producto indicado no tiene ejemplares, no existe o ya está añadido",
@@ -100,6 +106,9 @@ public class ControlAlquilar implements ActionListener{
 								"Alquiler realizado correctamente",
 								"Alquiler realizado",
 								JOptionPane.INFORMATION_MESSAGE);
+						JDialog parent = (JDialog)SwingUtilities.getWindowAncestor(ap);
+						parent.dispose();
+						
 						
 					}
 					//PAGO NO CORRECTO
@@ -133,7 +142,7 @@ public class ControlAlquilar implements ActionListener{
 			idProducto = Integer.parseInt(ap.getProductoId());
 		}catch(NumberFormatException e){
 			//El id no es un integer
-
+			
 			isNumber=false;
 		}
 		//Es una id válida, comprobamos si existe
@@ -141,11 +150,13 @@ public class ControlAlquilar implements ActionListener{
 			p=Main.emp.gp.buscarProductoById(idProducto);
 			//Si no encuentra el producto
 			if (p==null){
+				
 				return false;
 			}
 			else{
 				//No hay ejemplares
 				if(Main.emp.ge.buscarEjemplaresProducto(idProducto).isEmpty()){
+					System.out.println("NO PARSEA");
 					return false;
 				}
 				//Hay ejemplares, se añade el producto a la lista para alquilar
@@ -155,7 +166,9 @@ public class ControlAlquilar implements ActionListener{
 						return false;
 					}
 					//si se llega aqui, se puede agregar
+					
 					this.listaProductos.add(p);
+					
 					return true;
 				}
 			}
